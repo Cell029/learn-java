@@ -39,7 +39,7 @@ int a = 10;
 a = ++a;
 sout(a);//a = 11;因为自增符在前,所以是先增再赋值,即使将这个值赋值给临时变量,这个临时变量的值也是11
 ```
-## 2.短路与短路或
+## 2.短路与
 
 >**&  与  &&的区别**
 >单个&不论前面的值是true还是false,都会继续执行后面的内容,所以a和b都可以自增
@@ -102,5 +102,76 @@ while (guessNum != actualNum) {
 System.out.println("恭喜您猜对了");
 ```
 
-![[images/Java/file-20250401225034.png]]
+![](images/Java/file-20250401230117.png)
 
+## 2.for循环
+
+>使用for循环写出四个三角形
+
+```Java
+/*左三角*/  
+@Test  
+public void test3() {  
+    for (int i = 1; i < 6; i++) {  
+        for (int j = 0; j < i; j++) {  
+            System.out.print("* ");  
+        }  
+        System.out.println();  
+    }  
+}
+```
+
+![](images/Java/file-20250401230255.png)
+
+```Java
+/*右三角*/  
+@Test  
+public void test4() {  
+    for (int i = 4; i >= 0; i--) {//i等于几就是要输出几个*  
+        for (int j = 0; j < 5; j++) {  
+            if (j - i >= 0) {  
+                System.out.print("* ");  
+            } else {  
+                System.out.print("  ");  
+            }  
+        }  
+        System.out.println();  
+    }  
+}
+```
+
+![](images/Java/file-20250401230337.png)
+
+```Java
+/*左下三角*/  
+@Test  
+public void test5() {  
+    for (int i = 0; i < 5; i++) {  
+        for (int j = 5; j > i; j--) {  
+            System.out.print("* ");  
+        }  
+        System.out.println();  
+    }  
+}
+```
+
+![](images/Java/file-20250401230400.png)
+
+```Java
+/*右下三角*/  
+@Test  
+public void test6() {  
+    for (int i = 5; i > 0; i--) {  
+        for (int j = 5; j > 0; j--) {  
+            if (i - j >= 0) {  
+                System.out.print("* ");  
+            } else {  
+                System.out.print("  ");  
+            }  
+        }  
+        System.out.println();  
+    }  
+}
+```
+
+![](images/Java/file-20250401230426.png)
