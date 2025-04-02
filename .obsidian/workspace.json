@@ -11,10 +11,14 @@
             "id": "dff61000ca04058b",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "java笔记/idea基础用法.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "idea基础用法"
             }
           }
         ]
@@ -138,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/Java.md",
+                "file": "java笔记/idea基础用法.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Java 的大纲"
+              "title": "idea基础用法 的大纲"
             }
           },
           {
@@ -158,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -175,23 +179,25 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c3f34de6cf1867d4",
+  "active": "8746cf1289c80a6d",
   "lastOpenFiles": [
-    "java笔记/未命名.md",
+    "java笔记/images/idea基础用法/file-20250402204355.png",
+    "java笔记/images/idea基础用法/file-20250402204120.png",
+    "java笔记/images/idea基础用法/file-20250402204018.png",
+    "java笔记/Java.md",
     "java笔记/Java前置.md",
+    "java笔记/idea基础用法.md",
+    "java笔记/images/idea基础用法/21d7c88ffe3fac04df1166d957610ba1.png",
+    "java笔记/images/idea基础用法/file-20250402202932.png",
+    "java笔记/images/idea基础用法/file-20250402202852.png",
+    "java笔记/images/idea基础用法/file-20250402202813.png",
+    "java笔记/images/idea基础用法",
     "java笔记/images/Java前置",
     "java笔记/images/Java前置/fe2d4f4ab645e957c94902e99f224930.png",
     "java笔记/images/Java前置/64452656e7204bd5e98eac624fadd52b.png",
     "java笔记/images/Java前置/aed317d832ddf19b1b34ee3b99bc6d97.png",
     "java笔记/images/Java前置/49de6f4a7b89cb6199dea7d57dc024b4.png",
-    "java笔记/images/Java前置/8949975950c9768753c17fb325a8d862.png",
-    "java笔记/images/Java前置/3a519eb6fe334c083fdbffd05b72a1c6.png",
-    "java笔记/Java.md",
-    "java笔记/images/Java前置/file-20250402182632.png",
-    "java笔记/images/Java前置/file-20250402182259.png",
-    "java笔记/images/Java前置/file-20250402174751.png",
     "java笔记/images/Java前置基础",
-    "java笔记/images/Java/file-20250401230426.png",
     "().md",
     "2025-04-01.md",
     "java笔记/images/Java",
