@@ -102,7 +102,7 @@ while (guessNum != actualNum) {
 System.out.println("恭喜您猜对了");
 ```
 
-![](images/Java/file-20250401230117.png)
+![](images/Java基础/file-20250401230117.png)
 
 ## 2.for循环
 
@@ -121,7 +121,7 @@ public void test3() {
 }
 ```
 
-![](images/Java/file-20250401230255.png)
+![](images/Java基础/file-20250401230255.png)
 
 ```Java
 /*右三角*/  
@@ -140,7 +140,7 @@ public void test4() {
 }
 ```
 
-![](images/Java/file-20250401230337.png)
+![](images/Java基础/file-20250401230337.png)
 
 ```Java
 /*左下三角*/  
@@ -155,7 +155,7 @@ public void test5() {
 }
 ```
 
-![](images/Java/file-20250401230400.png)
+![](images/Java基础/file-20250401230400.png)
 
 ```Java
 /*右下三角*/  
@@ -174,4 +174,4 @@ public void test6() {
 }
 ```
 
-![](images/Java/file-20250401230426.png)
+![](images/Java基础/file-20250401230426.png)

@@ -179,24 +179,25 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8746cf1289c80a6d",
+  "active": "dff61000ca04058b",
   "lastOpenFiles": [
+    "java笔记/Java基础.md",
+    "java笔记/images/Java基础",
+    "java笔记/Java环境.md",
+    "java笔记/images/Java环境",
+    "java笔记/idea基础用法.md",
+    "java笔记/images/idea基础用法/file-20250402210635.png",
+    "java笔记/images/idea基础用法/file-20250402210604.png",
+    "java笔记/images/idea基础用法/file-20250402205836.png",
+    "java笔记/images/idea基础用法/file-20250402205753.png",
     "java笔记/images/idea基础用法/file-20250402204355.png",
     "java笔记/images/idea基础用法/file-20250402204120.png",
     "java笔记/images/idea基础用法/file-20250402204018.png",
-    "java笔记/Java.md",
-    "java笔记/Java前置.md",
-    "java笔记/idea基础用法.md",
     "java笔记/images/idea基础用法/21d7c88ffe3fac04df1166d957610ba1.png",
     "java笔记/images/idea基础用法/file-20250402202932.png",
     "java笔记/images/idea基础用法/file-20250402202852.png",
-    "java笔记/images/idea基础用法/file-20250402202813.png",
     "java笔记/images/idea基础用法",
     "java笔记/images/Java前置",
-    "java笔记/images/Java前置/fe2d4f4ab645e957c94902e99f224930.png",
-    "java笔记/images/Java前置/64452656e7204bd5e98eac624fadd52b.png",
-    "java笔记/images/Java前置/aed317d832ddf19b1b34ee3b99bc6d97.png",
-    "java笔记/images/Java前置/49de6f4a7b89cb6199dea7d57dc024b4.png",
     "java笔记/images/Java前置基础",
     "().md",
     "2025-04-01.md",
@@ -208,9 +209,7 @@
     "java基础/Java.md",
     "java/Java.md",
     "java",
-    "java基础",
     "learn-java/Java基础.md",
-    "欢迎.md",
-    "learn-java"
+    "欢迎.md"
   ]
 }
