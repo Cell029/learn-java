@@ -4,21 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "89a2b29d3740ee9b",
+        "id": "665ff22e4f53b0d7",
         "type": "tabs",
         "children": [
           {
-            "id": "6d125906051141e3",
+            "id": "dff61000ca04058b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "java笔记/Java前置基础.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "Java前置基础"
+              "title": "新标签页"
             }
           }
         ]
@@ -179,22 +175,24 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "6d125906051141e3",
+  "active": "c3f34de6cf1867d4",
   "lastOpenFiles": [
+    "java笔记/未命名.md",
+    "java笔记/Java前置.md",
+    "java笔记/images/Java前置",
+    "java笔记/images/Java前置/fe2d4f4ab645e957c94902e99f224930.png",
+    "java笔记/images/Java前置/64452656e7204bd5e98eac624fadd52b.png",
+    "java笔记/images/Java前置/aed317d832ddf19b1b34ee3b99bc6d97.png",
+    "java笔记/images/Java前置/49de6f4a7b89cb6199dea7d57dc024b4.png",
+    "java笔记/images/Java前置/8949975950c9768753c17fb325a8d862.png",
+    "java笔记/images/Java前置/3a519eb6fe334c083fdbffd05b72a1c6.png",
     "java笔记/Java.md",
-    "java笔记/Java前置基础.md",
-    "java笔记/images/Java前置基础/file-20250402182632.png",
-    "java笔记/images/Java前置基础/file-20250402182259.png",
-    "java笔记/images/Java前置基础/file-20250402174751.png",
+    "java笔记/images/Java前置/file-20250402182632.png",
+    "java笔记/images/Java前置/file-20250402182259.png",
+    "java笔记/images/Java前置/file-20250402174751.png",
     "java笔记/images/Java前置基础",
     "java笔记/images/Java/file-20250401230426.png",
-    "java笔记/images/Java/file-20250401230400.png",
-    "java笔记/images/Java/file-20250401230337.png",
-    "java笔记/images/Java/file-20250401230255.png",
-    "java笔记/images/Java/file-20250401225034.png",
-    "java笔记/images/Java/file-20250401230117.png",
     "().md",
-    "java笔记/images/Java/file-20250401224938.png",
     "2025-04-01.md",
     "java笔记/images/Java",
     "java笔记/images",
