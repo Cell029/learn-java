@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "todo",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -74,7 +74,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -179,24 +180,23 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "dff61000ca04058b",
+  "active": "05dfda64206ab750",
   "lastOpenFiles": [
+    "java笔记/Java基础.md",
+    "java笔记/Java环境.md",
+    "java笔记/idea基础用法.md",
     "java笔记/images/Java环境/file-20250402220639.png",
     "java笔记/images/Java环境/file-20250402220556.png",
     "java笔记/images/Java环境/file-20250402220336.png",
     "java笔记/images/Java环境/file-20250402220140.png",
     "java笔记/images/Java环境/file-20250402220011.png",
     "java笔记/images/Java环境/file-20250402215958.png",
-    "java笔记/idea基础用法.md",
-    "java笔记/Java环境.md",
-    "java笔记/Java基础.md",
     "java笔记/images/Java基础",
     "java笔记/images/Java环境",
     "java笔记/images/idea基础用法/file-20250402210635.png",
     "java笔记/images/idea基础用法/file-20250402210604.png",
     "java笔记/images/idea基础用法/file-20250402205836.png",
     "java笔记/images/idea基础用法/file-20250402205753.png",
-    "java笔记/images/idea基础用法/file-20250402204355.png",
     "java笔记/images/idea基础用法",
     "java笔记/images/Java前置",
     "java笔记/images/Java前置基础",
