@@ -70,3 +70,11 @@
 
 >这个环境变量是属于Java的,用来给classloader指路,让他可以找到.class文件,与path原理类似,如果没有配置classpath环境变量的话,想要找到.class文件,就需要手动进入.class文件所在目录
 
+# 二.软件的下载
+
+## 1.jdk的安装
+
+>oracle地址: https://www.oracle.com/cn/java/technologies/downloads/archive/
+>
+>安装路径不要有空格和中文,用_代替
+
