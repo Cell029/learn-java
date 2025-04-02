@@ -74,7 +74,7 @@
 
 ## 1.jdk的安装
 
->oracle地址: https://www.oracle.com/cn/java/technologies/downloads/archive/
+>下载地址: https://www.oracle.com/cn/java/technologies/downloads/archive/
 >
 >安装路径不要有空格和中文,用_代替
 
@@ -91,3 +91,7 @@
 >环境变量配置成功后,直接输入命令就可以使用了.
 
 ![](images/Java环境/fe2d4f4ab645e957c94902e99f224930.png)
+
+## 2.tomcat下载
+
+>下载地址: https://tomcat.apache.org/whichversion.html
