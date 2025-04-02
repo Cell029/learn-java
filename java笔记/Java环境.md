@@ -94,4 +94,20 @@
 
 ## 2.tomcat下载
 
->下载地址: https://tomcat.apache.org/whichversion.html
+>下载地址: https://tomcat.apache.org/whichversion.html  
+
+>进入bin目录,在终端中输入startup.bat,出现相关信息证明安装成功,在浏览器输入:http://localhost:8080/ ,如果能看到tomcat的官网,证明配置成功
+
+![](images/Java环境/file-20250402215958.png)
+
+![](images/Java环境/file-20250402220011.png)
+
+![](images/Java环境/file-20250402220140.png)
+
+>通常idea可以直接把tomcat整合进项目中,不需要配置环境变量也可以使用,不过配置了也方便,配置成功后可以在任何位置使用tomcat的命令了
+
+![](images/Java环境/file-20250402220336.png)
+
+![](images/Java环境/file-20250402220556.png)
+
+![](images/Java环境/file-20250402220639.png)
