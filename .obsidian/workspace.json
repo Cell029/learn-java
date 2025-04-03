@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#todo",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -179,14 +179,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8746cf1289c80a6d",
+  "active": "c3f34de6cf1867d4",
   "lastOpenFiles": [
-    "java笔记/进制转换.md",
-    "java笔记/原码反码补码.md",
-    "java笔记/idea基础用法.md",
     "java笔记/Java环境.md",
+    "java笔记/原码反码补码.md",
+    "java笔记/进制转换.md",
     "java笔记/Java基础.md",
     "java笔记/todo.md",
+    "java笔记/idea基础用法.md",
     "java笔记/images/进制转换/ca4545e08c0e3ebe59cc3120b03289a8.png",
     "java笔记/images/进制转换/6f908ff9583de9ff6956235244b87f06.png",
     "java笔记/images/进制转换/72c7b0b1280305df1d205c61d8f5bc99.png",
