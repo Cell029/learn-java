@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/todo.md",
+                "file": "java笔记/Java环境.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "todo"
+              "title": "Java环境"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/todo.md",
+                "file": "java笔记/Java环境.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "todo 的大纲"
+              "title": "Java环境 的大纲"
             }
           },
           {
@@ -162,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -179,13 +179,17 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c3f34de6cf1867d4",
+  "active": "059ed12029826a27",
   "lastOpenFiles": [
-    "Java基础笔记.md",
+    "java笔记/images/Java环境/file-20250403144115.png",
+    "java笔记/images/Java环境/file-20250403144034.png",
+    "java笔记/images/Java环境/file-20250403142437.png",
+    "java笔记/images/Java环境/file-20250403142414.png",
+    "java笔记/idea基础用法.md",
     "java笔记/todo.md",
+    "Java基础笔记.md",
     "java笔记/Java基础.md",
     "java笔记/Java环境.md",
-    "java笔记/idea基础用法.md",
     "2025-04-02.md",
     "未命名.canvas",
     "java笔记/images/Java环境/file-20250402220639.png",
@@ -197,9 +201,6 @@
     "java笔记/images/Java基础",
     "java笔记/images/Java环境",
     "java笔记/images/idea基础用法/file-20250402210635.png",
-    "java笔记/images/idea基础用法/file-20250402210604.png",
-    "java笔记/images/idea基础用法/file-20250402205836.png",
-    "java笔记/images/idea基础用法/file-20250402205753.png",
     "java笔记/images/idea基础用法",
     "java笔记/images/Java前置",
     "java笔记/images/Java前置基础",

@@ -72,7 +72,7 @@
 
 # 二.软件的下载
 
-## 1.jdk的安装
+## 1.jdk
 
 >下载地址: https://www.oracle.com/cn/java/technologies/downloads/archive/
 >
@@ -92,7 +92,7 @@
 
 ![](images/Java环境/fe2d4f4ab645e957c94902e99f224930.png)
 
-## 2.tomcat下载
+## 2.tomcat
 
 >下载地址: https://tomcat.apache.org/whichversion.html  
 
@@ -111,3 +111,19 @@
 ![](images/Java环境/file-20250402220556.png)
 
 ![](images/Java环境/file-20250402220639.png)
+
+## 3.maven
+
+>下载地址: https://maven.apache.org/download.cgi
+
+![](images/Java环境/file-20250403142414.png)
+
+![](images/Java环境/file-20250403142437.png)
+
+>能够看到版本号证明配置成功
+
+![](images/Java环境/file-20250403144034.png)
+
+>配置镜像文件,进入settings文件
+
+![](images/Java环境/file-20250403144115.png)
