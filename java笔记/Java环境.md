@@ -122,8 +122,22 @@
 
 >能够看到版本号证明配置成功
 
-![](images/Java环境/file-20250403144034.png)
+![](images/Java环境/file-20250403144533.png)
 
->配置镜像文件,进入settings文件
+>配置镜像文件,进入settings文件,配置本地仓库和远程镜像,idea中导入jar包会现在本地仓库找,没找到就到远程下,下好后保存在本地仓库
 
 ![](images/Java环境/file-20250403144115.png)
+
+![](images/Java环境/file-20250403144457.png)
+
+![](images/Java环境/file-20250403144620.png)
+
+>安装完成后,在idea中进行配置
+
+![](images/Java环境/file-20250403145159.png)
+
+>如果只像上面这样配置maven的话,这个配置只能保存在当前的项目中,可以按照下面设置一下,这样每次创建maven项目都会使用我们本地的maven
+
+![](images/Java环境/file-20250403145321.png)
+
+![](images/Java环境/file-20250403145424.png)

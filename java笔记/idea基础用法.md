@@ -63,3 +63,41 @@ public void printMessage() {}
 
 # 三.创建模块
 
+## 1.创建maven项目
+
+### 1.Java项目
+
+>新建项目,选择maven项目,配置好jdk和位置就可以了
+
+![](images/idea基础用法/file-20250403145842.png)
+
+>项目创建成功后可以看到一个pom文件,就是在这个文件里面配置各种jar包,每次添加都需要刷新一下maven
+
+![](images/idea基础用法/file-20250403150019.png)
+
+![](images/idea基础用法/file-20250403150212.png)
+
+>当依赖中出现了刚添加的,证明添加成功
+
+![](images/idea基础用法/file-20250403150230.png)
+
+### 2.web项目
+
+>创建maven web项目需要选择web框架
+
+![](images/idea基础用法/file-20250403150852.png)
+
+>创建好后一般需要手动创建java包
+
+![](images/idea基础用法/file-20250403151049.png)
+
+>web项目一般需要配置tomcat
+
+![](images/idea基础用法/file-20250403151145.png)
+
+![](images/idea基础用法/file-20250403151235.png)
+
+![](images/idea基础用法/file-20250403151309.png)
+
+>配置成功后点击运行,浏览器输入配置的地址: http://localhost:8080/javaMavenWeb/
+
