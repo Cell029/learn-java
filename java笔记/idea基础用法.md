@@ -101,3 +101,31 @@ public void printMessage() {}
 
 >配置成功后点击运行,浏览器输入配置的地址: http://localhost:8080/javaMavenWeb/
 
+![](images/idea基础用法/file-20250403151441.png)
+
+### 3.创建springboot项目
+
+![](images/idea基础用法/file-20250403151925.png)
+
+>根据自己创建的项目选择依赖
+
+![](images/idea基础用法/file-20250403152113.png)
+
+>如果pom文件是红色的,只需要把他添加成maven项目然后再刷新一下依赖就可以了
+
+![](images/idea基础用法/file-20250403152947.png)
+
+
+# 四.连接数据库
+
+![](images/idea基础用法/file-20250403154039.png)
+
+>输入用户账号密码后测试连接,连接成功
+
+![](images/idea基础用法/file-20250403154159.png)
+
+>可以在这里选择需要连接的数据库
+
+![](images/idea基础用法/file-20250403154346.png)
+
+![](images/idea基础用法/file-20250403154423.png)
