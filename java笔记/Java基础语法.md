@@ -82,7 +82,7 @@ String date2 = sc.next();
 System.out.println("date2 = " + date2);
 ```
 
->第一次调用nextLine()方法是读取缓存中遗留的\r回车符,第二次调用才会真正接收用户的输入
+>因为next()等方法在接收完数据后会留下一个\r回车符,所以第一次调用nextLine()方法是读取缓存中遗留的\r回车符,第二次调用才会真正接收用户的输入
 
 >用scanner和random写一个猜数字
 
