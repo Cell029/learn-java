@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/进制转换.md",
+                "file": "java笔记/数据类型.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "进制转换"
+              "title": "数据类型"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/进制转换.md",
+                "file": "java笔记/数据类型.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "进制转换 的大纲"
+              "title": "数据类型 的大纲"
             }
           },
           {
@@ -179,10 +179,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c3f34de6cf1867d4",
+  "active": "059ed12029826a27",
   "lastOpenFiles": [
-    "未命名.md",
+    "java笔记/todo.md",
     "java笔记/进制转换.md",
+    "未命名.md",
     "java笔记/images/进制转换/d41100ffa945c16f295c06e28b3b82fa.png",
     "java笔记/images/进制转换/16bfe6d899e8024e82877a648b57dbaa_720.png",
     "java笔记/images/进制转换/e1d6c220d5f1330252ea1a7d679f55e7.png",
@@ -196,7 +197,6 @@
     "java笔记/数据类型.md",
     "java笔记/idea基础用法.md",
     "java笔记/Java环境.md",
-    "java笔记/todo.md",
     "java笔记/Java基础.md",
     "java笔记/images/数据类型/file-20250403220327.png",
     "java笔记/images/数据类型",
