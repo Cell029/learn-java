@@ -11,3 +11,4 @@ group by filename
 - [ ] 关于封装 #todo 
 - [ ] 对象类型 #todo 
 - [ ] 类 #todo 
+- [ ] 堆,栈,方法区 #todo 
