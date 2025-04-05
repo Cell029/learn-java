@@ -106,7 +106,60 @@ System.out.println("恭喜您猜对了");
 
 ![](images/Java基础语法/file-20250401230117.png)
 
-## 2.for循环
+## 2.if
+
+>if语句里面放Boolean类型,ture就执行,false就不执行,如果if语句后面只跟一个代码通常可以省略大括号,但不建议
+
+```
+if (ture) sout("hello");
+```
+
+```
+产生报错的是else语句,因为第二个sout被看作了正常的语句,跟if没关系,但是else就没有先街道if,所以会报错
+if (true) 
+	sout("hello");
+	sout("hello2");
+else
+	sout("hello3");
+```
+
+
+## 3.switch
+
+>switch()里面只能放int,枚举和字符串,然后拿这些值和case比对,相等才执行,所以case里面也只能放这些对应的类型
+
+>不过也可以使用byte或者short类型,因为这些类型在Java的底层会进行自动转换,变成int,所以还是int在里面,但是大于int类型的就不行了,例如long,就会报错
+
+>switch可以省略一些case中的内容,只要这些内容的输出一样就行,例如输出季节,比用if方便一点,注意的是,switch具有穿透性,如果不适用break,就会一直运行下去,直到走完switch中的内容
+
+```java
+ switch (month) {
+            case 3:
+            case 4:
+            case 5:
+                System.out.println("春季");
+                break;
+            case 6:
+            case 7:
+            case 8:
+                System.out.println("夏季");
+                break;
+            case 9:
+            case 10:
+            case 11:
+                System.out.println("秋季");
+                break;
+            case 12:
+            case 1:
+            case 2:
+                System.out.println("冬季");
+                break;
+            default:
+                System.out.println("输入无效，请输入1到12之间的数字。");
+        }
+```
+
+## 4.for循环
 
 >使用for循环写出四个三角形
 
