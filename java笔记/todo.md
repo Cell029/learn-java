@@ -10,3 +10,4 @@ group by filename
 - [ ] 浮点数如何用二进制表示 #todo[🔗待解决](基本数据类型.md#float-todo)
 - [ ] 关于封装 #todo 
 - [ ] 对象类型 #todo 
+- [ ] 类 #todo 
