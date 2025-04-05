@@ -43,7 +43,7 @@ while (guessNum != actualNum) {
 System.out.println("恭喜您猜对了");
 ```
 
-![](images/Java基础语法/file-20250401230117.png)
+![](images/Java基本操作/file-20250401230117.png)
 
 ## 2.if
 
@@ -165,7 +165,7 @@ for(初始化表达式1;条件表达式1;更新表达式1) {
 }
 ```
 
-![](images/Java基础语法/file-20250405154441.png)
+![](images/Java基本操作/file-20250405154441.png)
 
 **使用for循环写出四个三角形**
 
@@ -182,7 +182,7 @@ public void test3() {
 }
 ```
 
-![](images/Java基础语法/file-20250401230255.png)
+![](images/Java基本操作/file-20250401230255.png)
 
 ```Java
 /*右三角*/  
@@ -201,7 +201,7 @@ public void test4() {
 }
 ```
 
-![](images/Java基础语法/file-20250401230337.png)
+![](images/Java基本操作/file-20250401230337.png)
 
 ```Java
 /*左下三角*/  
@@ -216,7 +216,7 @@ public void test5() {
 }
 ```
 
-![](images/Java基础语法/file-20250401230400.png)
+![](images/Java基本操作/file-20250401230400.png)
 
 ```Java
 /*右下三角*/  
@@ -235,7 +235,7 @@ public void test6() {
 }
 ```
 
-![](images/Java基础语法/file-20250401230426.png)
+![](images/Java基本操作/file-20250401230426.png)
 
 
 ## 5.while循环
@@ -256,4 +256,16 @@ do {
 一定会执行一遍循环体,然后再判断布尔类型,所以可能循环1~n次
 ```
 
-## 7.b'r
+## 7.break,continue,return
+
+### 1.break
+
+>通常用来终止循环,如果是在嵌套循环中,只会终止里面的循环,外面的会继续运行,当符合break的条件出现时,终止全部的循环
+
+### 2.continue
+
+>用来终止本次循环,也就是本来要循环十次,在某一次符合你要求的continue条件,那么就终止这一次的循环,也可以看作跳过,然后执行下一次循环,也就是整体循环了九次
+
+### 3.return
+
+>通常用在方法中,这个终止的等级更高,直接终止这个方法
