@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/方法.md",
+                "file": "java笔记/变量.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "方法"
+              "title": "变量"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/方法.md",
+                "file": "java笔记/变量.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "方法 的大纲"
+              "title": "变量 的大纲"
             }
           },
           {
@@ -162,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -179,13 +179,13 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0f4d5b69332bbbdf",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
+    "java笔记/参数.md",
+    "java笔记/方法.md",
+    "java笔记/todo.md",
     "java笔记/images/方法/file-20250405215958.png",
     "java笔记/images/方法",
-    "java笔记/参数.md",
-    "java笔记/todo.md",
-    "java笔记/方法.md",
     "java笔记/变量.md",
     "java笔记/Java基本操作.md",
     "java笔记/Java环境.md",
@@ -208,7 +208,6 @@
     "java笔记/images/基本数据类型",
     "java笔记/images/Java基础语法",
     "java笔记/images/基本数据类型/file-20250404171108.png",
-    "java笔记/images/基本数据类型/file-20250404170444.png",
     "未命名.md",
     "java笔记/images/数据类型",
     "java笔记/images/进制转换",
