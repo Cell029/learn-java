@@ -22,6 +22,8 @@ package com.cell.demo_01;
 
 ![](images/package和import/file-20250407173724.png)
 
+![](images/package和import/file-20250407190528.png)
+
 >知道了classpath的作用后也就知道了为什么要用package来定义包了,因为classpath是一个很大的空间,里面会放各种各样的项目,每个项目都会有.class文件,jvm就需要分辨当前需要找到的.class文件是哪个,所以就需要把包名转换成对应的地址,然后在classpath里找到这个地址在哪
 
 **总结:**
@@ -49,4 +51,22 @@ import static
 Math,System.out
 当然,我感觉这种写法不常用,我感觉这样可读性就变低了,Java底层肯定是知道不适用某些前缀会更方便,但是它没这样设计,就是为了让程序员知道某个功能是属于谁的,比如sqrt(),不加前缀看上去就不知道干嘛的,加上前缀Math.sqrt()就比较显而易见了
 ```
+
+>了解了导包机制后,我发现classpath并不只是单纯的一个当前项目的存放地址,而是一些更复杂的东西
+
+**classpath = 模块的输出路径 + 依赖的 jar 包**
+
+>编译之后,Java会把我写的.java文件编译成.class文件并放进输出路径,idea中默认是target/classes,如果这个项目引用了很多jar包(用maven下载的),这两个"地址"才是真正完整的classpath
+
+>我这个运行的程序是在test环境中运行的,所以是默认的是target\test-classes和target\classes,这两个是最主要的,其余的都是导入的jar包之类的
+
+```
+-classpath D:\Java基础记录\java01\target\test-classes;D:\Java基础记录\java01\target\classes;E:\maven\repository\org\junit\jupiter\junit-jupiter-api\5.9.1\junit-jupiter-api-5.9.1.jar;E:\maven\repository\org\opentest4j\opentest4j\1.2.0\opentest4j-1.2.0.jar;E:\maven\repository\org\junit\platform\junit-platform-commons\1.9.1\junit-platform-commons-1.9.1.jar;E:\maven\repository\org\apiguardian\apiguardian-api\1.1.2\apiguardian-api-1.1.2.jar com.cell.demo_01.DemoTest04
+```
+
+**总结**
+
+>平时被忽略的两个语法,其实是在帮助jvm寻找到.class文件,看似简单的命名,实际是在告诉底层我要在哪干什么
+
+
 
