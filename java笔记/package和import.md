@@ -12,8 +12,22 @@ package com.cell.demo_01;
 
 **jvm是否依靠package来找到当前的类?**
 
->我的这个问题的提出其实是有些问题的,因为jvm并不会主动去寻找某个类,而是通过类加载器去找到类,而这个package定义的一个包的地址(也就是当前这个类放在哪个文件夹下)就是Java编译后生成的.class文件存放的地方,类加载器就会在这个指定的文件夹中寻找.class文件
+>寻找当前的类需要用到包的地址,但不是只需要package,还需要classpath,这个package定义的一个包的地址(也就是当前这个类放在哪个文件夹下)是Java编译后生成的.class文件存放的地方,类加载器就会在这个指定的地址寻找.class文件
 
-**既然package可以把目录结构告诉jvm,那为什么类加载器不直接在这个包里面找类,反而还要通过classpath去找呢?**
+**既然package可以把目录结构告诉jvm,那为什么类加载器不直接在这个包里面找类,反而还是需要通过classpath去找呢?**
 
->从产生这个问题到寻找答案,我发现我之前对于classpath没有理解,
+>从产生这个问题到寻找答案,我发现我之前对于classpath没有理解,classpath和package的本质区别就是classpath是.class文件的起始路径,而package定义的包名是.class文件的相对路径,也就是classpath是父亲,package是儿子
+
+>这是创建的一个Java项目,idea会自动把.java文件编译到target/classes里,这个目录就是classpath
+
+![](images/package和import/file-20250407173724.png)
+
+>知道了classpath的作用后也就知道了为什么要用package来定义包了,因为classpath是一个很大的空间,里面会放各种各样的项目,每个项目都会有.class文件,jvm就需要分辨当前需要找到的.class文件是哪个,所以就需要把包名转换成对应的地址,然后在classpath里找到这个地址在哪
+
+**总结:**
+
+>jvm运行时只关心.class字节码文件的位置,不关系写的.java文件和包名,classpath和package是用来辅助jvm找到.class文件的,classpath是查找范围,jvm只会在这个范围里面查找.class文件,package则是用来标明某个.class文件在classpath的哪个地方,也就是让jvm更精确的找到.class文件
+
+
+# 二.import
+
