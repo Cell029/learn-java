@@ -29,5 +29,46 @@ class Person{
 
 >通过这种语法可以在构造方法中调用其他构造方法,只能出现在构造方法的第一行,且只能出现一次
 
+```Java
+public class Person {
+    private String name;
+    private int age;
+    // 无参构造器
+    public Person() {
+        this("未命名", 0);//调用另一个构造器
+        System.out.println("无参构造器被调用");
+    }
+    // 有参构造器
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+        System.out.println("有参构造器被调用");
+    }
+}
+//在创建对象时,会通过无参构造器区调用有参构造器
+```
+
+![](images/this/file-20250408191626.png)
+
+>this()语法是为了减少代码复用而存在的,把构造器一层一层接力到最后的构造器中,这样可以实现统一的初始化管理
+
+```Java
+//定义一个具有三个构造器的类,无论创建对象时调用哪个构造器,都可以给其余属性附上初始值
+//无论调用哪个,最终都会调用到全参
+public Student() {  
+    this("小明",0);  
+}  
+  
+public Student(String name) {  
+    this(name,0);  
+    this.name = name;  
+}  
+  
+public Student(String name, int grade) {  
+    this.name = name;  
+    this.grade = grade;  
+}
+```
+
 
 
