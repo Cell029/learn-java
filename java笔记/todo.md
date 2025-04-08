@@ -9,10 +9,10 @@ group by filename
 - [x] 完成数据类型转换和char类型 #todo 📅 2025-04-03  ⏳ 2025-04-04 [🔗待补充](基本数据类型.md#char-todo) ✅ 2025-04-04
 - [ ] 浮点数如何用二进制表示 #todo[🔗待解决](基本数据类型.md#float-todo)
 - [x] 方法补充 #todo ✅ 2025-04-07
-- [ ] 关于封装 #todo 
+- [x] 关于封装 #todo ✅ 2025-04-08
 - [ ] 对象类型 #todo 
 - [x] 类 #todo ✅ 2025-04-07
-- [ ] 堆,栈,方法区 #todo 
+- [x] 堆,栈,方法区 #todo ✅ 2025-04-08
 - [ ] 引用数据类型深入 #todo 
 - [ ] 访问权限例如public,private等 #todo 
 - [ ] 多态的详细补充 #todo [🔗待解决](多态.md#Polymorphism-todo)
