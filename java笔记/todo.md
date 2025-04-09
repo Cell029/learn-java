@@ -16,3 +16,4 @@ group by filename
 - [ ] 引用数据类型深入 #todo 
 - [ ] 访问权限例如public,private等 #todo 
 - [ ] 多态的详细补充 #todo [🔗待解决](多态.md#Polymorphism-todo)
+- [ ] 单例模式深入 #todo [🔗待解决](单例模式初识.md#singleton-todo)
