@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/多态.md",
+                "file": "java笔记/super关键字.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "多态"
+              "title": "super关键字"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/多态.md",
+                "file": "java笔记/super关键字.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "多态 的大纲"
+              "title": "super关键字 的大纲"
             }
           },
           {
@@ -181,11 +181,11 @@
   },
   "active": "0f4d5b69332bbbdf",
   "lastOpenFiles": [
+    "java笔记/多态.md",
+    "java笔记/super关键字.md",
     "java笔记/images/多态/file-20250410182209.png",
     "java笔记/images/多态",
     "java笔记/todo.md",
-    "java笔记/super().md",
-    "java笔记/多态.md",
     "java笔记/继承.md",
     "java笔记/Java基本操作.md",
     "java笔记/JVM虚拟机规范(简略版).md",
@@ -219,7 +219,6 @@
     "java笔记/images/this",
     "java笔记/构造方法.md",
     "java笔记/images/package和import/file-20250407190528.png",
-    "java笔记/images/package和import/file-20250407173724.png",
     "java笔记/images/package和import",
     "java笔记/images/方法",
     "java笔记/images/变量",
