@@ -17,5 +17,6 @@ group by filename
 - [ ] 访问权限例如public,private等 #todo 
 - [x] 多态的详细补充 #todo [🔗待解决](多态.md#Polymorphism-todo) ✅ 2025-04-10
 - [ ] 单例模式深入 #todo [🔗待解决](单例模式初识.md#singleton-todo)
-- [ ] 继承中的super() #todo 
+- [x] 继承中的super() #todo ✅ 2025-04-10
 - [ ] 深入开闭原则 #todo 
+- [ ] 抽象类 #todo 
