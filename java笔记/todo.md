@@ -14,10 +14,10 @@ group by filename
 - [x] 类 #todo ✅ 2025-04-07
 - [x] 堆,栈,方法区 #todo ✅ 2025-04-08
 - [ ] 引用数据类型深入 #todo 
-- [ ] 访问权限例如public,private等 #todo 
+- [x] 访问权限例如public,private等 #todo ✅ 2025-04-12
 - [x] 多态的详细补充 #todo [🔗待解决](多态.md#Polymorphism-todo) ✅ 2025-04-10
 - [ ] 单例模式深入 #todo [🔗待解决](单例模式初识.md#singleton-todo)
 - [x] 继承中的super() #todo ✅ 2025-04-10
 - [ ] 深入开闭原则 #todo 
-- [ ] 抽象类 #todo 
+- [x] 抽象类 #todo ✅ 2025-04-12
 - [ ] 深入hashCode #todo 
