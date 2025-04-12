@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/final关键字.md",
+                "file": "java笔记/Object类中的方法.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "final关键字 的大纲"
+              "title": "Object类中的方法 的大纲"
             }
           },
           {
@@ -162,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -181,15 +181,22 @@
   },
   "active": "a2f9722f3c5ab9e2",
   "lastOpenFiles": [
+    "java笔记/images/Object类中的方法/file-20250412205201.png",
+    "java笔记/images/Object类中的方法/file-20250412205130.png",
+    "java笔记/images/Object类中的方法/file-20250412200218.png",
+    "java笔记/images/Object类中的方法/file-20250412200215.png",
+    "java笔记/images/Object类中的方法/file-20250412195813.png",
+    "java笔记/images/Object类中的方法/file-20250412195802.png",
+    "java笔记/images/Object类中的方法/file-20250412191847.png",
+    "java笔记/images/Object类中的方法/file-20250412191701.png",
+    "java笔记/images/Object类中的方法/file-20250412191438.png",
+    "java笔记/images/Object类中的方法/file-20250412190014.png",
     "java笔记/images/Object类中的方法/file-20250412172650.png",
-    "java笔记/images/Object类中的方法/file-20250412172554.png",
-    "java笔记/images/Object类中的方法/file-20250412171830.png",
     "java笔记/images/Object类中的方法",
     "java笔记/访问控制权限.md",
     "java笔记/Object类中的方法.md",
     "java笔记/abstract.md",
     "java笔记/接口.md",
-    "java笔记/images/接口/file-20250411211211.png",
     "java笔记/images/接口",
     "java笔记/final关键字.md",
     "java笔记/super关键字.md",
@@ -202,10 +209,7 @@
     "java笔记/类和对象.md",
     "java笔记/面向对象和面向过程.md",
     "java笔记/Java程序运行原理.md",
-    "java笔记/images/super关键字/file-20250410201206.png",
-    "java笔记/images/super关键字/file-20250410200029.png",
     "java笔记/images/super关键字",
-    "java笔记/images/多态/file-20250410182209.png",
     "java笔记/images/多态",
     "java笔记/Java基本操作.md",
     "java笔记/JVM虚拟机规范(简略版).md",
@@ -217,11 +221,7 @@
     "java笔记/idea基础用法.md",
     "java笔记/this.md",
     "java笔记/static.md",
-    "java笔记/images/JVM虚拟机规范(简略版)/file-20250408221942.png",
     "java笔记/images/JVM虚拟机规范(简略版)",
-    "java笔记/images/JVM虚拟机规范(简略版)/file-20250408213531.png",
-    "java笔记/images/JVM虚拟机规范(简略版)/file-20250408211956.png",
-    "java笔记/images/JVM虚拟机规范(简略版)/file-20250408211831.png",
     "java笔记/images/JVM虚拟机规范",
     "java笔记/images/this",
     "java笔记/images/package和import",
