@@ -162,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -179,8 +179,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a2f9722f3c5ab9e2",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
+    "java笔记/images/冒泡排序/file-20250414224223.png",
+    "java笔记/images/冒泡排序",
     "java笔记/数组.md",
     "java笔记/images/数组/file-20250414205433.png",
     "java笔记/冒泡排序.md",
@@ -225,7 +227,6 @@
     "java笔记/变量.md",
     "java笔记/images/super关键字",
     "java笔记/images/多态",
-    "java笔记/images/JVM虚拟机规范(简略版)",
     "未命名.canvas"
   ]
 }
