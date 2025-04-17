@@ -28,7 +28,7 @@ System.out.println("date2 = " + date2);
 ```Java
 Scanner sc = new Scanner(System.in);  
 Random random = new Random();  
-//随机数1~100  
+//随机数1~10  
 int actualNum = random.nextInt(10) + 1;  
 System.out.println("请输入一个数字(1~10):");  
 int guessNum = sc.nextInt();  
