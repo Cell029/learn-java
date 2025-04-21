@@ -22,3 +22,4 @@ group by filename
 - [x] 抽象类 #todo ✅ 2025-04-12
 - [ ] 深入hashCode #todo 
 - [ ] 快速排序的深入 #todo 
+- [ ] try-catch-finally在Java7之后的优化释放资源深入
