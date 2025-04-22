@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/String.md",
+                "file": "java笔记/字符串.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "String"
+              "title": "字符串"
             }
           }
         ]
@@ -182,7 +182,7 @@
   "active": "a2f9722f3c5ab9e2",
   "lastOpenFiles": [
     "java笔记/异常.md",
-    "java笔记/String.md",
+    "java笔记/字符串.md",
     "java笔记/Arrays数组.md",
     "java笔记/todo.md",
     "java笔记/images/异常/file-20250421224032.png",
