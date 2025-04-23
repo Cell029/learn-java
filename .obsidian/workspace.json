@@ -162,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -179,8 +179,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "a2f9722f3c5ab9e2",
   "lastOpenFiles": [
+    "java笔记/images/字符串/file-20250423140522.png",
+    "java笔记/images/字符串/file-20250423140319.png",
+    "java笔记/images/字符串/file-20250423140214.png",
+    "java笔记/images/字符串/file-20250423135639.png",
     "java笔记/images/字符串/file-20250422214940.png",
     "java笔记/异常.md",
     "java笔记/字符串.md",
@@ -193,10 +197,6 @@
     "java笔记/todo.md",
     "java笔记/images/异常/file-20250421224032.png",
     "java笔记/images/异常/file-20250421223924.png",
-    "java笔记/images/异常/file-20250421221302.png",
-    "java笔记/images/异常/file-20250421220243.png",
-    "java笔记/images/异常/file-20250421220043.png",
-    "java笔记/images/异常/file-20250421215626.png",
     "java笔记/images/异常",
     "java笔记/Object类中的方法.md",
     "java笔记/数组.md",
