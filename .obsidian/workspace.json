@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/包装类.md",
+                "file": "java笔记/大整数与大浮点数.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "包装类"
+              "title": "大整数与大浮点数"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/包装类.md",
+                "file": "java笔记/大整数与大浮点数.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "包装类 的大纲"
+              "title": "大整数与大浮点数 的大纲"
             }
           },
           {
@@ -181,6 +181,11 @@
   },
   "active": "a2f9722f3c5ab9e2",
   "lastOpenFiles": [
+    "java笔记/包装类.md",
+    "java笔记/大整数与大浮点数.md",
+    "java笔记/images/包装类/file-20250423220159.png",
+    "java笔记/images/包装类/file-20250423215946.png",
+    "java笔记/images/包装类/file-20250423215527.png",
     "java笔记/images/包装类/file-20250423213457.png",
     "java笔记/images/包装类/file-20250423212945.png",
     "java笔记/images/包装类/file-20250423212813.png",
@@ -188,14 +193,9 @@
     "java笔记/images/包装类/file-20250423211754.png",
     "java笔记/images/包装类/file-20250423210842.png",
     "java笔记/images/包装类/file-20250423210302.png",
-    "java笔记/images/包装类/file-20250423210137.png",
-    "java笔记/images/包装类/file-20250423210008.png",
     "java笔记/images/包装类",
     "java笔记/字符串.md",
-    "java笔记/包装类.md",
     "java笔记/未命名",
-    "java笔记/images/字符串/file-20250423181137.png",
-    "java笔记/images/字符串/file-20250423180752.png",
     "java笔记/异常.md",
     "java笔记/images/字符串",
     "java笔记/Arrays数组.md",
