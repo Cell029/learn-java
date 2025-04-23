@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/字符串.md",
+                "file": "java笔记/包装类.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "字符串"
+              "title": "包装类"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/字符串.md",
+                "file": "java笔记/包装类.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "字符串 的大纲"
+              "title": "包装类 的大纲"
             }
           },
           {
@@ -181,6 +181,9 @@
   },
   "active": "a2f9722f3c5ab9e2",
   "lastOpenFiles": [
+    "java笔记/字符串.md",
+    "java笔记/包装类.md",
+    "java笔记/未命名",
     "java笔记/images/字符串/file-20250423181137.png",
     "java笔记/images/字符串/file-20250423180752.png",
     "java笔记/images/字符串/file-20250423175631.png",
@@ -191,9 +194,7 @@
     "java笔记/images/字符串/file-20250423164215.png",
     "java笔记/images/字符串/file-20250423160735.png",
     "java笔记/images/字符串/file-20250423155953.png",
-    "java笔记/images/字符串/file-20250423155318.png",
     "java笔记/异常.md",
-    "java笔记/字符串.md",
     "java笔记/images/字符串",
     "java笔记/Arrays数组.md",
     "java笔记/todo.md",
@@ -225,7 +226,6 @@
     "java笔记/冒泡排序.md",
     "java笔记/images/冒泡排序",
     "java笔记/算法与时间复杂度(简略版).md",
-    "java笔记/images/数组",
     "java笔记/内部类(简略版).md",
     "未命名.canvas"
   ]
