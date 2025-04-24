@@ -77,3 +77,58 @@ public void test2() {
 ****
 ## 4. SequencedCollection
 
+>是 Java 21 新增的一个接口，是 `Collection` 接口的子接口，代表一个元素有固定顺序的集合，它同时也是所有有序集合的父接口，在 Java 21 之前，虽然有些集合是“有序的”，但这些类没有统一的接口描述“顺序操作”，所以 Java 21 提出 `SequencedCollection`，为所有有序集合提供统一的顺序操作接口
+
+**常用方法**
+
+**1、`getFirst()` / `getLast()`**
+
+>获取集合中的第一个和最后一个元素
+
+```java
+SequencedCollection sequencedCollection = new ArrayList();  
+sequencedCollection.add("a");  
+sequencedCollection.add("b");  
+sequencedCollection.add("c");  
+sequencedCollection.add("d");  
+System.out.println(sequencedCollection.getFirst()); // a  
+System.out.println(sequencedCollection.getLast()); // d
+```
+
+****
+
+**2、`addFirst(E e)` / `addLast(E e)`**
+
+>向集合的前面或后面添加元素（双端队列风格）
+
+```java
+sequencedCollection.addFirst("start");  
+sequencedCollection.addLast("end");  
+System.out.println(sequencedCollection); // [start, a, b, c, d, end]
+```
+
+****
+
+**3、`removeFirst()` / `removeLast()`**
+
+>从前面或后面删除元素
+
+```java
+sequencedCollection.removeFirst();  
+sequencedCollection.removeLast();  
+System.out.println(sequencedCollection); // [a, b, c, d]
+```
+
+****
+
+**4、reversed()**
+
+>`reversed()` 不会修改原集合，而是返回一个反转视图，并不改变原集合
+
+```java
+System.out.println(sequencedCollection.reversed()); // [d, c, b, a]
+```
+
+****
+## 5. 泛型
+
