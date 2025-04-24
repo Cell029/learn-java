@@ -160,6 +160,15 @@ for(int i = 0; i< arrayList.size();i++){
 
 >使用泛型后在编译阶段，编译器就会报错
 
+```java
+List list = new ArrayList();
+list.add("Hello");
+list.add(123);
+String str = (String) list.get(1);  // 运行时报错：ClassCastException
+
+// 如果使用泛型就不需要考虑强转的问题，但是在运行前就要检查传入的参数类型
+```
+
 ****
 ### 5.1 类型擦除
 
@@ -193,4 +202,88 @@ System.out.println(stringList.getClass() == intList.getClass()); // true
 
 ****
 ### 5.2 在类上自定义泛型
+
+```java
+public class 类名<类型参数1, 类型参数2, ...> {
+    // 使用这些类型参数作为类的成员、方法返回值或参数类型等
+}
+```
+
+>定义一个简单的泛型容器
+
+```java
+public class Box<T> {
+    private T value;
+
+    public void set(T value) {
+        this.value = value;
+    }
+
+    public T get() {
+        return value;
+    }
+}
+```
+
+```java
+Box<String> stringBox = new Box<>();  
+stringBox.set("Hello");  
+System.out.println(stringBox.get()); // Hello  
+  
+Box<Integer> intBox = new Box<>();  
+intBox.set(123);  
+System.out.println(intBox.get()); // 123
+```
+
+>定义多个泛型参数的类
+
+```java
+public class Pair<K, V> {
+    private K key;
+    private V value;
+
+    public Pair(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public K getKey() { return key; }
+    public V getValue() { return value; }
+}
+```
+
+```java
+Pair<String, Integer> pair = new Pair<>("age", 18);
+System.out.println(pair.getKey() + ": " + pair.getValue()); // age: 18
+```
+
+>自定义泛型类的主要作用是增强代码的通用性、可读性与类型安全性，让程序员口语写出不依赖具体类型但依然能编译检查的通用类或方法，这有点类似于实现一个接口，接口只提供方法的声明，不提供实现
+
+>定义的泛型类，就一定要传入泛型类型实参么？并不是这样，在使用泛型的时候如果传入泛型实参，则会根据传入的泛型实参做相应的限制，此时泛型才会起到本应起到的限制作用。如果不传入泛型类型实参的话，在泛型类中使用泛型的方法或成员变量定义的类型可以为任何的类型
+
+```java
+public class Printer<T> {
+    public void print(T data) {
+        System.out.println(data);
+    }
+}
+
+new Printer<String>().print("Hello");
+new Printer<Integer>().print(123);
+new Printer<User>().print(new User());
+```
+
+>当使用泛型后，代码的复用性得到了提升，这又有点像多态了，父类型指引用指向子类型对象
+
+****
+### 5.3 在方法上自定义泛型
+
+>泛型方法是指在方法定义时引入泛型参数，不依赖于类是否是泛型
+
+```java
+public <T> T 方法名(T 参数) {
+    // 方法内部可以使用 T 类型
+}
+```
+
 
