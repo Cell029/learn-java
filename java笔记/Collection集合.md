@@ -161,7 +161,7 @@ for(int i = 0; i< arrayList.size();i++){
 >使用泛型后在编译阶段，编译器就会报错
 
 ****
-## 3. 类型擦除
+### 5.1 类型擦除
 
 >Java在编译阶段会进行类型检查和类型推导，但在编译完成后（运行时），泛型信息就会被“擦除”掉，程序运行时就无法知道泛型的真实类型了
 
@@ -178,3 +178,19 @@ List list = new ArrayList();  // 泛型擦除后
 list.add("hello");            // 还是能运行
 String str = (String) list.get(0); // 这里自动加了强制类型转换
 ```
+
+>所以泛型在编译时只会进行类型检查和自动转换（此时的自动强转也被叫做泛型补偿），但运行时并不不会存在泛型类型的信息
+
+```java
+List<String> stringList = new ArrayList<>();  
+List<Integer> intList = new ArrayList<>();  
+System.out.println(stringList.getClass() == intList.getClass()); // true
+```
+
+>不管是 `List<String>` 还是 `List<Integer>`，在运行时其实是同一个类，都只是 `ArrayList` 集合，只不过泛型作为了一种限制手段限制用户的输入而已
+
+>Java 的泛型是在 Java 5 引入的，为了保证与 Java 5 之前版本的字节码和 JVM 保持兼容，Java 才采用类型擦除的设计方案，让泛型信息只在编译阶段生效，在这个阶段，编译器会进行类型检查和类型推导，确保类型安全，运行时，所有的泛型类型信息都会被擦除，替换为原始类型（通常是 `Object` ），并自动插入必要的强制类型转换指令，从而使生成的字节码与老版本 JVM 完全兼容
+
+****
+### 5.2 在类上自定义泛型
+
