@@ -278,7 +278,7 @@ new Printer<User>().print(new User());
 ****
 ### 5.3 在方法上自定义泛型
 
->泛型方法是指在方法定义时引入泛型参数，不依赖于类是否是泛型
+>泛型方法是指在方法定义时引入泛型参数，不依赖于类是否是泛型，在返回类型前使用 `<T>` 是为了告诉编译器我要使用泛型了，具体的返回类型要看使用的是什么
 
 ```java
 public <T> T 方法名(T 参数) {
@@ -286,4 +286,64 @@ public <T> T 方法名(T 参数) {
 }
 ```
 
+>需要注意的是，静态方法使用泛型时必须在返回类型前加上`<T>` 来定义泛型，不能依赖类的泛型，因为静态方法优先于类的实例化
 
+```java
+public class Box<T> {
+    public void show(T t) {  // 可以
+        System.out.println(t);
+    }
+
+	public static void display(T t) { // 不可以
+		System.out.println(t);
+	}
+}
+```
+
+```java
+    public static <T> void show(T t) {
+        System.out.println("静态泛型方法：" + t);
+    }
+```
+
+```java
+public class Container<T> {
+    // 可以直接用类的 T
+    public void set(T t) { }
+    // 静态方法不能用类的 T，必须自己写 <U>
+    public static <U> void staticShow(U u) {
+        System.out.println(u);
+    }
+    // 实例方法也可以定义自己的泛型，不用类的 T
+    public <V> void print(V v) {
+        System.out.println(v);
+    }
+}
+```
+
+****
+### 5.4 在接口上自定义泛型
+
+```java
+public interface AA<F, T> {
+    T method(F f);
+}
+
+public class BB implements AA<String, Integer> {
+    @Override
+    public Integer method(String str) {
+        return Integer.parseInt(str);
+    }
+}
+
+public class CC<T> implements AA<T, T> {
+    public T method(T t) {
+        return t;
+    }
+}
+```
+
+>当不知道具体实现类是什么类型时，就可以使用泛型来实现接口，即使接口有多个泛型类型，但仍然可以只使用一个，但实现类也使用多个泛型时需要对应好接口的泛型位置
+
+****
+### 5.5 
