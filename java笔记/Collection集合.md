@@ -346,4 +346,54 @@ public class CC<T> implements AA<T, T> {
 >当不知道具体实现类是什么类型时，就可以使用泛型来实现接口，即使接口有多个泛型类型，但仍然可以只使用一个，但实现类也使用多个泛型时需要对应好接口的泛型位置
 
 ****
-### 5.5 
+### 5.5 泛型通配符
+
+#### 5.5.1 无边界通配符 `<?>`
+
+>`<?>` 表示 **任意类型**，它允许接受任何类型的参数，但是它在编译时不能确定具体的类型，所以它不能作为类的属性或者定义一个泛型方法
+
+```java
+private List<?> list;  // 编译错误
+public void method(<?> m) {  // 编译错误
+        System.out.println(m);
+    }
+```
+
+>`<?>` 主要在于方法的参数类型，它可以表示任何类型，但有一定的限制，通常只能用来读取数据
+
+```java
+public static void print(List<?> list) {  
+    for (Object o : list) {  
+        System.out.println(o);  
+    }  
+}
+
+List<Integer> list = new ArrayList<>();  
+list.add(1);  
+list.add(2);  
+list.add(3);  
+print(list);
+```
+
+>但是 `null` 可以添加，因为 `null` 不需要类型，任何类型的列表都可以包含 `null`
+
+```java
+public void addNull(List<?> list) {
+    list.add(null);  // 合法
+    list.add(1); // 不合法
+}
+```
+
+![](images/Collection集合/file-20250424214534.png)
+
+****
+#### 5.5.2 上限通配符 `<? extends T>`
+
+>`<? extends T>` 表示某个类型是 `T` 或其子类，适用于只需要读取某个类型及其子类的元素的情况，也就是说上限通配符用于限定泛型的类型范围
+
+```java
+List<? extends T> list = new ArrayList<? extends T>();
+```
+
+
+
