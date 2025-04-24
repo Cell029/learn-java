@@ -47,4 +47,33 @@ Iterator it = collection.iterator();
 iterator.hasNext()
 ```
 
->判断是否还有元素，
+>判断是否还有元素，它的底层代码会判断当前下标 `cursor` 是否等于集合的大小，不等为 ture 即为有下一个元素，相等证明此时的光标已经指向了集合中最后一个元素的下一个位置，代表已经遍历完集合
+
+![](images/Collection集合/file-20250424182250.png)
+
+```java
+iterator.next()
+```
+
+>返回当前 `cursor` 指向的元素，返回的是一个数组元素 `elementData[lastRet = i]`
+
+![](images/Collection集合/file-20250424182528.png)
+
+```java
+public void test2() {  
+    Collection collection = new ArrayList();  
+    collection.add("a");  
+    collection.add("b");  
+    collection.add("c");  
+    collection.add("d");  
+  
+    Iterator iterator = collection.iterator();  
+    while (iterator.hasNext()) {  
+        System.out.println(iterator.next()); // a b c d  
+    }  
+}
+```
+
+****
+## 4. SequencedCollection
+
