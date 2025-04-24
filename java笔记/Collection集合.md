@@ -28,8 +28,23 @@
 | `toArray()`                         | 转为 Object 数组    |
 | `toArray(T[] a)`                    | 转为指定类型的数组       |
 
->
+>集合的底层是重写了 `equals` 方法的，而 `remove(Object o)` 和 `contains(Object o)` 在使用时会调用 `equals` 方法的，所以只要传入的对象的内容相等（对象内部已重写 `equals` 方法），就会返回 `true`
 
 ****
 ## 3. Collection的通用迭代
 
+>就是用统一的方式遍历 `Collection` 中的所有元素，而不依赖于集合的具体类型（如是否有索引等）
+
+```java
+Iterator it = collection.iterator();
+```
+
+>每次调用 `iterator()`，都会返回一个新的 `Iterator` 对象，它负责获取到 `collection` 集合的大小和当前遍历到的位置 `cursor` 以及上一个返回的元素下标 `lastRet`
+
+![](images/Collection集合/file-20250424182009.png)
+
+```java
+iterator.hasNext()
+```
+
+>判断是否还有元素，
