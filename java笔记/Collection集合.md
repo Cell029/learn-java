@@ -132,3 +132,49 @@ System.out.println(sequencedCollection.reversed()); // [d, c, b, a]
 ****
 ## 5. 泛型
 
+>泛型是 Java 5 引入的一种机制，允许在类、接口、方法中定义类型参数，用来指定某种类型，而不是在代码里写死具体类型，以此提高代码复用性、提高类型安全性（编译期检查）、避免强制类型转换
+
+```java
+List arrayList = new ArrayList();
+arrayList.add("aaaa");
+arrayList.add(100);
+
+for(int i = 0; i< arrayList.size();i++){
+    String item = (String)arrayList.get(i);
+    System.out.println(item);
+}
+```
+
+>`ArrayList` 可以存放任意类型，例子中添加了一个 `String` 类型，添加了一个 `Integer` 类型，再使用时都以 `String` 的方式使用，因此程序崩溃了。为了解决类似这样的问题（在编译阶段就可以解决），就引入了泛型
+
+```java
+List<String> arrayList = new ArrayList<>();
+arrayList.add("aaaa");
+arrayList.add(100);
+
+for(int i = 0; i< arrayList.size();i++){
+    String item = (String)arrayList.get(i);
+    System.out.println(item);
+}
+```
+
+>使用泛型后在编译阶段，编译器就会报错
+
+****
+## 3. 类型擦除
+
+>Java在编译阶段会进行类型检查和类型推导，但在编译完成后（运行时），泛型信息就会被“擦除”掉，程序运行时就无法知道泛型的真实类型了
+
+```java
+List<String> list = new ArrayList<>();
+list.add("hello");
+String str = list.get(0);
+```
+
+>在编译阶段，Java 编译器会检查类型，只能往 `list` 中添加 `String` 类型，`get(0)` 得到的类型会被推断为 `String`，但是到了运行阶段，这个泛型信息被擦除，JVM 实际上看到的是
+
+```java
+List list = new ArrayList();  // 泛型擦除后
+list.add("hello");            // 还是能运行
+String str = (String) list.get(0); // 这里自动加了强制类型转换
+```
