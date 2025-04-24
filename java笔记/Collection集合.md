@@ -395,5 +395,58 @@ public void addNull(List<?> list) {
 List<? extends T> list = new ArrayList<? extends T>();
 ```
 
+```java
+public static void main(String[] args) {  
+    List<Integer> intList = new ArrayList<>();  
+    intList.add(10);  
+    intList.add(20);  
+  
+    List<Double> doubleList = new ArrayList<>();  
+    doubleList.add(3.14);  
+    doubleList.add(2.71);  
+  
+    List<Object> objectList = new ArrayList<>();  
+    print(objectList); // 不合法
+  
+    print(intList);   // 10 20  
+    print(doubleList); // 3.14 2.71  
+}  
+  
+public static void print(List<? extends Number> list) {  
+    for (Number num : list) {  
+        System.out.println(num);  
+    }  
+}
+```
 
+![](images/Collection集合/file-20250424215355.png)
 
+>同样的，这个也只能读取元素（如 `list.get(0)`），但不能在 `print` 方法中向列表中添加元素，因为编译器无法确定此时添加的元素类型是否符合 `Number` 类型的约束
+
+****
+#### 5.5.3 下限通配符 `<? super T>`
+
+>`<? super T>` 表示**某个类型是 `T` 或 `T` 的父类**，适用于你需要向集合中写入 `T` 类型及其子类的情况
+
+```java
+List<? super T> list = new ArrayList<? super T>();
+```
+
+```java
+public static void main(String[] args) {  
+    List<Integer> numberList = new ArrayList<>();  
+    addNumbers(numberList);  // 不合法，Integer是子类 
+  
+    List<Object> objectList = new ArrayList<>();  
+    addNumbers(objectList);  // 也可以向 List<Object> 添加 Integer 
+    System.out.println(objectList); // [10]  
+}  
+  
+public static void addNumbers(List<? super Number> list) {  
+    list.add(10); // 可以向列表中添加 Integer 或其子类的元素  
+}
+```
+
+![](images/Collection集合/file-20250424220706.png)
+
+>因为 `<? super T>` 填入的类型一定是 T 的父类，而类只能继承一个父类，所以这个泛型的类型是可以确定的，所以可以对元素进行修改，但是另外两个是不能确定具体的类型的，一个类可以有多个子类，所以没法确定
