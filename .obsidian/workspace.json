@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/大数字.md",
+                "file": "java笔记/枚举类型.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大数字 的大纲"
+              "title": "枚举类型 的大纲"
             }
           },
           {
@@ -162,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -179,8 +179,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a2f9722f3c5ab9e2",
+  "active": "8746cf1289c80a6d",
   "lastOpenFiles": [
+    "java笔记/images/枚举类型/file-20250424142814.png",
+    "java笔记/images/枚举类型/file-20250424142754.png",
+    "java笔记/images/枚举类型",
     "java笔记/基数排序.md",
     "java笔记/枚举类型.md",
     "java笔记/计数排序.md",
@@ -203,7 +206,6 @@
     "java笔记/images/大数字/file-20250423222927.png",
     "java笔记/images/大数字/file-20250423222656.png",
     "java笔记/images/大数字/file-20250423222349.png",
-    "java笔记/images/大数字/file-20250423221653.png",
     "java笔记/images/大数字",
     "java笔记/images/包装类",
     "java笔记/字符串.md",
@@ -223,10 +225,8 @@
     "java笔记/原码反码补码.md",
     "java笔记/images/基数排序",
     "java笔记/进制转换.md",
-    "java笔记/idea基础用法.md",
     "java笔记/images/归并排序",
     "java笔记/images/快速排序",
-    "java笔记/images/插入排序",
     "未命名.canvas"
   ]
 }
