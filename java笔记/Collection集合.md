@@ -450,3 +450,30 @@ public static void addNumbers(List<? super Number> list) {
 ![](images/Collection集合/file-20250424220706.png)
 
 >因为 `<? super T>` 填入的类型一定是 T 的父类，而类只能继承一个父类，所以这个泛型的类型是可以确定的，所以可以对元素进行修改，但是另外两个是不能确定具体的类型的，一个类可以有多个子类，所以没法确定
+
+****
+## ## 6. 并发修改问题
+
+>并发修改指的是在一个线程对集合进行遍历的同时，另一个线程或当前线程本身对该集合结构进行了修改，这可能导致遍历出现异常或不确定的结果
+
+### 6.1 结构性修改与并发修改异常的触发条件
+
+**结构性修改**
+
+>结构性修改是指改变集合结构的操作，例如增加元素、删除元素，这些操作会导致集合的 `modCount`（继承自父类）增加
+
+![](images/Collection集合/file-20250425161215.png)
+
+>`AbstractList` 类中定义了方法，当 `modCount != expectedModCount` 就抛出异常
+
+![](images/Collection集合/file-20250425160925.png)
+
+>在遍历迭代器中的元素时，通过集合删除集合中的一个元素，会导致发生 `ConcurrentModificationException` 异常，发生原因肯定是因为此时的 `modCount != expectedModCount` 
+
+![](images/Collection集合/file-20250425160428.png)
+
+****
+
+****
+### 6.2 fail-fast 机制
+
