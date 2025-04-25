@@ -631,3 +631,33 @@ System.out.println(list);
 
 >`set(E e)` 方法用来替换最近一次由 `next()` 或 `previous()` 返回的元素，它不会改变集合的结构，只是把已有位置的值改掉
 
+```java
+List list = new ArrayList();  
+list.add("a");  
+list.add("b");  
+list.add("c");  
+list.add("d");  
+ListIterator<String> listIterator = list.listIterator();  
+while (listIterator.hasNext()) {  
+    String item = listIterator.next();  
+    if (item.equals("b")) {  
+        listIterator.set("B");  
+    }  
+    System.out.println(item); // a b c d 
+}  
+System.out.println(list); // [a, B, c, d]
+```
+
+>同样的，因为 `set()` 方法是在 `next()` 方法后执行的，所以输出元素时是看不到置换后的元素的
+
+**使用 `set()` 要先使用 `next()` 或 `previous()`**
+
+![](images/Collection集合/file-20250425205557.png)
+
+![](images/Collection集合/file-20250425205950.png)
+
+>看图，`set()` 会先判断 `lastRet` 字段是否为负数，然后再进行置换方法，但是 `lastRet` 字段在 `Itr` 类中的默认值是 -1，所以要先使用 `next()` 或 `previous()` 来初始化 `lastRet` 字段，让它能够指向集合中确切的元素位置
+
+**使用 `add()` 和 `remove()` 不能立即使用**
+
+>`add()` 和 `remove()` 方法中都存在 `lastRet = -1` 这个代码，因为 `lastRet` 通常作为返回元素的下标值，所以它关系着是否有元素可以进行操作，在 `next()` 方法中存在 `lastRet` 赋值的代码，用来ji'lu
