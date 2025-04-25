@@ -462,6 +462,8 @@ public static void addNumbers(List<? super Number> list) {
 
 >结构性修改是指改变集合结构的操作，例如增加元素、删除元素，这些操作会导致集合的 `modCount`（继承自父类）增加
 
+![](images/Collection集合/file-20250425161930.png)
+
 ![](images/Collection集合/file-20250425161215.png)
 
 >`AbstractList` 类中定义了方法，当 `modCount != expectedModCount` 就抛出异常
@@ -472,8 +474,24 @@ public static void addNumbers(List<? super Number> list) {
 
 ![](images/Collection集合/file-20250425160428.png)
 
-****
+**`expectedModCount` 字段**
+
+>`expectedModCount` 字段并不是集合类本身的成员，而是集合的迭代器内部类的字段
+
+![](images/Collection集合/file-20250425161849.png)
+
+>`Itr` 是 `ArrayList` 的非静态内部类，它可以访问外部类对象的字段，所以创建构造器时可以自动将 `modCount` 赋值给 `expectedModCount` ，在遍历迭代器的期间，如果`modCount != expectedModCount` 就可以抛出异常
 
 ****
 ### 6.2 fail-fast 机制
+
+>每次调用 `Iterator.next()` 或 `Iterator.remove()` 时，都会检查 `modCount` 是否等于 `expectedModCount`，如果不等就抛出异常结束运行
+
+![](images/Collection集合/file-20250425163929.png)
+
+>当创建迭代器时会让 `expectedModCount` 等于当前集合修改的次数
+
+![](images/Collection集合/file-20250425164320.png)
+
+>迭代器的 `next()` 方法中会调用父类的 `checkForComodification()` 判断 `modCount` 是否等于 `expectedModCount`
 
