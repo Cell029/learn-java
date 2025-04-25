@@ -542,3 +542,59 @@ while (listIterator.hasNext()) {
 ```
 
 #### 7.1.1 hasPrevious
+
+>常和 `previous` 方法搭配使用，判断是否拥有上一个元素
+
+![](images/Collection集合/file-20250425191951.png)
+
+>`ListIterator` 有个有参构造器，可以直接指定 `cursor` 的光标位置
+
+![](images/Collection集合/file-20250425192422.png)
+
+****
+#### 7.1.2 previous
+
+>因为有个 `i = cursor - 1` 代码，所以会将 `cursor` 指向当前位置的上一个位置，所以使用时得先将光标移动到 0 号位置以外的地方，否则返回不了元素
+
+![](images/Collection集合/file-20250425192052.png)
+
+```java
+List list = new ArrayList();  
+list.add("a");  
+list.add("b");  
+list.add("c");  
+list.add("d");  
+ListIterator<String> listIterator = list.listIterator(list.size());
+// 调用 previous 方法时 cursor 会自动减一，所以想要遍历到最后一个元素就要让光标指向这个元素的后一个位置
+while (listIterator.hasPrevious()) {  
+    String item = listIterator.previous();  
+    System.out.println(item);  
+}
+```
+
+****
+#### 7.1.3 add()
+
+>将元素添加到光标的位置然后光标后移
+
+```java
+    List list = new ArrayList();  
+    list.add("a");  
+    list.add("b");  
+    list.add("c");  
+    list.add("d");  
+    ListIterator<String> listIterator = list.listIterator();  
+    while (listIterator.hasNext()) {  
+        String item = listIterator.next();  
+        if (item.equals("b")) {  
+            listIterator.add("B");  
+        }  
+        System.out.println(item); // a b c d  
+    }  
+    System.out.println(list); // [a, b, B, c, d]  
+}
+```
+
+![](images/Collection集合/file-20250425194414.png)
+
+>因为添加完元素后 `cursor` 会加一，所以
