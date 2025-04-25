@@ -527,3 +527,8 @@ public static void addNumbers(List<? super Number> list) {
 ****
 ## 7. List接口
 
+>`List` 是一个继承自 `Collection` 接口的子接口，定义了有序（有下标）、可重复元素集合的行为，不能直接实例化 `List`，需要用它的实现类
+
+### 7.1 ListIterator迭代器
+
+
