@@ -516,4 +516,14 @@ public static void addNumbers(List<? super Number> list) {
 
 >因为有个 `cursor = i + 1` 操作，所以每次调用 `next()` 方法后 `cursor` 都会指向下一个元素的位置， `lastRet = i` 就代表指向上一个 `cursor` 指向的位置，也就是当前调用 `next()` 方法时真正指向的元素的位置
 
->当调用迭代器的 `remove()` 方法时
+>当调用迭代器的 `remove()` 方法时，会让 `cursor` 指向 `lastRet` 指向的位置，然后再重置 `lastRet` 的指向位置，达到所有删除元素后面的元素前移的效果
+
+![](images/Collection集合/file-20250425172857.png)
+
+> `ArrayList` 集合的这个方法会将数组的长度减一，然后调用系统的方法，把删除元素的后面的元素全部前移，最后将本集合的最后一个元素置空删除达到删除的操作
+
+>从这里可以看出普通集合的 `remove` 方法没有使用到指针的概念，而是直接将数组的全部元素前移，这可能导致遍历迭代器时 `cursor` 指向的元素位置发生偏移，所以才会引入 `iterator.remove`，保证迭代器遍历时的安全性
+
+****
+## 7. List接口
+
