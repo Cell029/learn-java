@@ -541,7 +541,7 @@ while (listIterator.hasNext()) {
 }
 ```
 
-#### 7.1.1 hasPrevious
+#### 7.1.1 hasPrevious()
 
 >常和 `previous` 方法搭配使用，判断是否拥有上一个元素
 
@@ -552,7 +552,7 @@ while (listIterator.hasNext()) {
 ![](images/Collection集合/file-20250425192422.png)
 
 ****
-#### 7.1.2 previous
+#### 7.1.2 previous()
 
 >因为有个 `i = cursor - 1` 代码，所以会将 `cursor` 指向当前位置的上一个位置，所以使用时得先将光标移动到 0 号位置以外的地方，否则返回不了元素
 
@@ -599,7 +599,35 @@ while (listIterator.hasPrevious()) {
 
 ![](images/Collection集合/file-20250425194549.png)
 
->因为每一轮都是先调用的 `next()`，所以第一轮的 `i == 0`，通过迭代器获取到的第一个元素就是 `[0]` 元素（a），然后 `cursor + 1`，
+>* 因为每一轮都是先调用的 `next()`，所以第一轮的 `i == 0`，通过迭代器获取到的第一个元素就是 `[0]` 元素（`a`），然后 `cursor + 1 == 1`，
+>* 第二轮先调用 `next()`，此时 `i == 1`，通过迭代器获取的第二个元素是 `[1]`（`b`），然后`cursor + 1 == 2`，然后判断到此时可以添加元素 `B`，进入迭代器的 `add()` ，将 `cursor` 指向的位置（也就是下标 2 ）传入集合的 `add()` 方法，添加完后 `cursor + 1 == 3`，因为获取元素的地方是在 `next()` 中，所以后面 `cursor` 的改变不会影响到本轮的输出，但是本轮实际上 `cursor` 进行了两次增加，可以看作 `cursor` 指向了本轮输出元素的下下个元素位置
+>* 第三轮先调用 `next()`，此时 `i == 3`，通过迭代器获取的第三个元素是 `[3]`( c )（实际集合中的元素为{a, b, B, c, d}，正好下标 3 的元素为 c ）
+>* ......
 
 ![](images/Collection集合/file-20250425200513.png)
+
+>因为下标移动的特性，添加的元素没有在遍历迭代器时输出并不是没有添加进去，而是调用 `add()` 方法时又进行了一次光标的移动，但是获取数组元素是在光标移动前进行的（可看作跳过新增的元素），所以只能在遍历完集合后再输出才能看到新增的元素
+
+>可以通过使用 `previous()` 来获取添加元素后光标的上一个位置以此获取输出
+
+```java
+ListIterator<String> listIterator = list.listIterator();  
+int count = -1;  
+while (listIterator.hasNext()) {  
+    String item = listIterator.next();  
+    count++;  
+    if (item.equals("b")) {  
+        listIterator.add("B");  
+        listIterator.previous(); // cursor - 1  
+    }  
+    System.out.print(count + " ");  
+    System.out.println(item); // a b B c d  
+}  
+System.out.println(list);
+```
+
+****
+#### 7.1.4 set()
+
+>`set(E e)` 方法用来替换最近一次由 `next()` 或 `previous()` 返回的元素，它不会改变集合的结构，只是把已有位置的值改掉
 
