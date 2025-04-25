@@ -495,3 +495,25 @@ public static void addNumbers(List<? super Number> list) {
 
 >迭代器的 `next()` 方法中会调用父类的 `checkForComodification()` 判断 `modCount` 是否等于 `expectedModCount`
 
+![](images/Collection集合/file-20250425164503.png)
+
+>当使用集合的 `remove` 方法时
+
+![](images/Collection集合/file-20250425164824.png)
+
+>会进入集合的 `fastRemove` 方法，里面会进行一个 `modCount++` 操作，但是此时迭代器已经创建了，所以不会有再一次赋值的操作，下一次调用 `next()` 方法时一定会抛出异常
+
+>所以 `fail-fast` 也就是设置两个指针，一个指向数组的操作，一个指向迭代器的操作，当两个操作数不同时证明发生了不恰当的并行操作
+
+****
+### 6.3 `iterator.remove` 方法
+
+![](images/Collection集合/file-20250425170336.png)
+
+>迭代器的 `remove` 方法中有一行 `modCount != expectedModCount` 代码，在调用完集合的 `remove` 方法后会获取最新的 `modCount` 赋值给 `expectedModCount`，并且有个指针回退的操作
+
+![](images/Collection集合/file-20250425171012.png)
+
+>因为有个 `cursor = i + 1` 操作，所以每次调用 `next()` 方法后 `cursor` 都会指向下一个元素的位置， `lastRet = i` 就代表指向上一个 `cursor` 指向的位置，也就是当前调用 `next()` 方法时真正指向的元素的位置
+
+>当调用迭代器的 `remove()` 方法时
