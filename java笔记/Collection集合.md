@@ -554,7 +554,7 @@ while (listIterator.hasNext()) {
 ****
 #### 7.1.2 previous()
 
->因为有个 `i = cursor - 1` 代码，所以会将 `cursor` 指向当前位置的上一个位置，所以使用时得先将光标移动到 0 号位置以外的地方，否则返回不了元素
+>因为会先执行 `i = cursor - 1` 代码，所以会将 `cursor` 指向当前位置的上一个位置，所以使用时得先将光标移动到 0 号位置以外的地方，否则返回不了元素
 
 ![](images/Collection集合/file-20250425192052.png)
 
@@ -586,7 +586,7 @@ while (listIterator.hasPrevious()) {
     ListIterator<String> listIterator = list.listIterator();  
     while (listIterator.hasNext()) {  
         String item = listIterator.next();  
-        if (item.equals("b")) {  
+        if (item.equals("b")) { // lastRet = 1 
             listIterator.add("B");  
         }  
         System.out.println(item); // a b c d  
@@ -600,8 +600,8 @@ while (listIterator.hasPrevious()) {
 ![](images/Collection集合/file-20250425194549.png)
 
 >* 因为每一轮都是先调用的 `next()`，所以第一轮的 `i == 0`，通过迭代器获取到的第一个元素就是 `[0]` 元素（`a`），然后 `cursor + 1 == 1`，
->* 第二轮先调用 `next()`，此时 `i == 1`，通过迭代器获取的第二个元素是 `[1]`（`b`），然后`cursor + 1 == 2`，然后判断到此时可以添加元素 `B`，进入迭代器的 `add()` ，将 `cursor` 指向的位置（也就是下标 2 ）传入集合的 `add()` 方法，添加完后 `cursor + 1 == 3`，因为获取元素的地方是在 `next()` 中，所以后面 `cursor` 的改变不会影响到本轮的输出，但是本轮实际上 `cursor` 进行了两次增加，可以看作 `cursor` 指向了本轮输出元素的下下个元素位置
->* 第三轮先调用 `next()`，此时 `i == 3`，通过迭代器获取的第三个元素是 `[3]`( c )（实际集合中的元素为{a, b, B, c, d}，正好下标 3 的元素为 c ）
+>* 第二轮先调用 `next()`，此时 `lastRet == i == 1`，通过迭代器获取的第二个元素是 `[1]`（`b`），然后`cursor + 1 == 2`，然后判断到此时可以添加元素 `B`，进入迭代器的 `add()` ，将 `cursor` 指向的位置（也就是下标 2 ）传入集合的 `add()` 方法，添加完后 `cursor + 1 == 3`，因为获取元素的地方是在 `next()` 中，所以后面 `cursor` 的改变不会影响到本轮的输出，但是本轮实际上 `cursor` 进行了两次增加，可以看作 `cursor` 指向了本轮输出元素的下下个元素位置
+>* 第三轮先调用 `next()`，此时 `lastRet == i == 3`，通过迭代器获取的第三个元素是 `[3]`( c )（实际集合中的元素为{a, b, B, c, d}，正好下标 3 的元素为 c ）
 >* ......
 
 ![](images/Collection集合/file-20250425200513.png)
@@ -640,7 +640,7 @@ list.add("d");
 ListIterator<String> listIterator = list.listIterator();  
 while (listIterator.hasNext()) {  
     String item = listIterator.next();  
-    if (item.equals("b")) {  
+    if (item.equals("b")) { 
         listIterator.set("B");  
     }  
     System.out.println(item); // a b c d 
@@ -660,4 +660,40 @@ System.out.println(list); // [a, B, c, d]
 
 **使用 `add()` 和 `remove()` 不能立即使用**
 
->`add()` 和 `remove()` 方法中都存在 `lastRet = -1` 这个代码，因为 `lastRet` 通常作为返回元素的下标值，所以它关系着是否有元素可以进行操作，在 `next()` 方法中存在 `lastRet` 赋值的代码，用来ji'lu
+>`add()` 和 `remove()` 方法中都存在 `lastRet = -1` 这个代码，因为 `lastRet` 通常作为返回元素的下标值，所以它关系着是否有元素可以进行操作，在 `next()` 方法中存在 `lastRet` 赋值的代码，用来记录刚才遍历的元素的位置，而 `set()` 和 `remove()` 都是根据 `lastRet` 字段来确定需要操作的位置的
+
+>如果没有重置 `lastRet` 就可能出现下列情况：
+
+```java
+List<String> list = new ArrayList<>(List.of("a", "b", "c", "d"));
+ListIterator<String> it = list.listIterator();
+
+在 a 元素后面添加一个 A 
+此时集合： [a, A, b, c, d]，但是此时的 lastRet = 0
+我想将 A 修改掉，这个时候调用 set("X") 方法就会将 lastRet 传入，此时修改的就是 0 号元素，
+所以集合变成： [X, A, b, c, d]
+```
+
+>所以 `set()` 方法的本质是修改上一次访问的元素位置，当使用 `add()` 、 `remove()` 后就会重置上一次访问的位置
+
+```java
+List list = new ArrayList();  
+list.add("a");  
+list.add("b");  
+list.add("c");  
+list.add("d");  
+ListIterator<String> listIterator = list.listIterator();  
+int count = -1;  
+while (listIterator.hasNext()) {  
+    String item = listIterator.next();  
+    count++;  
+    if (item.equals("b")) { // lastRet = 1 
+        listIterator.add("B"); // cursor = 3，lastRet = -1 
+        listIterator.previous(); // cursor = 2，lastRet = 2 
+        listIterator.set("X");  
+    }  
+    System.out.print(count + " ");  
+    System.out.println(item); // a b X c d 
+}  
+System.out.println(list);
+```
