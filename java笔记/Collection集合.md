@@ -701,4 +701,20 @@ System.out.println(list);
 ****
 ### 7.2 ArrayList实现类
 
- 
+#### 7.2.1 初始化长度
+
+> `ArrayList` 的本质是数组，所以创建 `ArrayList` 对象时实际上是在它的内部创建了一个数组
+
+![](images/Collection集合/file-20250425223413.png)
+
+>这是 `ArrayList` 的无参构造器，创建 `ArrayList` 对象时并不是创建一个 `null` 的数组，而是创建一个长度为 0 的数组
+
+![](images/Collection集合/file-20250425223701.png)
+
+![](images/Collection集合/file-20250425223934.png)
+
+>给集合添加元素时底层会判断数组的长度，
+
+![](images/Collection集合/file-20250425224336.png)
+
+![](images/Collection集合/file-20250425224445.png)
