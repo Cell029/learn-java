@@ -531,4 +531,14 @@ public static void addNumbers(List<? super Number> list) {
 
 ### 7.1 ListIterator迭代器
 
+>使用方法和通用的迭代器一样，它作为一种新的迭代器，对通用迭代器进行升级扩展，添加了许多新的方法
 
+```java
+ListIterator<String> listIterator = list.listIterator();  
+while (listIterator.hasNext()) {  
+    String item = listIterator.next();  
+    System.out.println(item);  
+}
+```
+
+#### 7.1.1 hasPrevious
