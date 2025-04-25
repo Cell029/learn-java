@@ -597,4 +597,9 @@ while (listIterator.hasPrevious()) {
 
 ![](images/Collection集合/file-20250425194414.png)
 
->因为添加完元素后 `cursor` 会加一，所以
+![](images/Collection集合/file-20250425194549.png)
+
+>因为每一轮都是先调用的 `next()`，所以第一轮的 `i == 0`，通过迭代器获取到的第一个元素就是 `[0]` 元素（a），然后 `cursor + 1`，
+
+![](images/Collection集合/file-20250425200513.png)
+
