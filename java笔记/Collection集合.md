@@ -713,7 +713,9 @@ System.out.println(list);
 
 ![](images/Collection集合/file-20250425223934.png)
 
->给集合添加元素时底层会判断数组的长度，
+![](images/Collection集合/file-20250425224523.png)
+
+>给集合添加元素时底层会判断数组的长度，如果是 0 的话就将数组的默认长度设置为 10，所以第一次使用 `add()` 添加元素时集合的长度会变成 10，当超过 10 后就要进行扩容操作，所以 `ArrayList` 是一个“可变”数组
 
 ![](images/Collection集合/file-20250425224336.png)
 
