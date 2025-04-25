@@ -53,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "compara",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -179,8 +179,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a2f9722f3c5ab9e2",
+  "active": "c3f34de6cf1867d4",
   "lastOpenFiles": [
+    "java笔记/Arrays数组.md",
+    "java笔记/Collection集合.md",
     "java笔记/images/Collection集合/file-20250425205950.png",
     "java笔记/images/Collection集合/file-20250425205557.png",
     "java笔记/images/Collection集合/file-20250425204742.png",
@@ -192,15 +194,12 @@
     "java笔记/images/Collection集合/file-20250425192052.png",
     "java笔记/images/Collection集合/file-20250425191951.png",
     "java笔记/插入排序.md",
-    "java笔记/Collection集合.md",
-    "java笔记/images/Collection集合/file-20250425172857.png",
     "java笔记/单例模式初识.md",
     "java笔记/方法.md",
     "java笔记/多态.md",
     "java笔记/堆排序.md",
     "java笔记/大数字.md",
     "java笔记/枚举类型.md",
-    "java笔记/Arrays数组.md",
     "java笔记/异常.md",
     "java笔记/字符串.md",
     "java笔记/images/Collection集合",

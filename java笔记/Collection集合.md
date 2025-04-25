@@ -697,3 +697,8 @@ while (listIterator.hasNext()) {
 }  
 System.out.println(list);
 ```
+
+****
+### 7.2 ArrayList实现类
+
+ 
