@@ -720,3 +720,16 @@ System.out.println(list);
 ![](images/Collection集合/file-20250425224336.png)
 
 ![](images/Collection集合/file-20250425224445.png)
+
+****
+#### 7.2.2 扩容机制
+
+![](images/Collection集合/file-20250426134410.png)
+
+>当集合中的元素长度与容量相等时就进行扩容，
+
+![](images/Collection集合/file-20250426134916.png)
+
+![](images/Collection集合/file-20250426134937.png)
+
+>
