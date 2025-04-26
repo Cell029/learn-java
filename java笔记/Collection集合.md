@@ -730,6 +730,19 @@ System.out.println(list);
 
 ![](images/Collection集合/file-20250426134916.png)
 
+>因为传进 `grow()` 方法的参数始终是 `size + 1`，而 `size` 可以等同的看作是 `oldCapacity` ，所以那个  `minGrowth` 可以看作是当前超过长度的元素的个数
+
 ![](images/Collection集合/file-20250426134937.png)
 
->
+![](images/Collection集合/file-20250426135309.png)
+
+>就是让 `prefLength` 等于扩容操作前的原集合大小  + 当前超过容量的大小（`minGrowth`）与`oldLength >> 1` （除以2）中的最大值，因为初始容量是 10，当添加第十一个元素时，`minGrowth == 1`，`oldLength == 10`，所以预计长度 `prefLength` = 10 +  max(1, 10 / 2) = 15
+
+>那当我添加第 16 个元素时， `prefLength` = 15 + max(1, 15 / 2) = 22
+
+![](images/Collection集合/file-20250426141653.png)
+
+>可以看到 `debug` 后集合的长度确实增长到了 22
+
+****
+#### 7.2.3
