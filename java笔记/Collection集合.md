@@ -730,7 +730,9 @@ System.out.println(list);
 
 ![](images/Collection集合/file-20250426134916.png)
 
->因为传进 `grow()` 方法的参数始终是 `size + 1`，而 `size` 可以等同的看作是 `oldCapacity` ，所以那个  `minGrowth` 可以看作是当前超过长度的元素的个数
+>因为传进 `grow()` 方法的参数始终是 `size + 1`，而 `size` 可以等同的看作是 `oldCapacity` ，所以那个  `minGrowth` 可以看作是当前超过长度的元素的个数（如果发生后移操作就不能这样等同）
+
+>实际上 `size` 是上一次添加元素后的集合的大小，也就是 `list.size()`
 
 ![](images/Collection集合/file-20250426134937.png)
 
@@ -744,5 +746,6 @@ System.out.println(list);
 
 >可以看到 `debug` 后集合的长度确实增长到了 22
 
+>所以扩容的容量约等于原容量的 1.5 倍
+
 ****
-#### 7.2.3
