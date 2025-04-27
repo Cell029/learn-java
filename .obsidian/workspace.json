@@ -11,14 +11,14 @@
             "id": "a2f9722f3c5ab9e2",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": ".obsidian/workspace.json",
-                "bFile": ".obsidian/workspace.json",
-                "aRef": ""
+                "file": "java笔记/Set 集合.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: workspace.json"
+              "icon": "lucide-file",
+              "title": "Set 集合"
             }
           }
         ]
@@ -142,12 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "java笔记/Set 集合.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "Set 集合 的大纲"
             }
           },
           {
@@ -180,6 +181,7 @@
   },
   "active": "a2f9722f3c5ab9e2",
   "lastOpenFiles": [
+    "java笔记/包装类.md",
     "java笔记/Set 集合.md",
     "java笔记/栈和队列.md",
     "java笔记/Collection集合.md",
@@ -217,7 +219,6 @@
     "java笔记/希尔排序.md",
     "java笔记/选择排序.md",
     "java笔记/冒泡排序.md",
-    "java笔记/包装类.md",
     "java笔记/images/大数字",
     "java笔记/images/包装类",
     "java笔记/未命名",
