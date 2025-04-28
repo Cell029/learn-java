@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "6ffefdd42b11ed58",
+        "id": "e447bc45f711f592",
         "type": "tabs",
         "children": [
           {
-            "id": "a2f9722f3c5ab9e2",
+            "id": "02406b404fb9446f",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -179,8 +179,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a2f9722f3c5ab9e2",
+  "active": "02406b404fb9446f",
   "lastOpenFiles": [
+    "java笔记/Set 集合.md",
     "java笔记/images/Set 集合/file-20250428144016.png",
     "java笔记/images/Set 集合/file-20250428141802.png",
     "java笔记/images/Set 集合/file-20250428141759.png",
@@ -188,7 +189,6 @@
     "java笔记/images/Set 集合/file-20250428133225.png",
     "java笔记/images/Set 集合",
     "java笔记/包装类.md",
-    "java笔记/Set 集合.md",
     "java笔记/栈和队列.md",
     "java笔记/Collection集合.md",
     "java笔记/images/栈和队列/file-20250427163509.png",
@@ -197,7 +197,6 @@
     "java笔记/images/栈和队列/file-20250427161618.png",
     "java笔记/images/栈和队列/file-20250427155818.png",
     "java笔记/images/栈和队列/file-20250427155716.png",
-    "java笔记/images/栈和队列/file-20250427155602.png",
     "java笔记/images/栈和队列",
     "java笔记/images/链表",
     "java笔记/字符串.md",

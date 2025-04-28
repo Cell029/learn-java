@@ -54,5 +54,30 @@ while (iterator.hasNext()) {
 ### 2.2 迭代器 + 增强 for
 
 ```java
-
+for (Integer key : keys) {  
+    String value = map.get(key);  
+    System.out.println(key + "=" + value);  
+}
 ```
+
+>这种遍历方式虽然没有直接调用迭代器，但是它的底层会自动调用，把迭代器获取的 `next` 赋值给 `key` ，但是如果集合内部是不带构造器的就不能这样使用了
+
+****
+### 2.3 `Map.Entry` 接口
+
+>`Map.Entry` 是用来表示 `Map` 中“一个键值对”的对象
+
+```java
+Set<Map.Entry<Integer, String>> entries = map.entrySet();  
+Iterator<Map.Entry<Integer, String>> iterator = entries.iterator();  
+while (iterator.hasNext()) {  
+    Map.Entry<Integer, String> entry = iterator.next();  
+    System.out.println(entry.getKey() + "=" + entry.getValue());  
+}
+```
+
+>把 `Map` 中的键值对封装成一个对象，让他们实现简单的统一，一个对象就代表着一条数据，当需要修改数据时直接通过对象修改，降低了键值对与 `Map` 直接的耦合度，让管理变得更加方便，因为每次 `new` 对象都是不一样的，所有也很符合 `Set` 集合的特性，就可以直接把 `Entry` 对象放进去，并且封装的属性获取更方便，不管拿到的是 `key` 还是 `value`，它们一定是互相对应的，所以就可以实现单独的修改，那么 `Entry` 类里面就可以封装很多的方法提供给外部使用
+
+****
+
+#### 2.3.1 
