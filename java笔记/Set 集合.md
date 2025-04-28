@@ -265,7 +265,176 @@ System.out.println(map);
 ****
 # 3. HashMap 的简单实现
 
+>手写简易版的 `HashMap`
 
+```java
+public class MyHashMap<K, V> {  
+    private Node<K, V>[] table; // 哈希表  
+    private int size; // 键值对个数  
+  
+    static class Node<K, V> {  
+        int hash; // 哈希值  
+        K key; // 键  
+        V value; // 值  
+        Node<K, V> next; // 下一个节点  
+  
+        public Node() {}  
+  
+        public Node(int hash, K key, V value, Node<K, V> next) {  
+            this.hash = hash;  
+            this.key = key;  
+            this.value = value;  
+            this.next = next;  
+        }  
+  
+        @Override  
+        public String toString() {  
+            return "[" + key + "=" + value + "]";  
+        }  
+    }  
+  
+    @SuppressWarnings("unchecked")  
+    public MyHashMap() {  
+        this.table = new Node[16];  
+    }  
+  
+  
+  
+    // put 方法  
+    public V put(K key, V value) {  
+        if (size == table.length) {  
+            grow();  
+        }  
+        if (key == null) {  
+            return putForNullKey(value);  
+        } else { // 当 key 不为空  
+            // 获取 key 的 hash 值  
+            int hash = key.hashCode();  
+            // 通过 hash 值获取对应的哈希表的下标  
+            int index = hash % table.length;  
+            // 根据下标获取链表表头的地址  
+            Node<K, V> node = table[index];  
+            Node<K, V> prev = null;  
+            while (node != null) {  
+                if (key.equals(node.key)) {  
+                    // 找到相同 key 的节点，覆盖 value                    
+                    V oldValue = node.value;  
+                    node.value = value;  
+                    return oldValue;  
+                } else {  
+                    // 目前没找到相同的 key ，依次遍历链表  
+                    prev = node;  
+                    node = node.next; // node 依次后移  
+                }  
+            }  
+            // 遍历完整个链表没有找到相同的 key ，直接插到链表尾部  
+            if (prev != null) {  
+                prev.next = new Node<>(hash, key, value, null);  
+            } else {  
+                // 遍历完链表后 prev 还是 null 证明整个链表为空，直接插入节点  
+                table[index] = new Node<>(hash, key, value, null);  
+            }  
+            size++;  
+        }  
+        return null;  
+    }  
+  
+    private V putForNullKey(V value) {  
+        // 因为传入的 key 是 null，所以它一定是放在 0 号位置的  
+        // 获取 0 号位置的地址引用，得到整个链表的表头  
+        Node<K, V> node = table[0];  
+        if (node == null) {  
+            // 如果链表表头是 null，证明此链表为空  
+            // 直接插入就行  
+            table[0] = new Node<>(0, null, value, null); // 让新插入的作为链表表头  
+            size++; // 插入了一个 key 为 null 的键值对  
+            return value;  
+        }  
+        // 走到这里证明链表中是有节点的，这时候就需要遍历链表查找是否有相同 key 的键值对  
+        Node<K, V> prev = null;  
+        while (node != null) {  
+            if (node.key == null) {  
+                // 找到相同 key 的节点，直接覆盖 value                
+                V oldValue = node.value;  
+                node.value = value;  
+                return oldValue; // 返回旧的 value            
+            } else {  
+                // 没找到相同的 key 的键值对，慢慢遍历  
+                prev = node;  
+                node = node.next; // node 指针依次后移  
+            }  
+        }  
+        // 遍历完链表都没有找到相同 key 的键值对，那就尾插法插到链表的尾部  
+        prev.next = new Node<>(0, null, value, null);  
+        size++;  
+        return value;  
+    }  
+  
+    // get方法  
+    public V get(K key) {  
+        int hash = key.hashCode();  
+        int index = hash % table.length;  
+        Node<K, V> node = table[index];  
+        while (node != null) {  
+            if (key.equals(node.key)) {  
+                return node.value;  
+            } else {  
+                node = node.next;  
+            }  
+        }  
+        return null;  
+    }  
+  
+    // 扩容  
+    public void grow() {  
+        int newTableLength = table.length * 2;  
+        Node<K, V>[] newTable = new Node[newTableLength];  
+        for (int i = 0; i < table.length; i++) { // 遍历老哈希表中的每个位置的链表表头  
+            Node<K, V> node = table[i]; // 获取老哈希表中的所有链表表头  
+            // 遍历链表中的节点，计算每个节点的新的 hash ，然后放到对应的新的哈希表的下标位置  
+            while (node != null) {  
+                int index = node.hash % newTableLength; // 获取旧的节点在新的哈希表中的新的 hash 值  
+                // 断开当前节点的 next 引用，避免连接到旧链表  
+                Node<K, V> nextNode = node.next;  
+                node.next = null; // 清理老节点的 next 引用，避免在新的哈希表中某个链表节点的 next 会指向其他链表的节点  
+                if (newTable[index] == null) {  
+                    newTable[index] = node;  
+                } else {  
+                    Node<K, V> tail = newTable[index];  
+                    while (tail.next != null) { // 遍历到新哈希表中的链表的表尾  
+                        tail = tail.next;  
+                    }  
+                    // 遍历到最后一个节点  
+                    tail.next = node; // 将老哈希表的链表的表头插到表尾  
+                }  
+                node = nextNode; // 继续处理老链表的下一个节点  
+            }  
+        }  
+        table = newTable;  
+    }  
+  
+    public int size() {  
+        return size;  
+    }  
+  
+    // 重写 toString 方法，输出 map 时会自动调用  
+    @Override  
+    public String toString() {  
+        StringBuilder sb = new StringBuilder();  
+        for (int i = 0; i < table.length; i++) { // 遍历哈希表  
+            if (table[i] != null) {  
+                Node<K, V> node = table[i];  
+                while (node != null) { // 遍历存储键值对的链表  
+                    sb.append(node);  
+                    sb.append("\n");  
+                    node = node.next;  
+                }  
+            }  
+        }  
+        return sb.toString();  
+    }  
+}
+```
 
 
 
