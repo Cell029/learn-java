@@ -20,8 +20,39 @@
 
 >`HashMap` 内部有一个 `keySet` 字段，第一次调用时才创建一个新的 `KeySet` 实例，`KeySet` 接收的就是 `Map` 集合中的键，这并不是普通的复制关系，而是返回一个只允许移除元素的视图，所以是不饿能直接通过 `KeySet` 对象修改或新增键的，因为 `Map` 的键值是绑定在一起的，所以只能通过 `keySet()` 删掉旧键，重新加一个新键
 
+```java
+Set<Integer> integers = map.keySet(); // 是用 Set 接收 Key 
+System.out.println(integers);
+```
+
 ****
 ### 1.1.2 值 Value
 
 >每个键只对应一个值，但是不同键可以指向相同的值，所以 `Value` 才可以看作是集合
 
+![](images/Set%20集合/file-20250428144016.png)
+
+>这个方法的整体操作和上面的 `KeySet` 类似，也是作为一个视图，可以直接通过 `Values` 对象删除值（整个键值对删除），但是不能修改或增加，这需要通过 `Map` 对象来操作
+
+****
+## 2. 迭代方式
+
+### 2.1 迭代器 + while
+
+```java
+Iterator<Integer> iterator = keys.iterator();  
+while (iterator.hasNext()) {  
+    Integer key = iterator.next();  
+    String value = map.get(key);  
+    System.out.println(key + "=" + value);  
+}
+```
+
+>在 `HashMap` 中也存在迭代器，通过迭代器来获取 `Set` 集合中的所有键，然后再根据键获取对应的值
+
+****
+### 2.2 迭代器 + 增强 for
+
+```java
+
+```
