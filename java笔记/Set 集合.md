@@ -123,6 +123,28 @@ while (iterator.hasNext()) {
 
 >然后根据 `key` 的值来计算 `hash` 值，根据 `hash` 值找到对应的 `Entry` 对象大概在哪个位置，然后对比 `key` 的值，返回 `Entry` 对象中的 `value` 字段
 
->虽然 `Entry` 中的键和值永远是一一对应的，但是 `Map`
+>虽然 `Entry` 中的键和值永远是一一对应的，但是 `Map` 想要找到确切的 `value` 还是要根据 `value` 的对比，如果随意修改了 `key` 的值，就会导致 `key.equals(k)` 返回一个 `false` ，也就是找不到确切的存放 `value` 的那个 `Entry` 对象，这也是为什么 `Entry` 类中唯独没有声明修改 `key` 的方法
+
+****
+# 2. HashMap
+
+## 2.1 key 的唯一性
+
+```java
+Person person1 = new Person("张三", 20);  
+Person person2 = new Person("李四", 34);  
+Person person3 = new Person("王五", 40);  
+Person person4 = new Person("张三", 20);  
+  
+Map<Person, String> map = new HashMap<>();  
+map.put(person1, "a");  
+map.put(person2, "b");  
+map.put(person3, "c");  
+map.put(person4, "d");  
+System.out.println(map);
+// {Person{name='王五', age=40}=c, Person{name='张三', age=20}=a, Person{name='李四', age=34}=b, Person{name='张三', age=20}=d}
+```
+
+> `Map` 集合中
 
 
