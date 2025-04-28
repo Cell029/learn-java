@@ -25,6 +25,12 @@ Set<Integer> integers = map.keySet(); // 是用 Set 接收 Key
 System.out.println(integers);
 ```
 
+![](images/Set%20集合/file-20250428162706.png)
+
+> `KeySet` 是一个懒加载的集合，它是 `Map` 的视图，并不直接存储所有的 `key`，可以通过内部的迭代器动态地从 `Map` 中获取所有的 `key`，需要注意的是，并不是一创建了 `KeySet` 对象就调用了迭代器获取所有的 `key` ，而是在程序员手动遍历 `key` 时才会自动调用它内部的迭代器动态获取，因为使用是的迭代器来获取元素，所以才可以实现修改的操作
+
+
+
 ****
 ### 1.1.2 值 Value
 
@@ -81,12 +87,18 @@ while (iterator.hasNext()) {
 >`Entry` 只允许修改 `value`，不允许修改 `key`，这是为了保证 `Map` 的结构完整性和查找正确性。要想修改 `key`，正确做法是：移除旧的 `Entry`，插入新的 `Entry`
 
 ****
-
-**如何通过 Entry 找到键值对**
+## 3. Map 的存储结构
 
 ![](images/Set%20集合/file-20250428160648.png)
 
->看图，在调用 `put(key, value)` 方法时，底层会创建一个实现了 `Map.Entry` 接口的 `Node` 类的对象，这个 `Node` 对象其实就可以看作是 `Entry` 对象，每个 `Node` 保存了 `key`、`value`、`hash` 值，还有一个 `next` 指向下一个节点（链表结构）
+>看图，在调用 `put(key, value)` 方法时，底层会创建一个实现了 `Map.Entry` 接口的 `Node` 类的对象，这个 `Node` 对象其实就可以看作是 `Entry` 对象，每个 `Node` 保存了 `key`、`value`、`hash` 值，还有一个 `next` 指向下一个节点（链表结构），所以只要往 `Map` 中 `put` 新元素，就会创建新的 `Entry` 对象，用来管理键值对，
+
+>所以在 `Map` 的实现中，所有的键值对都直接存储在 `Entry`（或其派生类，比如 `Node`）对象中。
+>也就是说，当调用 `put(key, value)` 时，Map 并不会直接存储 `key` 和 `value`，而是创建一个`Entry<K, V>`（或者 `Node<K, V>`）对象，将 `key` 和 `value` 包裹在其中，这个对象会被存入 `Map` 内部的数据结构
+
+>`keySet()` 和 `values()` 这两个方法并不会直接存储键值对，它们只是提供了一种便捷的视图，用来遍历 `Map` 中的所有键或值
+
+**如何通过 Entry 找到键值对**
 
 >在大部分情况下，程序员是只知道 `key` 的，所以想要获取某个 `key` 对应的值时是直接使用 `Map` 的 `get(key)` 方法的，
 
