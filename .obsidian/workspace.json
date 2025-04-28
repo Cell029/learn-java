@@ -162,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -179,8 +179,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a2f9722f3c5ab9e2",
+  "active": "8746cf1289c80a6d",
   "lastOpenFiles": [
+    "java笔记/images/Set 集合/file-20250428133532.png",
+    "java笔记/images/Set 集合/file-20250428133225.png",
+    "java笔记/images/Set 集合",
     "java笔记/包装类.md",
     "java笔记/Set 集合.md",
     "java笔记/栈和队列.md",
@@ -196,7 +199,6 @@
     "java笔记/images/链表/file-20250427120539.png",
     "java笔记/images/链表/file-20250427120416.png",
     "java笔记/images/链表/file-20250427115651.png",
-    "java笔记/images/链表/file-20250427115544.png",
     "java笔记/images/链表",
     "java笔记/字符串.md",
     "java笔记/Arrays数组.md",
@@ -225,8 +227,6 @@
     "java笔记/images/字符串",
     "java笔记/todo.md",
     "java笔记/images/异常",
-    "java笔记/Object类中的方法.md",
-    "java笔记/images/Arrays数组",
     "未命名.canvas"
   ]
 }
