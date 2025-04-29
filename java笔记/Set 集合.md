@@ -263,7 +263,7 @@ System.out.println(map);
 >当然重写的字段是根据使用者来决定的，是根据名字判断为同一个 `key` 还是全部的字段都相同才判断为同一个 `key` ，这需要手动设置
 
 ****
-# 3. HashMap 的简单实现
+## 2.4 HashMap 的简单实现
 
 >手写简易版的 `HashMap`
 
@@ -437,4 +437,11 @@ public class MyHashMap<K, V> {
 ```
 
 ****
+## 2.5 HashMap的容量一直是2的次幂
+
+>
+
+****
+
+# 4. LinkedHashMap
 
