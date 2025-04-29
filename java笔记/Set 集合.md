@@ -455,4 +455,24 @@ public class MyHashMap<K, V> {
 
 # 4. LinkedHashMap
 
->`LinkedHashMap` 继承自 `HashMap`，因此具有 `HashMap` 的所有特性，`LinkedHashMap` 内部维护了一个双向链表，用来记录插入顺序或者访问顺序，所以 `LinkedHashMap` 是有序的
+>`LinkedHashMap` 继承自 `HashMap`，因此具有 `HashMap` 的所有特性，`LinkedHashMap` 内部维护了一个双向链表，用来记录插入顺序或者访问顺序，所以 `LinkedHashMap` 是有序的，但是效率略低于 `HashMap`
+
+![](images/Set%20集合/file-20250429164029.png)
+
+>`LinkedHashMap` 中的节点叫作 `Entry`，它继承了 `HashMap` 中的内部类 `Node`，所以它内部总共有六个属性， `before` 、 `after` （用来确定插入的顺序）、`hash`、`key`、`value`、`next`
+
+>具体的流程和扩容操作都和 `HashMap` 的一样，
+
+****
+
+## 4.1 重写的方法
+
+### 4.1.2 Node
+
+![](images/Set%20集合/file-20250429165802.png)
+
+>构建一个新的 `Entry` 节点，包含指向前一个、后一个节点的指针（`before`、`after`），用于维护“插入顺序链表”，里面还有个 `linkNodeAtEnd` 方法，
+
+![](images/Set%20集合/file-20250429170017.png)
+
+>把新创建的节点 p 插入到双向链表的末尾，以维护插入顺序
