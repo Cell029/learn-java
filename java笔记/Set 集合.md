@@ -476,3 +476,29 @@ public class MyHashMap<K, V> {
 ![](images/Set%20集合/file-20250429170017.png)
 
 >把新创建的节点 p 插入到双向链表的末尾，以维护插入顺序
+
+****
+## 4.2 自动删除操作
+
+>当 `LinkedHashMap` 被用作缓存时，可以在添加新元素时自动淘汰旧元素，`HashMap` 本身不提供自动淘汰机制，通过 `LinkedHashMap` 的有序链表结构 + 访问顺序就可以确定“最老的元素“
+
+![](images/Set%20集合/file-20250429171731.png)
+
+>`afterNodeInsertion()` 是 `HashMap` 添加新节点后，`LinkedHashMap` 重写的方法，判断条件里有调用 `removeEldestEntry()` 方法，它会返回一个 false，则不会调用 `removeNode` 方法，
+
+![](images/Set%20集合/file-20250429171951.png)
+
+>而调用 `put` 方法时会自动将 `evict` 设置为 true，也就是说默认是不会调用 `removeNode` 方法的
+
+![](images/Set%20集合/file-20250429172302.png)
+
+****
+## 4.3 LRU 缓存
+
+>LRU（Least Recently Used）缓存是一种缓存淘汰策略：
+
+- 缓存有固定大小；
+- 每次读取或写入一个元素，都会把它标记为“最近使用”；
+- 如果缓存已满，就淘汰最久未使用的元素
+
+>上面有提到因为`removeEldestEntry()` 方法的缘故，默认是不能启动缓存机制的，所以需要外部重写这个方法，设置限制条件，达到条件后就返回 false，
