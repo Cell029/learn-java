@@ -521,4 +521,68 @@ public class MyHashMap<K, V> {
 ****
 ## 5.2 key 的排序机制
 
+![](images/Set%20集合/file-20250430180408.png)
+
+>这段代码就是 `TreeMap` 底层使外部传进来的比较规则 `Comparator` ，根据外部手动定义的规则对 `key` 进行排序
+
+![](images/Set%20集合/file-20250430180608.png)
+
+>如果外部没有传比较规则进来，就会调用 `key` 对象内部的比较规则，例如 `String` 的内部比较器
+
+>所以当没有在外部或者类的内部定义比较规则，运行时就会报错，而 `null` 是无法参与比较的，所以 `null` 是不能作为 `TreeMap` 的 `key` 的
+
+****
+## 5.3 Comparable 接口和 Comparator 接口
+
+>类本身实现 `Comparable<T>` 接口，并重写 `compareTo` 方法
+
+```java
+public class Person implements Comparable<Person> {
+    String name;
+    int age;
+
+    public Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public int compareTo(Person other) {
+        return this.age - other.age; // 按年龄升序排序
+    }
+
+    @Override
+    public String toString() {
+        return name + "(" + age + ")";
+    }
+}
+```
+
+>定义一个比较器类或匿名类表达式，实现 `compare(T o1, T o2)` 方法
+
+```java
+public class AgeDescComparator implements Comparator<Person> {
+    @Override
+    public int compare(Person p1, Person p2) {
+        return p2.age - p1.age; // 年龄降序
+    }
+}
+```
+
+```java
+TreeMap<Person, String> treeMap = new TreeMap<>(new Comparator<Person>());
+```
+
+```java
+
+TreeMap<Person, String> treeMap = new TreeMap<>(new Comparator<Person>() {
+    @Override
+    public int compare(Person p1, Person p2) {
+        return p2.age - p1.age; // 年龄降序
+    }
+});
+```
+
+****
+# 6. HashSet
 
