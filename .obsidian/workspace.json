@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/树.md",
+                "file": "java笔记/Set 集合.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "树"
+              "title": "Set 集合"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/树.md",
+                "file": "java笔记/Set 集合.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "树 的大纲"
+              "title": "Set 集合 的大纲"
             }
           },
           {
@@ -181,6 +181,8 @@
   },
   "active": "02406b404fb9446f",
   "lastOpenFiles": [
+    "java笔记/Collection集合.md",
+    "java笔记/树.md",
     "java笔记/images/树/file-20250430155028.png",
     "java笔记/images/树/d13dacaa0f1d41c0a584abe9b9de75fc.png",
     "java笔记/images/树/0239cf4b23f3ad9af99623afde8867b9.png",
@@ -191,14 +193,11 @@
     "java笔记/images/树/55f567ac1b9bee1185b8d8361cf3e6c3.png",
     "java笔记/images/树/6baee4eb9205f864bf4f24aa7ddf81c9_720.png",
     "java笔记/images/树/44f7ab3f3ecdda6468c6493b34b6ff6c.png",
-    "java笔记/images/树/08ad62ffd9ac3d2b084c478389264ac8.png",
     "java笔记/images/树",
     "java笔记/Set 集合.md",
-    "java笔记/树.md",
     "java笔记/images/Set 集合",
     "java笔记/包装类.md",
     "java笔记/栈和队列.md",
-    "java笔记/Collection集合.md",
     "java笔记/链表.md",
     "java笔记/images/栈和队列",
     "java笔记/images/链表",
