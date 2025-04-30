@@ -507,3 +507,18 @@ public class MyHashMap<K, V> {
 
 ****
 # 5. TreeMap
+
+## 5.1 结构
+
+>`TreeMap` 的底层核心结构是红黑树，不是哈希表
+
+![](images/Set%20集合/file-20250430174057.png)
+
+>它的 `Entry` 类中封装了六个属性，其中一个就是 `color` ，用来控制节点的颜色（红、黑），并且由于红黑树的特性，所以 `TreeMap` 中的 `key` 实际是按照 `key` 的大小来排序的
+
+![](images/Set%20集合/file-20250430175114.png)
+
+****
+## 5.2 key 的排序机制
+
+
