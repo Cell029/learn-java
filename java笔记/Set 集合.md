@@ -584,5 +584,4 @@ TreeMap<Person, String> treeMap = new TreeMap<>(new Comparator<Person>() {
 ```
 
 ****
-# 6. HashSet
 
