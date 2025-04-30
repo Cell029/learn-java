@@ -20,6 +20,7 @@ group by filename
 - [x] 继承中的super() #todo ✅ 2025-04-10
 - [ ] 深入开闭原则 #todo 
 - [x] 抽象类 #todo ✅ 2025-04-12
-- [ ] 深入hashCode #todo 
+- [x] 深入hashCode #todo ✅ 2025-04-30
 - [ ] 快速排序的深入 #todo 
 - [ ] try-catch-finally在Java7之后的优化释放资源深入
+- [ ] 装饰模式的深入 #todo 

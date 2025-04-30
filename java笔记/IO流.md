@@ -69,3 +69,28 @@
 ****
 # 2. 装饰模式
 
+>装饰模式是一种结构型设计模式，它允许在不改变对象自身结构的前提下，动态地扩展对象的功能
+
+>它有点类似于高级的封装，只是封装是隐藏实现的细节，只暴露必要的接口给外部使用，而装饰模式是动态的扩展功能，不在类的内部进行限制条件，封装是对内部封装，装饰模式是对外部进行扩展，所以装饰模式也像是接口，外部的具体扩展就像是给接口的方法提供具体的实现
+
+```java
+Reader reader = new FileReader("data.txt");
+int ch;
+while ((ch = reader.read()) != -1) {
+    System.out.print((char) ch);
+}
+reader.close();
+```
+
+加上装饰器：`BufferedReader`
+
+```java
+Reader reader = new BufferedReader(new FileReader("data.txt"));
+String line;
+while ((line = ((BufferedReader) reader).readLine()) != null) {
+    System.out.println(line);
+}
+reader.close();
+```
+
+>虽然目前还看不太懂装饰模式，但是通过这两段代码的对比可以看出第二个代码看上去更牛一点
