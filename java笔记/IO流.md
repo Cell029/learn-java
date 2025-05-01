@@ -487,3 +487,31 @@ try (BufferedReader br = new BufferedReader(new FileReader("test.txt"))) {
 >可以看到 `InputStream` 类中定义了一个 `markSupported()` 方法，但是它默认返回的是 `false`，而 `BufferedInputStream` 中就是默认为 `true` 的
 
 ![](images/IO流/file-20250501215027.png)
+
+```java
+protected volatile byte buf[];    // 缓冲区
+protected int pos;                // 当前读取的位置（指向 buf 中的索引）
+protected int count;              // buf 中有效字节数
+protected int markpos = -1;       // mark 标记位置
+protected int marklimit;          // 最大允许读取的字节数
+```
+
+> `pos` 表示当前缓冲区读取的指针，记录读取缓冲的位置， `markpos` 表示上次调用 `mark(int readlimit)` 时记录的 `pos` 值，初始值为 -1 表示没有标记，`marklimit` 表示自 `mark()` 调用后允许读取的最大字节数
+
+![](images/IO流/file-20250501215226.png)
+
+>这个源码就是把 `pos` 赋值给 `markpos` 用来记录当前的“标记点”，并从这个位置计算最多可以读取的字节数，然后把 `readlimit` 赋值给 `marklimit`
+
+![](images/IO流/file-20250501215257.png)
+
+>调用 `reset` 方法后会进入 `implReset` 去判断 `markpos` 是否存在，然后让读取过文件进行过增加的 `pos` 恢复到之前的记录，也就是上面提到的 `markpos = pos`
+
+![](images/IO流/file-20250501220409.png)
+
+![](images/IO流/file-20250501220452.png)
+
+>主要的整合还是在获取缓冲区的 `fill()` 方法中
+
+![](images/IO流/file-20250501220939.png)
+
+>
