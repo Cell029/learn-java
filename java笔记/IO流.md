@@ -461,4 +461,10 @@ try (BufferedReader br = new BufferedReader(new FileReader("test.txt"))) {
 }
 ``` 
 
->这个方法的本质还是调用了 `read` 方法，
+>这个方法的本质还是调用了 `read` 方法，从 `fill()` 获取的缓冲区中一次性读取很多个字符，就有点类似于使用了字节流的 `byte[]` 数组，一次性接收多个然后直接输出，所以会比直接使用 `read` 方法更高效
+
+****
+# 8. mark 和 reset
+
+>`mark()` 和 `reset()` 是 `InputStream`（以及它的子类，如 `BufferedReader`、`FileInputStream`）和 `Reader` 类中提供的方法，通常用于回溯读取数据，即标记一个特定位置，然后在读取流数据时能够跳回到标记的位置重新读取
+
