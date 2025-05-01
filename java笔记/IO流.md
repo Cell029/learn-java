@@ -468,3 +468,22 @@ try (BufferedReader br = new BufferedReader(new FileReader("test.txt"))) {
 
 >`mark()` 和 `reset()` 是 `InputStream`（以及它的子类，如 `BufferedReader`、`FileInputStream`）和 `Reader` 类中提供的方法，通常用于回溯读取数据，即标记一个特定位置，然后在读取流数据时能够跳回到标记的位置重新读取
 
+**1、 mark(int readLimit)**
+
+>将流的当前位置标记为一个参考点，之后可以通过 `reset()` 方法回到这个标记的位置。  
+>
+>`mark()` 方法接受一个参数 `readLimit`，该参数指定在标记之后可以继续读取的最大字节数或字符数，如果流中的数据超过了这个范围，则标记失效
+
+**2、 reset()**
+
+>调用 `reset()` 后，读取的数据将从标记的位置开始重新读取，如果流没有被标记过或者标记已经失效，则此时会抛出 `IOException` 异常
+
+**3、 并不是所有的流都支持这两个方法**
+
+>`InputStream` 类是所有字节流的父类，但并不是所有的 `InputStream` 的子类都实现了 `mark()` 和 `reset()`，比如 `FileInputStream` 默认不支持标记和重置，而 `BufferedInputStream` 支持这两个方法，并且要做到可以临时回溯读取，就要求读取的数据不是事实输出的，而是可以存在一个地方随时读的，所以标记回溯操作通常是用在缓冲流中（具有缓冲区）
+
+![](images/IO流/file-20250501213350.png)
+
+>可以看到 `InputStream` 类中定义了一个 `markSupported()` 方法，但是它默认返回的是 `false`，而 `BufferedInputStream` 中就是默认为 `true` 的
+
+![](images/IO流/file-20250501215027.png)
