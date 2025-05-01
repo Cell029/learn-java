@@ -125,4 +125,64 @@ try {
 }
 ```
 
->利用循环，将文件中的字节依次读出，每个字节返回的都是一段二进制码，根据对应的二进制码使用强制转型将它转换成字符
+>利用循环，将文件中的字节依次读出，因为每个字节的二进制数据实际是 0~255 的无符号值，不能直接返回 `byte` 类型，所以返回的是 `int` 类型，然后根据对应的二进制码使用强制转型将它转换成字符
+
+****
+
+2、` int read(byte[] b)`
+
+>从输入流中读取最多 `b.length` 个字节并填充到数组中，并返回实际读取的字节数量（0 到 b.length），如果没读到数据就返回 `-1`
+
+```java
+FileInputStream fis = null;  
+    try {  
+        int len;  
+        byte[] b = new byte[1024];  
+        fis = new FileInputStream("E:\\IOStream\\test01.txt");  
+        while ((len = fis.read(b)) != -1) {  
+            System.out.print(new String(b, 0, len)); // 以字符串输出  
+        }  
+    } catch (IOException e) {  
+        throw new RuntimeException(e);  
+    } finally {  
+        try {  
+            if (fis != null) fis.close();  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }  
+    }  
+}
+```
+
+> `read(byte[] b)` 方法本身不返回字节，只是把一些字节装进一个数组，然后显示地调用 `String` 的方法将这些字节进行解码
+
+****
+
+3、 `int read(byte[] b, int off, int len)`
+
+>在输入流中从 `off` 下标开始读取最多 `len` 个字节并存入 `byte` 数组中，返回实际读取的字节数，没读到数据就返回 `-1`，调用 `String` 的方法转换成字符串输出
+
+```java
+FileInputStream fis = null;  
+try {  
+    fis = new FileInputStream("E:\\IOStream\\test01.txt");  
+    byte[] b = new byte[1024];  
+    int len;  
+    while ((len = fis.read(b, 100, 500)) != -1) {  
+        // 从 buffer[100] 开始才有数据  
+        System.out.print(new String(b, 100, len));  
+    }  
+} catch (IOException e) {  
+    e.printStackTrace();  
+} finally {  
+    try {  
+        if (fis != null) fis.close();  
+    } catch (IOException e) {  
+        e.printStackTrace();  
+    }  
+}
+```
+
+****
+
+
