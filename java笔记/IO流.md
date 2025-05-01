@@ -540,5 +540,32 @@ try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream("E:\\
 ```
 
 ****
-# 9. FileReader
+# 9. 解决乱码
+
+>如果一个文件是用UTF-8 编码写入的，却使用默认编码 GBK来读取，就会把几个 UTF-8 字节错误地解释为一个字符，导致乱码
+
+## 9.1 InputStreamReader 指定解码方式
+
+>文件（UTF-8 编码）->  InputStream（字节流） -> InputStreamReader（解码为字符） -> BufferedReader（按行读取）
+
+```java
+try (  
+        BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("E:\\IOStream\\test05.txt"), "UTF-8"))  
+) {  
+    String line;  
+    while ((line = br.readLine()) != null) {  
+        System.out.println(line);  
+    }  
+} catch (IOException e) {  
+    e.printStackTrace();  
+}
+```
+
+>通过手动设置编码方式让编码与解码使用的是一样的
+
+****
+## 9.2 OutputStreamWriter 指定编码方式
+
+
+
 
