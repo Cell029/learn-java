@@ -94,3 +94,29 @@ reader.close();
 ```
 
 >虽然目前还看不太懂装饰模式，但是通过这两段代码的对比可以看出第二个代码看上去更牛一点
+
+****
+# 3. FileInputStream
+
+>`FileInputStream` 是 Java IO 包中用于“字节输入”的类，属于字节输入流的一部分，主要用于从文件中读取数据，它是 `InputStream` 的子类，适合读取二进制数据，比如图片、音频、视频等，也可以读取文本文件，但要注意编码问题
+
+1、`FileInputStream(String name)` 类型
+
+```java
+FileInputStream fis = null;  
+try {  
+    fis = new FileInputStream("E:\\IOStream\\test01.txt");  
+    int data;  
+    while ((data = fis.read()) != -1) {  
+        System.out.print((char) data); // 转换为字符输出  
+    }  
+} catch (IOException e) {  
+    e.printStackTrace();  
+} finally {  
+    try {  
+        if (fis != null) fis.close();  
+    } catch (IOException e) {  
+        e.printStackTrace();  
+    }  
+}
+```
