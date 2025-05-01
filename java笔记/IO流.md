@@ -368,3 +368,39 @@ char[] buffer = new char[1024];
 
 >有个新增的 `void write(String str)`  方法，可以直接将字符串输入到文件中
 
+> `Writer` 中有个 `append` 方法，需要在创建 `FileWriter` 时传入 `append = true`，然后就可以实现实现“文件末尾追加”
+
+```java
+try(FileWriter writer = new FileWriter("E:\\IOStream\\test04.txt", true)) {  
+    //writer.write("海的那边是什么");  
+    writer.append("\n追加？");  
+} catch (IOException e) {  
+    throw new RuntimeException(e);  
+}
+```
+
+**普通文本文件的复制**
+
+>这种方式只适合复制 `.txt` 文件
+
+```java
+File sourceFile = new File("source.txt");
+File destFile = new File("copy.txt");
+try (
+    FileReader reader = new FileReader(sourceFile);
+    FileWriter writer = new FileWriter(destFile)
+) {
+    char[] buffer = new char[1024];
+    int len;
+    while ((len = reader.read(buffer)) != -1) {
+        writer.write(buffer, 0, len);
+    }
+    writer.flush(); // 可选，close 时也会自动 flush
+    System.out.println("文本文件复制完成！");
+} catch (IOException e) {
+    e.printStackTrace();
+}
+```
+
+****
+# 7. 
