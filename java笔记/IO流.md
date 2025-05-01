@@ -228,6 +228,84 @@ byte[] data = "hello world".getBytes();
 fos.write(data, 6, 5); // 只写入 "world"
 ```
 
+```java
+FileOutputStream fos = null;  
+try {  
+    fos = new FileOutputStream("E:\\IOStream\\test02.txt");  
+    String content = "Hello, FileOutputStream!";  
+    byte[] bytes = content.getBytes();  
+    fos.write(bytes); // 转换为字节数组写入  
+    fos.flush(); // 强制刷新缓冲区（通常可省略）  
+} catch (IOException e) {  
+    e.printStackTrace();  
+} finally {  
+    try {  
+        if (fos != null) fos.close();  
+    } catch (IOException e) {  
+        e.printStackTrace();  
+    }  
+}
+```
+
 ****
-## 4.2 flush() 方法
+## 4.2 文件复制
+
+>从源文件中读取数据（输入流）-> 写入目标文件（输出流）
+
+```java
+FileInputStream fis = null;  
+FileOutputStream fos = null;  
+try {  
+    fis = new FileInputStream("E:\\IOStream\\test01.txt");  
+    fos = new FileOutputStream("E:\\IOStream\\test03.txt");  
+    byte[] bytes = new byte[1024];  
+    int len;  
+    while ((len = fis.read(bytes)) != -1) {  
+        fos.write(bytes, 0, len);  
+    }  
+    fos.flush();  
+} catch (IOException e) {  
+    throw new RuntimeException(e);  
+} finally {  
+    try {  
+        if (fis != null) fis.close();  
+    } catch (IOException e) {  
+        e.printStackTrace();  
+    }  
+    try {  
+        if (fos != null) fos.close();  
+    } catch (IOException e) {  
+        e.printStackTrace();  
+    }  
+}
+```
+
+****
+## 4.3 flush() 方法
+
+>`flush()` 是强制将内存缓冲区中的数据立即写出到目标设备（如文件、网络、控制台等）的方法
+
+>因为很多 IO 流具有缓冲机制，为了提高性能，这些流不会每次 `write()` 都立刻写入文件或网络，而是先写入内存缓冲区，等缓冲区满了再调用 `flush()` 或者调用 `close()` 时才真正输出，但是某些情况下需要及时地把数据输出出去，所以就需要提前手动调用 `flush()`
+
+>所以 `close()` 方法中是包含 `flush()` 的，关闭资源时会自动使用
+
+****
+## 4.4 close() 方法
+
+>关闭流并释放相关资源，通常位于操作 IO 资源的最后一步，表示“收尾”操作
+
+ **1、 释放资源**
+
+>每个 IO 流在底层都会打开系统资源（如文件描述符、socket 句柄等），不关闭就会导致资源泄漏
+
+ **2、 刷新缓冲区**
+
+>某些输出流（如 `BufferedWriter`、`BufferedOutputStream`）在关闭时会自动调用 `flush()`，确保缓存中的数据完整写出
+
+**3、防止文件被锁定**
+
+>文件流不关闭的话可能导致该文件在其他程序中被“占用”或“锁定”，不能访问或删除
+
+****
+## 4.5 try-with-resources
 
