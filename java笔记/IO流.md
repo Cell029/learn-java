@@ -546,7 +546,7 @@ try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream("E:\\
 
 ## 9.1 InputStreamReader 指定解码方式
 
->文件（UTF-8 编码）->  InputStream（字节流） -> InputStreamReader（解码为字符） -> BufferedReader（按行读取）
+>文件（UTF-8 编码）->  InputStreamReader（解码为字符） -> BufferedReader（按行读取）
 
 ```java
 try (  
@@ -566,6 +566,35 @@ try (
 ****
 ## 9.2 OutputStreamWriter 指定编码方式
 
+```java
+String content = "你好，世界！";  
+  
+// 写入（指定 UTF-8 编码）  
+try (OutputStreamWriter writer = new OutputStreamWriter(  
+        new FileOutputStream("E:\\IOStream\\test06.txt"), "UTF-8")) {  
+    writer.write(content);  
+} catch (IOException e) {  
+    e.printStackTrace();  
+}  
+  
+// 读取（也用 UTF-8 编码）  
+try (BufferedReader reader = new BufferedReader(  
+        new InputStreamReader(new FileInputStream("E:\\IOStream\\test06.txt"), "UTF-8"))) {  
+    String line;  
+    while ((line = reader.readLine()) != null) {  
+        System.out.println(line);  
+    }  
+} catch (IOException e) {  
+    e.printStackTrace();  
+}
+```
+
+>字符数据（如字符串）-> BufferedWriter -> OutputStreamWriter（按照指定编码将字符转换成字节） -> 文件（以指定编码方式保存）
+
+****
+# 10. 包装流
+
+>包装流是“功能增强版”的 IO 流，它们不能单独使用，需依附于节点流，并提供缓冲、编码、数据结构等高级功能，是实际开发中更常用的流类型
 
 
 
