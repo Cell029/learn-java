@@ -198,4 +198,36 @@ new FileOutputStream(String name, boolean append)
 ****
 ## 4.1 write() 方法
 
+1、 `void write(int b)`
+
+>只写入一个字节（低 8 位），可以等价于写入一个 ASCII 字符
+
+```java
+fos.write(97); // 写入一个字节，97 对应 'a'
+```
+
+****
+
+2、 `void write(byte[] b)`
+
+>一次写入整个字节数组
+
+```java
+byte[] data = "hello".getBytes();
+fos.write(data);
+```
+
+****
+
+3、 `void write(byte[] b, int off, int len)`
+
+>从第 `off` 个下标开始写入 `len` 个字节到数组 `b` 中
+
+```java
+byte[] data = "hello world".getBytes();
+fos.write(data, 6, 5); // 只写入 "world"
+```
+
+****
+## 4.2 flush() 方法
 
