@@ -184,5 +184,18 @@ try {
 ```
 
 ****
+# 4. FileOutputStream
+
+>`FileOutputStream` 是 Java IO 中用于“将数据以字节形式写入文件”的类，属于字节输出流（`OutputStream` 的子类），适用于写入文本、二进制数据（如图片、音频）等文件内容
+
+```java
+new FileOutputStream(String name)
+new FileOutputStream(String name, boolean append)
+```
+
+>如果文件不存在，会自动创建，如果文件存在，默认会清空原内容（覆盖写入），当第二个参数设为 `true` 时表示追加写入，就不会覆盖原文件
+
+****
+## 4.1 write() 方法
 
 
