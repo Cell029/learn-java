@@ -514,4 +514,31 @@ protected int marklimit;          // 最大允许读取的字节数
 
 ![](images/IO流/file-20250501220939.png)
 
->
+>根据 `markpos` 和 `pos` 的位置，把这些字节通过 `arraycopy` 方法放到缓冲区的头部，因为后续可能会重新读入数据到缓冲区，防止这些数据被覆盖或者使用一些麻烦的操作东新增一些西新增一些，干脆直接放头部，而缓冲区剩余的空间，则可以被完全用来装入新读取的数据
+
+```java
+try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream("E:\\IOStream\\test05.txt"))) {  
+    // 先读取一部分数据  
+    bis.mark(100); // 标记当前的位置，最多读取100个字节  
+    byte[] buffer1 = new byte[50]; // 每次读取50个字节 
+    int bytesRead = bis.read(buffer1);  
+    System.out.println("First read: " + new String(buffer1, 0, bytesRead));  
+  
+    // 再读取一些数据  
+    byte[] buffer2 = new byte[50];  
+    bytesRead = bis.read(buffer2);  
+    System.out.println("Second read: " + new String(buffer2, 0, bytesRead));  
+  
+    // 通过 reset() 回到之前标记的位置  
+    bis.reset();  
+    byte[] buffer3 = new byte[50];  
+    bytesRead = bis.read(buffer3);  
+    System.out.println("After reset: " + new String(buffer3, 0, bytesRead));  
+} catch (IOException e) {  
+    e.printStackTrace();  
+}
+```
+
+****
+# 9. FileReader
+
