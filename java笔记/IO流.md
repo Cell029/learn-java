@@ -193,7 +193,7 @@ fis.skip(100); // 跳过前100个字节
 
 >当设置的跳过长度大于实际长度时 `skip(n)` 可能无法跳过指定长度，当返回值是 0 时表示没有进行跳过操作
 
->但是有些流是不支持这个方法的，如果某个流重写了 `InputStream` 中的 `skip()` 方法，则证明它本身是不允许跳过的，所以只能模拟跳过的方法，其实是在反复读取并丢弃字节
+>但是有些流是不支持这个方法的，如果某个流重写了 `InputStream` 中的 `skip()` 方法，则证明它本身是不允许跳过的，所以只能模拟跳过的方法，可能会反复读取并丢弃字节
 
 ****
 # 4. FileOutputStream
@@ -336,5 +336,35 @@ try (
 ****
 # 5. FileReader
 
+>与 `FileInputStream` 类似，只不过是读取 `char[]` 数组
 
+> `read()` 方法返回的都是 `int` 类型的数据；
+> 
+> `int read()` 读取一个字符（返回 Unicode 编码的 int 值）；
+> 
+> `int read(char[] cbuf)` 读取多个字符到字符数组；  
+> 
+> `int read(char[] cbuf, int offset, int length)` 读取指定长度的字符到数组
+
+```java
+int ch;
+    while ((ch = reader.read()) != -1) {
+        System.out.print((char) ch);
+    }
+```
+
+```java
+char[] buffer = new char[1024];
+    int len;
+    while ((len = reader.read(buffer)) != -1) {
+        System.out.print(new String(buffer, 0, len));
+    }
+```
+
+>`FileReader` 默认使用系统编码，如果读取到乱码，说明编码不匹配
+
+****
+# 6. FileWriter
+
+>有个新增的 `void write(String str)`  方法，可以直接将字符串输入到文件中
 
