@@ -195,6 +195,19 @@ fis.skip(100); // 跳过前100个字节
 
 >但是有些流是不支持这个方法的，如果某个流重写了 `InputStream` 中的 `skip()` 方法，则证明它本身是不允许跳过的，所以只能模拟跳过的方法，可能会反复读取并丢弃字节
 
+5、 `available()`
+
+>判断当前流中还剩下多少个字节可以被立即读取
+
+```java
+int availableBytes = in.available();
+if (availableBytes > 0) {
+    byte[] bytes = new byte[availableBytes];
+    in.read(bytes);
+    System.out.println(new String(buffer));
+}
+```
+
 ****
 # 4. FileOutputStream
 
@@ -411,7 +424,7 @@ try (
 
 ![](images/IO流/file-20250501192731.png)
 
->默认缓冲区大小为 8129，正好 8 kb ，
+>默认缓冲区大小为 8129，正好 8 kb ，或者在创建缓冲流时手动输入缓冲区的大小
 
 ![](images/IO流/file-20250501193244.png)
 
@@ -426,5 +439,26 @@ try (
 ****
 ## 7.2 包装流的关闭
 
+![](images/IO流/file-20250501202538.png)
 
+>看图，它内部定义了一个 `InputStream input = in`，这个 `in` 就是创建流时传进来的，包装类中 new 了什么就传什么，然后依次调用它们的 `close` 方法，所以只需要手动关闭最外层的流，它的内部就会自动调用每个流的 `close`
 
+****
+## 7.3 BufferedReader
+
+### 7.3.1 readLine()
+
+>读取一整行文本（不含换行符），到文件末尾返回 `null`
+
+```java
+try (BufferedReader br = new BufferedReader(new FileReader("test.txt"))) {
+    String line;
+    while ((line = br.readLine()) != null) {
+        System.out.println(line);
+    }
+} catch (IOException e) {
+    e.printStackTrace();
+}
+``` 
+
+>这个方法的本质还是调用了 `read` 方法，
