@@ -183,6 +183,18 @@ try {
 }
 ```
 
+4、 `long skip(long n)`
+
+>从输入流中跳过指定数量的字节或字符，然后再读取后面的数据，适用于 **`InputStream`** 和 **`Reader`** 这类“读取型”流对象
+
+```java
+fis.skip(100); // 跳过前100个字节
+```
+
+>当设置的跳过长度大于实际长度时 `skip(n)` 可能无法跳过指定长度，当返回值是 0 时表示没有进行跳过操作
+
+>但是有些流是不支持这个方法的，如果某个流重写了 `InputStream` 中的 `skip()` 方法，则证明它本身是不允许跳过的，所以只能模拟跳过的方法，其实是在反复读取并丢弃字节
+
 ****
 # 4. FileOutputStream
 
@@ -308,4 +320,21 @@ try {
 
 ****
 ## 4.5 try-with-resources
+
+>Java 7 之后新增的自动关闭资源的语法结构，只有实现了 `AutoCloseable` 接口才能使用，可以在一个 try 中定义多个资源，它们会按定义的相反顺序依次关闭
+
+```java
+try (
+    FileInputStream fis = new FileInputStream("a.txt");
+    FileOutputStream fos = new FileOutputStream("b.txt");
+) {
+    // 使用 fis 和 fos
+}
+// fos.close() 会在 fis.close() 之前被调用
+```
+
+****
+# 5. FileReader
+
+
 
