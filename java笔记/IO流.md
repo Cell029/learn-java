@@ -67,40 +67,14 @@
 | 对象流  | `ObjectInputStream` / `ObjectOutputStream` | 支持对象序列化读写   |
 | 打印流  | `PrintWriter` / `PrintStream`              | 提供格式化输出功能   |
 ****
-# 2. 装饰模式
 
->装饰模式是一种结构型设计模式，它允许在不改变对象自身结构的前提下，动态地扩展对象的功能
-
->它有点类似于高级的封装，只是封装是隐藏实现的细节，只暴露必要的接口给外部使用，而装饰模式是动态的扩展功能，不在类的内部进行限制条件，封装是对内部封装，装饰模式是对外部进行扩展，所以装饰模式也像是接口，外部的具体扩展就像是给接口的方法提供具体的实现
-
-```java
-Reader reader = new FileReader("data.txt");
-int ch;
-while ((ch = reader.read()) != -1) {
-    System.out.print((char) ch);
-}
-reader.close();
-```
-
-加上装饰器：`BufferedReader`
-
-```java
-Reader reader = new BufferedReader(new FileReader("data.txt"));
-String line;
-while ((line = ((BufferedReader) reader).readLine()) != null) {
-    System.out.println(line);
-}
-reader.close();
-```
-
->虽然目前还看不太懂装饰模式，但是通过这两段代码的对比可以看出第二个代码看上去更牛一点
 
 ****
-# 3. FileInputStream
+# 2. FileInputStream
 
 >`FileInputStream` 是 Java IO 包中用于“字节输入”的类，属于字节输入流的一部分，主要用于从文件中读取数据，它是 `InputStream` 的子类，适合读取二进制数据，比如图片、音频、视频等，也可以读取文本文件，但要注意编码问题
 
-## 3.1 read() 方法
+## 2.1 read() 方法
 
 1、 `int read()`
 
@@ -209,7 +183,7 @@ if (availableBytes > 0) {
 ```
 
 ****
-# 4. FileOutputStream
+# 3. FileOutputStream
 
 >`FileOutputStream` 是 Java IO 中用于“将数据以字节形式写入文件”的类，属于字节输出流（`OutputStream` 的子类），适用于写入文本、二进制数据（如图片、音频）等文件内容
 
@@ -221,7 +195,7 @@ new FileOutputStream(String name, boolean append)
 >如果文件不存在，会自动创建，如果文件存在，默认会清空原内容（覆盖写入），当第二个参数设为 `true` 时表示追加写入，就不会覆盖原文件
 
 ****
-## 4.1 write() 方法
+## 3.1 write() 方法
 
 1、 `void write(int b)`
 
@@ -273,7 +247,7 @@ try {
 ```
 
 ****
-## 4.2 文件复制
+## 3.2 文件复制
 
 >从源文件中读取数据（输入流）-> 写入目标文件（输出流）
 
@@ -306,7 +280,7 @@ try {
 ```
 
 ****
-## 4.3 flush() 方法
+## 3.3 flush() 方法
 
 >`flush()` 是强制将内存缓冲区中的数据立即写出到目标设备（如文件、网络、控制台等）的方法
 
@@ -315,7 +289,7 @@ try {
 >所以 `close()` 方法中是包含 `flush()` 的，关闭资源时会自动使用
 
 ****
-## 4.4 close() 方法
+## 3.4 close() 方法
 
 >关闭流并释放相关资源，通常位于操作 IO 资源的最后一步，表示“收尾”操作
 
@@ -332,7 +306,7 @@ try {
 >文件流不关闭的话可能导致该文件在其他程序中被“占用”或“锁定”，不能访问或删除
 
 ****
-## 4.5 try-with-resources
+## 3.5 try-with-resources
 
 >Java 7 之后新增的自动关闭资源的语法结构，只有实现了 `AutoCloseable` 接口才能使用，可以在一个 try 中定义多个资源，它们会按定义的相反顺序依次关闭
 
@@ -347,7 +321,7 @@ try (
 ```
 
 ****
-# 5. FileReader
+# 4. FileReader
 
 >与 `FileInputStream` 类似，只不过是读取 `char[]` 数组
 
@@ -377,7 +351,7 @@ char[] buffer = new char[1024];
 >`FileReader` 默认使用系统编码，如果读取到乱码，说明编码不匹配
 
 ****
-# 6. FileWriter
+# 5. FileWriter
 
 >有个新增的 `void write(String str)`  方法，可以直接将字符串输入到文件中
 
@@ -416,11 +390,11 @@ try (
 ```
 
 ****
-# 7. 缓冲流
+# 6. 缓冲流
 
 >它不是直接操作文件，而是对底层节点流进行包装，读写操作时不再直接访问磁盘，而是一次性读写较大块数据放入/取出自内存的缓冲区，减少磁盘操作次数来提升性能
 
-## 7.1 BufferedInputStream
+## 6.1 BufferedInputStream
 
 ![](images/IO流/file-20250501192731.png)
 
@@ -437,16 +411,16 @@ try (
 >手动创建的 `byte[] bytes = new byte[1024]` 是在代码中使用的缓冲数组，从缓冲区的 `buf[]` 中复制最多 1024 个字节到这个 `bytes[]` 中，提高循环调用 `read()` 的效率，避免每次只能读取一个字节
 
 ****
-## 7.2 包装流的关闭
+## 6.2 包装流的关闭
 
 ![](images/IO流/file-20250501202538.png)
 
 >看图，它内部定义了一个 `InputStream input = in`，这个 `in` 就是创建流时传进来的，包装类中 new 了什么就传什么，然后依次调用它们的 `close` 方法，所以只需要手动关闭最外层的流，它的内部就会自动调用每个流的 `close`
 
 ****
-## 7.3 BufferedReader
+## 6.3 BufferedReader
 
-### 7.3.1 readLine()
+### 6.3.1 readLine()
 
 >读取一整行文本（不含换行符），到文件末尾返回 `null`
 
@@ -464,7 +438,7 @@ try (BufferedReader br = new BufferedReader(new FileReader("test.txt"))) {
 >这个方法的本质还是调用了 `read` 方法，从 `fill()` 获取的缓冲区中一次性读取很多个字符，就有点类似于使用了字节流的 `byte[]` 数组，一次性接收多个然后直接输出，所以会比直接使用 `read` 方法更高效
 
 ****
-# 8. mark 和 reset
+# 7. mark 和 reset
 
 >`mark()` 和 `reset()` 是 `InputStream`（以及它的子类，如 `BufferedReader`、`FileInputStream`）和 `Reader` 类中提供的方法，通常用于回溯读取数据，即标记一个特定位置，然后在读取流数据时能够跳回到标记的位置重新读取
 
@@ -540,11 +514,11 @@ try (BufferedInputStream bis = new BufferedInputStream(new FileInputStream("E:\\
 ```
 
 ****
-# 9. 解决乱码
+# 8. 解决乱码
 
 >如果一个文件是用UTF-8 编码写入的，却使用默认编码 GBK来读取，就会把几个 UTF-8 字节错误地解释为一个字符，导致乱码
 
-## 9.1 InputStreamReader 指定解码方式
+## 8.1 InputStreamReader 指定解码方式
 
 >文件（UTF-8 编码）->  InputStreamReader（解码为字符） -> BufferedReader（按行读取）
 
@@ -564,7 +538,7 @@ try (
 >通过手动设置编码方式让编码与解码使用的是一样的
 
 ****
-## 9.2 OutputStreamWriter 指定编码方式
+## 8.2 OutputStreamWriter 指定编码方式
 
 ```java
 String content = "你好，世界！";  
@@ -592,14 +566,14 @@ try (BufferedReader reader = new BufferedReader(
 >字符数据（如字符串）-> BufferedWriter -> OutputStreamWriter（按照指定编码将字符转换成字节） -> 文件（以指定编码方式保存）
 
 ****
-# 10. 包装流
+# 9. 包装流
 
 >包装流是“功能增强版”的 IO 流，它们不能单独使用，需依附于节点流，并提供缓冲、编码、数据结构等高级功能，是实际开发中更常用的流类型
 
 ****
-# 11. 数据输出流
+# 10. 数据输出流
 
-## 11.1 DataOutputStream
+## 10.1 DataOutputStream
 
 >主要用于将基本数据类型和字符串以可移植的方式写入到输出流中，它是面向二进制数据的输出流，而不是面向字符的，所以它直接把 Java 中的数据以二进制的方式写进文件，避免中途数据的转码，效率更高
 
@@ -617,7 +591,7 @@ try (DataOutputStream dos = new DataOutputStream(new FileOutputStream("E:\\IOStr
 >因为每种类型都有明确的写入方式，所以在读取时可以确保类型一致，避免了类型转换的错误
 
 ****
-## 11.2 DataInputStream
+## 10.2 DataInputStream
 
 >使用 `DataOutputStream` 写入数据就只能用 `DataInputStream` 读取数据，读取数据时应该符合数据的结构，不能随便使用方法
 
@@ -638,14 +612,14 @@ try (DataInputStream dis = new DataInputStream(new FileInputStream("E:\\IOStream
 ```
 
 ****
-# 12. 序列化与反序列化
+# 11. 序列化与反序列化
 
 >序列化是指把一个 Java 对象转换为字节序列的过程，以便将其保存到磁盘上或通过网络传输，反序列化 则是将字节序列恢复为 Java 对象的过程
 
 >序列化最终的目的是为了对象可以跨平台存储和进行网络传输，进行跨平台存储和网络传输的方式就是 IO ，而 IO 支持的数据格式就是字节数组，所以要把 Java 对象转换成字节数组才行（二进制），但是单方面的只把对象转成字节数组还不行，因为没有规则的字节数组是没办法把对象的本来面目还原回来的，所以必须在把对象转成字节数组的时候就制定一种规则（序列化），从IO流里面读出数据的时候再以这种规则把对象还原回来（反序列化）
 
 ****
-## 12.1 序列化的实现
+## 11.1 序列化的实现
 
 >想要将对象序列化，就需要让对象实现可序列化接口 `implements Serializable`，如果对象的实例变量中包含引用类型，则这个引用类型也需要实现可序列化接口
 
@@ -670,7 +644,7 @@ try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("E:\\IOSt
 ```
 
 ****
-## 12.2 常见问题
+## 11.2 常见问题
 
 **1、 static 属性不能序列化**
 
@@ -700,7 +674,7 @@ private static final long serialVersionUID = -4328296663656809026L;
 ```
 
 ****
-## 12.3 重写 writeObject 和 readObject
+## 11.3 重写 writeObject 和 readObject
 
 >可以通过重写这两个方法对对象中的某些字段进行自定义规则，例如加密等操作
 
@@ -745,7 +719,7 @@ private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundE
 >自动序列化时不会把 password 写入，但是可以手动将加密后的密码写入，只要读取时采用对应的解密方法就行
 
 ****
-## 12.4 Externalizable：强制自定义序列化
+## 11.4 Externalizable：强制自定义序列化
 
 >这是较老的一种序列化机制，用来实现完全手动控制序列化和反序列化过程，它继承了 `Serializable` 接口，但不使用默认的序列化机制，它要求类必须实现两个方法
 
@@ -766,7 +740,7 @@ public class MyClass implements Externalizable {
 >无论是实现 `Externalizable` 还是在 `Serializable` 下重写 `writeObject` / `readObject` 方法，目的都是“自定义序列化行为”，只不过重写方法更灵活，保留默认的字段，自己手动操作一些字段，可读性和扩展性更高
 
 ****
-# 13. File类
+# 12. File类
 
 > File 类是用于表示文件或目录（文件夹）路径的类，它并不直接表示文件的内容，而是对文件或目录路径的一种抽象
 
@@ -820,6 +794,32 @@ dir2.mkdirs(); // 创建多级目录
 |重命名或移动|`renameTo(File)`|
 
 ****
+# 13. 装饰器模式
 
+>装饰模式是一种结构型设计模式，它允许在不改变对象自身结构的前提下，动态地扩展对象的功能
+
+>一般为了扩展一个类经常使用继承方式实现，但随着扩展功能的增多，子类会很膨胀，这时候期望在不改变类对象及其类定义的情况下，为对象添加额外功能，也就是说创建一个“装饰器类”来包装原始对象，并在保持其接口不变的情况下添加新的行为
+
+```java
+Reader reader = new FileReader("data.txt");
+int ch;
+while ((ch = reader.read()) != -1) {
+    System.out.print((char) ch);
+}
+reader.close();
+```
+
+加上装饰器：`BufferedReader`
+
+```java
+Reader reader = new BufferedReader(new FileReader("data.txt"));
+String line;
+while ((line = ((BufferedReader) reader).readLine()) != null) {
+    System.out.println(line);
+}
+reader.close();
+```
+
+>虽然目前还看不太懂装饰模式，但是通过这两段代码的对比可以看出第二个代码看上去更牛一点
 
 
