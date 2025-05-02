@@ -896,6 +896,9 @@ public static void main(String[] args) {
 
 > `CoffeeDecorator coffeeDecorator = new CoffeeDecorator(new MilkDecorator(new SimpleCoffee()));` ， `CoffeeDecorator` 和 `MilkDecorator` 的继承关系让扩展的功能更多样化， `SimpleCoffee` 与装饰器类的包装关系让功能的扩展更动态，耦合度更低
 
+>在装饰器模式中，利用组合可以把装饰器混合使用，而且在任何时候可以动态实现新的装饰器并增加新的行为，这些都是在对象已经创建出来的前提下完成的，所以这种模式实际上是基于运行时的，这就是与继承的最大区别
+
+
 ****
 
 ## 13.2 IO流的装饰器模式
@@ -918,6 +921,9 @@ public static void main(String[] args) {
 
 >根据图所示，创建了一个 `Shape` 接口和实现了 `Shape` 接口的实体类，然后创建一个实现了 `Shape` 接口的抽象装饰类 `ShapeDecorator`，并把 `Shape` 对象作为它的实例变量，`RedShapeDecorator` 是实现了 `ShapeDecorator` 的实体类。`DecoratorPatternDemo` 类使用 `RedShapeDecorator` 来装饰 `Shape` 对象
 
+****
+## 13.4 装饰流程
+
 >IO 流中每一个“子类”并不是继承链中的“重写”，而是将另一个 InputStream 包装起来
 
 ```
@@ -925,10 +931,151 @@ InputStream（抽象类） <- 抽象组件
    ↑
 FileInputStream（读取文件字节） <- 具体组件
    ↑
+FilterInputStream（中转功能） <- 抽象的装饰者
+   ↑
 BufferedInputStream（提供缓冲）<- 具体的装饰者
    ↑
 DataInputStream（按数据类型读取，如int、double）<- 具体的装饰者
 ```
+
+```java
+InputStream in = new DataInputStream(
+                     new BufferedInputStream(
+                         new FileInputStream("test.txt")));
+
+// 先通过 BufferedInputStream 提高读取效率
+// 然后通过 DataInputStream 按数据类型读取
+int number = ((DataInputStream) in).readInt();
+```
+
+**1、 InputStream（抽象组件）**
+
+>所有输入流的抽象父类，定义了 `read()` 等方法
+
+**2、FileInputStream（具体组件）**
+
+>实现了 `read()`，底层通过本地方法（C/C++）从文件系统读取，功能的实现逻辑与 `InputStream` 的实现逻辑不同，是新的行为
+
+**3、 FilterInputStream（抽象装饰器）**
+
+>是个“半成品”：本身不增强功能，只是中转委托，组合 + 委托模式的典型实现：持有一个 `InputStream`，所有方法都交给它处理，为具体装饰器打基础
+
+```java
+public class FilterInputStream extends InputStream {  
+   protected volatile InputStream in;  
+  
+    protected FilterInputStream(InputStream in) {  
+        this.in = in;  
+    }  
+  
+    @Override  
+    public int read() throws IOException {  
+        return in.read();  
+    }  
+  
+    @Override  
+    public int read(byte[] b) throws IOException {  
+        return read(b, 0, b.length);  
+    }  
+  
+    @Override  
+    public int read(byte[] b, int off, int len) throws IOException {  
+        return in.read(b, off, len);  
+    }  
+  
+    @Override  
+    public long skip(long n) throws IOException {  
+        return in.skip(n);  
+    }  
+  
+    @Override  
+    public int available() throws IOException {  
+        return in.available();  
+    }  
+    
+    @Override  
+    public void close() throws IOException {  
+        in.close();  
+    }  
+  
+    @Override  
+    public void mark(int readlimit) {  
+        in.mark(readlimit);  
+    }  
+  
+    @Override  
+    public void reset() throws IOException {  
+        in.reset();  
+    }  
+  
+   @Override  
+    public boolean markSupported() {  
+        return in.markSupported();  
+    }
+```
+
+>这里面基本都是重写的方法，主要还是靠具体的实现类实现具体的方法，然后靠自己的子装饰器类来实现具体的扩展
+
+**4、BufferedInputStream（具体装饰器）**
+
+>还是调用 `in.read(...)`，只是包装了缓冲逻辑，仍然保留原有接口，完全兼容 `InputStream`
+
+```java
+private int read1(byte[] b, int off, int len) throws IOException {  
+    int avail = count - pos;  
+    if (avail <= 0) {  
+        int size = Math.max(getBufIfOpen(false).length, initialSize);  
+        if (len >= size && markpos == -1) {  
+            return getInIfOpen().read(b, off, len);  
+        }  
+        fill();  
+        avail = count - pos;  
+        if (avail <= 0) return -1;  
+    }  
+    int cnt = (avail < len) ? avail : len;  
+    System.arraycopy(getBufIfOpen(), pos, b, off, cnt);  
+    pos += cnt;  
+    return cnt;  
+}
+```
+
+**5、DataInputStream（具体装饰器）**
+
+>仍然基于 `InputStream` 的 `read()` 方法，只不过封装成更高级的接口，更适合读取结构化数据，比如数据文件、网络协议
+
+```java
+public final int read(byte[] b) throws IOException {  
+    return in.read(b, 0, b.length);  
+}
+```
+
+>这个还是封装的父类的具体的实现方法
+
+```java
+public final int readInt() throws IOException {  
+    readFully(readBuffer, 0, 4);  
+    return ByteArray.getInt(readBuffer, 0);  
+}
+
+public final void readFully(byte[] b, int off, int len) throws IOException {  
+    Objects.checkFromIndexSize(off, len, b.length);  
+    int n = 0;  
+    while (n < len) {  
+        int count = in.read(b, off + n, len - n);  
+        if (count < 0)  
+            throw new EOFException();  
+        n += count;  
+    }  
+}
+```
+
+>这个就是扩展的读整数型的方法
+
+****
+
+
+
+
 
 
 
