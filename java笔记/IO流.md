@@ -801,25 +801,100 @@ dir2.mkdirs(); // 创建多级目录
 >一般为了扩展一个类经常使用继承方式实现，但随着扩展功能的增多，子类会很膨胀，这时候期望在不改变类对象及其类定义的情况下，为对象添加额外功能，也就是说创建一个“装饰器类”来包装原始对象，并在保持其接口不变的情况下添加新的行为
 
 ```java
-Reader reader = new FileReader("data.txt");
-int ch;
-while ((ch = reader.read()) != -1) {
-    System.out.print((char) ch);
+public interface Coffee {  
+    String description();  
+    double cost();  
 }
-reader.close();
 ```
-
-加上装饰器：`BufferedReader`
 
 ```java
-Reader reader = new BufferedReader(new FileReader("data.txt"));
-String line;
-while ((line = ((BufferedReader) reader).readLine()) != null) {
-    System.out.println(line);
+public class SimpleCoffee implements Coffee {  
+    @Override  
+    public String description() {  
+        return "普通咖啡";  
+    }  
+  
+    @Override  
+    public double cost() {  
+        return 5.0;  
+    }  
 }
-reader.close();
 ```
 
->虽然目前还看不太懂装饰模式，但是通过这两段代码的对比可以看出第二个代码看上去更牛一点
+```java
+public class CoffeeDecorator implements Coffee{  
+    private Coffee coffeeDecorator;  
+  
+    CoffeeDecorator(Coffee coffeeDecorator) {  
+        this.coffeeDecorator = coffeeDecorator;  
+    }  
+  
+    @Override  
+    public String description() {  
+        return coffeeDecorator.description();  
+    }  
+  
+    @Override  
+    public double cost() {  
+        return coffeeDecorator.cost();  
+    }  
+}
+```
+
+```java
+public class MilkDecorator extends CoffeeDecorator{  
+    MilkDecorator(Coffee coffeeDecorator) {  
+        super(coffeeDecorator);  
+    }  
+  
+    @Override  
+    public String description() {  
+        return super.description() + " + milk";  
+    }  
+  
+    @Override  
+    public double cost() {  
+        return super.cost() + 5.0;  
+    }  
+}
+
+public class SugarDecorator extends CoffeeDecorator{  
+    SugarDecorator(Coffee coffeeDecorator) {  
+        super(coffeeDecorator);  
+    }  
+  
+    @Override  
+    public String description() {  
+        return super.description() + " + sugar";  
+    }  
+  
+    @Override  
+    public double cost() {  
+        return super.cost() + 3.0;  
+    }  
+}
+```
+
+```java
+public static void main(String[] args) {  
+    CoffeeDecorator coffeeDecorator = new CoffeeDecorator(new MilkDecorator(new SimpleCoffee()));  
+    System.out.println(coffeeDecorator.description()); // 普通咖啡 + milk  
+    System.out.println(coffeeDecorator.cost()); // 10.0 
+
+	CoffeeDecorator coffeeDecorator1 = new CoffeeDecorator(new SugarDecorator(new SimpleCoffee()));  
+	System.out.println(coffeeDecorator1.description()); // 普通咖啡 + sugar 
+	System.out.println(coffeeDecorator1.cost()); // 8.0
+}
+```
+
+>自定义了一个装饰器类，一个基本类实现接口中的方法，但是当后续需要进行扩展时直接在装饰器类中进行扩展
+
+
+>先定义一个父类的装饰器类，是接口的实现类，然后定义了一个接口类型的变量，给后续的子类使用，而重写的方法里面直接调用定义的变量的方法，也就是创建对象时子类的方法，然后创建一些子装饰器类，提高每个方法的不同扩展，然后具体的基本类在创建时当作装饰器类的实例
+
+> `CoffeeDecorator coffeeDecorator = new CoffeeDecorator(new MilkDecorator(new SimpleCoffee()));` ， `CoffeeDecorator` 和 `MilkDecorator` 的继承关系让扩展的功能更多样化， `SimpleCoffee` 与装饰器类的包装关系让功能的扩展更动态，耦合度更低
+
+
+
 
 
