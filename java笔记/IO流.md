@@ -596,5 +596,22 @@ try (BufferedReader reader = new BufferedReader(
 
 >包装流是“功能增强版”的 IO 流，它们不能单独使用，需依附于节点流，并提供缓冲、编码、数据结构等高级功能，是实际开发中更常用的流类型
 
+****
+# 11. 数据输出流
+
+## 11.1 DataOutputStream
+
+>主要用于将基本数据类型和字符串以可移植的方式写入到输出流中，它是面向二进制数据的输出流，而不是面向字符的，所以它直接把 Java 中的数据以二进制的方式写进文件，避免中途数据的转码，效率更高
+
+```java
+try (DataOutputStream dos = new DataOutputStream(new FileOutputStream("E:\\IOStream\\test07.dat"))) {  
+    dos.writeInt(2025);                 // 写入整数  
+    dos.writeDouble(3.14159);           // 写入双精度浮点数  
+    dos.writeBoolean(true);             // 写入布尔值  
+    dos.writeUTF("你好，世界");          // 写入UTF字符串  
+} catch (IOException e) {  
+    e.printStackTrace();  
+}
+```
 
 
