@@ -896,7 +896,7 @@ public static void main(String[] args) {
 
 > `CoffeeDecorator coffeeDecorator = new CoffeeDecorator(new MilkDecorator(new SimpleCoffee()));` ， `CoffeeDecorator` 和 `MilkDecorator` 的继承关系让扩展的功能更多样化， `SimpleCoffee` 与装饰器类的包装关系让功能的扩展更动态，耦合度更低
 
->在装饰器模式中，利用组合可以把装饰器混合使用，而且在任何时候可以动态实现新的装饰器并增加新的行为，这些都是在对象已经创建出来的前提下完成的，所以这种模式实际上是基于运行时的，这就是与继承的最大区别
+>在装饰器模式中，利用组合可以把装饰器混合使用，而且在任何时候可以动态实现新的装饰器并增加新的行为，这些都是在对象已经创建出来的前提下完成的，所以这种模式实际上是基于运行时的，
 
 
 ****
