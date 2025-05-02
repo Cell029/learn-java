@@ -770,7 +770,56 @@ public class MyClass implements Externalizable {
 
 > File 类是用于表示文件或目录（文件夹）路径的类，它并不直接表示文件的内容，而是对文件或目录路径的一种抽象
 
+```java
+File file = new File("E:\\IOStream\\test08.dat");  
+  
+// 创建文件  
+if (!file.exists()) { // 文件或目录是否存在 
+    try {  
+        file.createNewFile();  
+    } catch (IOException e) {  
+        e.printStackTrace();  
+    }  
+    System.out.println("文件已创建");  
+}  
+  
+// 文件属性  
+System.out.println("文件名：" + file.getName());  
+System.out.println("是否是文件：" + file.isFile());  
+System.out.println("是否是目录：" + file.isDirectory());  
+System.out.println("文件路径：" + file.getPath());  
+System.out.println("绝对路径：" + file.getAbsolutePath());  
+System.out.println("文件大小：" + file.length() + " 字节");  
+  
+// 删除文件  
+// file.delete();
+```
 
+```java
+File file = new File("E:\\IOStream\\test08.dat");
+if (!file.exists()) {
+    boolean created = file.createNewFile(); // 创建文件
+    System.out.println("文件创建成功: " + created);
+}
+
+File dir1 = new File("E:\\IOStream\\singleDir");
+dir1.mkdir(); // 创建单级目录
+File dir2 = new File("E:\\IOStream\\parent\\child\\grandchild");
+dir2.mkdirs(); // 创建多级目录
+```
+
+|功能|方法|
+|---|---|
+|创建文件|`createNewFile()`|
+|创建目录|`mkdir()` / `mkdirs()`|
+|删除文件或空目录|`delete()`|
+|判断类型|`isFile()` / `isDirectory()`|
+|判断是否存在|`exists()`|
+|获取名称和路径|`getName()` / `getPath()` / `getAbsolutePath()`|
+|获取目录下文件|`list()` / `listFiles()`|
+|重命名或移动|`renameTo(File)`|
+
+****
 
 
 
