@@ -678,16 +678,29 @@ try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("E:\\IOSt
 
 **2、 transient 关键字 —— 不参与序列化**
 
->如果一个对象中的某个字段被 `transient` 修饰，那么当这个对象被序列化（写入磁盘或通过网络传输）时，这个字段的值不会被写入序列化流中；而当反序列化时，该字段会被自动初始化为默认值，通常用于保护敏感数据，例如密码、临时缓存
+>如果一个对象中的某个字段被 `transient` 修饰，那么当这个对象被序列化（写入磁盘或通过网络传输）时，这个字段的值不会被写入序列化流中；而当反序列化时，该字段会被自动初始化为默认值，通常用于保护敏感数据，例如密码、临时缓存，但是不能修饰方法、类或局部变量
 
 ```java
 private transient String password; // 不希望序列化密码字段
 ```
 
-
-
 **3、序列化版本号**
 
+![](images/IO流/file-20250502160238.png)
+
+> `Serializable` 是一个空的接口，它主要的作用就是作为一种标记，真正的序列化操作其实是由 `ObjectOutputStream` 和 `ObjectInputStream` 共同实现的，写的操作就是序列化，读的操作就是反序列化
+
+>当类中没有显式声明 `serialVersionUID` 时JVM 会调用 `ObjectStreamClass.computeDefaultSUID()` 来生成一个版本号，这个版本号通常是不显示的，但是当类中的代码发生改变，就会导致这个类的序列化版本号发生改变，当调用 `readObject()` 通过类名读取类时获取到的 `serialVersionUID` 和写入的 `serialVersionUID` 就不同，就会导致反序列化发生错误
+
+>所以后续需要修改类中的代码的话，最好手动设置一个序列化版本号
+
+```java
+@Serial  
+private static final long serialVersionUID = -4328296663656809026L;
+```
+
+****
+# 13. 打印流
 
 
 
