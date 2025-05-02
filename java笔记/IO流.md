@@ -669,6 +669,26 @@ try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("E:\\IOSt
 }
 ```
 
+****
+## 12.2 常见问题
+
+**1、 static 属性不能序列化**
+
+>因为静态字段属于类级别的，而序列化是对实例对象进行的，所以静态字段不能被序列化
+
+**2、 transient 关键字 —— 不参与序列化**
+
+>如果一个对象中的某个字段被 `transient` 修饰，那么当这个对象被序列化（写入磁盘或通过网络传输）时，这个字段的值不会被写入序列化流中；而当反序列化时，该字段会被自动初始化为默认值，通常用于保护敏感数据，例如密码、临时缓存
+
+```java
+private transient String password; // 不希望序列化密码字段
+```
+
+
+
+**3、序列化版本号**
+
+
 
 
 
