@@ -800,6 +800,8 @@ dir2.mkdirs(); // 创建多级目录
 
 >一般为了扩展一个类经常使用继承方式实现，但随着扩展功能的增多，子类会很膨胀，这时候期望在不改变类对象及其类定义的情况下，为对象添加额外功能，也就是说创建一个“装饰器类”来包装原始对象，并在保持其接口不变的情况下添加新的行为
 
+## 13.1 自定义装饰器类
+
 ```java
 public interface Coffee {  
     String description();  
@@ -893,6 +895,40 @@ public static void main(String[] args) {
 >先定义一个父类的装饰器类，是接口的实现类，然后定义了一个接口类型的变量，给后续的子类使用，而重写的方法里面直接调用定义的变量的方法，也就是创建对象时子类的方法，然后创建一些子装饰器类，提高每个方法的不同扩展，然后具体的基本类在创建时当作装饰器类的实例
 
 > `CoffeeDecorator coffeeDecorator = new CoffeeDecorator(new MilkDecorator(new SimpleCoffee()));` ， `CoffeeDecorator` 和 `MilkDecorator` 的继承关系让扩展的功能更多样化， `SimpleCoffee` 与装饰器类的包装关系让功能的扩展更动态，耦合度更低
+
+****
+
+## 13.2 IO流的装饰器模式
+
+![](images/IO流/file-20250502213452.png)
+
+>如果说 `InputStream` 只有一个子类 `FileInputStream` 的话，那么在 `InputStream` 基础上再设计一个孙子类 `BufferedFileInputStream` 也不算复杂，毕竟继承结构比较简单还能接受
+
+>但是继承 `InputStream` 的子类非常多，那么就需要给每一个 `InputStream` 的子类都派生一个支持缓存读取的子类，这数量就会十分庞大，而且支持缓存也只是拓展功能之一，还要对其他功能进行增强，比如 `DataInputStream` 类，它支持按照所有 Java 基本数据类型来读取数据，如果把这些扩展功能封装到一起，让其他的类继承或者实现，就会非常方便，所以 Java 就引入了组合（composition）和委托（delegation）来达到继承的效果，基于这种状态，可以动态地组合对象，写新的代码添加新的功能却不用修改现有代码
+
+****
+## 13.3 装饰器模式的标准类图
+
+![](images/IO流/file-20250502214858.png)
+
+- 抽象组件（Component）：定义了原始对象和装饰器对象的公共接口或抽象类，可以是具体组件类的父类或接口。
+- 具体组件（Concrete Component）：是被装饰的原始对象，它定义了需要添加新功能的对象。
+- 抽象装饰器（Decorator）：继承自抽象组件，它包含了一个抽象组件对象，并定义了与抽象组件相同的接口，同时可以通过组合方式持有其他装饰器对象。
+- 具体装饰器（Concrete Decorator）：实现了抽象装饰器的接口，负责向抽象组件添加新的功能。具体装饰器通常会在调用原始对象的方法之前或之后执行自己的操作。
+
+>根据图所示，创建了一个 `Shape` 接口和实现了 `Shape` 接口的实体类，然后创建一个实现了 `Shape` 接口的抽象装饰类 `ShapeDecorator`，并把 `Shape` 对象作为它的实例变量，`RedShapeDecorator` 是实现了 `ShapeDecorator` 的实体类。`DecoratorPatternDemo` 类使用 `RedShapeDecorator` 来装饰 `Shape` 对象
+
+>IO 流中每一个“子类”并不是继承链中的“重写”，而是将另一个 InputStream 包装起来
+
+```
+InputStream（抽象类） <- 抽象组件
+   ↑
+FileInputStream（读取文件字节） <- 具体组件
+   ↑
+BufferedInputStream（提供缓冲）<- 具体的装饰者
+   ↑
+DataInputStream（按数据类型读取，如int、double）<- 具体的装饰者
+```
 
 
 
