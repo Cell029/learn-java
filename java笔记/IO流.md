@@ -700,6 +700,70 @@ private static final long serialVersionUID = -4328296663656809026L;
 ```
 
 ****
+## 12.3 重写 writeObject 和 readObject
+
+>可以通过重写这两个方法对对象中的某些字段进行自定义规则，例如加密等操作
+
+**标准写法**
+
+```java
+private void writeObject(ObjectOutputStream out) throws IOException {
+    // 1. 写入非 transient 的默认字段
+    out.defaultWriteObject();
+
+    // 2. 写入 transient 字段或自定义数据（加密、转换等）
+    out.writeObject(想控制的字段);
+    // out.writeInt() / writeUTF() / writeBoolean() ... 
+}
+
+private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    // 1. 读取非 transient 的默认字段（顺序必须匹配）
+    in.defaultReadObject();
+
+    // 2. 读取刚才手动写入的字段，要求顺序一致
+    字段 = (类型) in.readObject(); // 与写入顺序匹配
+}
+```
+
+>这两个方法必须是私有的、无返回值、固定参数类型，否则不会被调用
+
+```java
+private void writeObject(ObjectOutputStream out) throws IOException {  
+    out.defaultWriteObject(); // 写入 name 和 age    
+    // 模拟加密密码  
+    String encryptedPwd = "ENC(" + password + ")";  
+    out.writeUTF(encryptedPwd);  
+}  
+  
+private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {  
+    in.defaultReadObject(); // 读取 name 和 age    
+    String encryptedPwd = in.readUTF();  
+    password = encryptedPwd.replace("ENC(", "").replace(")", "");  
+}
+```
+
+>自动序列化时不会把 password 写入，但是可以手动将加密后的密码写入，只要读取时采用对应的解密方法就行
+
+****
+## 12.4 Externalizable：强制自定义序列化
+
+>这是较老的一种序列化机制，用来实现完全手动控制序列化和反序列化过程，它继承了 `Serializable` 接口，但不使用默认的序列化机制，它要求类必须实现两个方法
+
+```java
+public class MyClass implements Externalizable {
+    public void writeExternal(ObjectOutput out) throws IOException {
+        // 手动写出字段
+    }
+
+    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
+        // 手动读入字段
+    }
+}
+```
+
+>也就是说，这个接口让序列化的操作完全由使用者来定义，而不是在底层就写好
+
+****
 # 13. File类
 
 
