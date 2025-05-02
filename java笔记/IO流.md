@@ -614,4 +614,35 @@ try (DataOutputStream dos = new DataOutputStream(new FileOutputStream("E:\\IOStr
 }
 ```
 
+>因为每种类型都有明确的写入方式，所以在读取时可以确保类型一致，避免了类型转换的错误
+
+****
+## 11.2 DataInputStream
+
+>使用 `DataOutputStream` 写入数据就只能用 `DataInputStream` 读取数据，读取数据时应该符合数据的结构，不能随便使用方法
+
+```java
+try (DataInputStream dis = new DataInputStream(new FileInputStream("E:\\IOStream\\test07.dat"))) {  
+    int year = dis.readInt();  
+    double pi = dis.readDouble();  
+    boolean flag = dis.readBoolean();  
+    String msg = dis.readUTF();  
+  
+    System.out.println(year);  
+    System.out.println(pi);  
+    System.out.println(flag);  
+    System.out.println(msg);  
+} catch (IOException e) {  
+    e.printStackTrace();  
+}
+```
+
+****
+# 12. 序列化与反序列化
+
+
+
+
+
+
 
