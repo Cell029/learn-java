@@ -640,6 +640,35 @@ try (DataInputStream dis = new DataInputStream(new FileInputStream("E:\\IOStream
 ****
 # 12. 序列化与反序列化
 
+>序列化是指把一个 Java 对象转换为字节序列的过程，以便将其保存到磁盘上或通过网络传输，反序列化 则是将字节序列恢复为 Java 对象的过程
+
+>序列化最终的目的是为了对象可以跨平台存储和进行网络传输，进行跨平台存储和网络传输的方式就是 IO ，而 IO 支持的数据格式就是字节数组，所以要把 Java 对象转换成字节数组才行（二进制），但是单方面的只把对象转成字节数组还不行，因为没有规则的字节数组是没办法把对象的本来面目还原回来的，所以必须在把对象转成字节数组的时候就制定一种规则（序列化），从IO流里面读出数据的时候再以这种规则把对象还原回来（反序列化）
+
+****
+## 12.1 序列化的实现
+
+>想要将对象序列化，就需要让对象实现可序列化接口 `implements Serializable`，如果对象的实例变量中包含引用类型，则这个引用类型也需要实现可序列化接口
+
+```java
+Person p = new Person("Alice", 30);  
+  
+// 序列化  
+try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("E:\\IOStream\\person.ser"))) {  
+    oos.writeObject(p);  
+    System.out.println("序列化完成。");  
+} catch (IOException e) {  
+    e.printStackTrace();  
+}  
+  
+// 反序列化  
+try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("E:\\IOStream\\person.ser"))) {  
+    Person restored = (Person) ois.readObject();  
+    System.out.println("反序列化结果：" + restored);  
+} catch (IOException | ClassNotFoundException e) {  
+    e.printStackTrace();  
+}
+```
+
 
 
 
