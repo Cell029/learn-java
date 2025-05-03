@@ -1183,6 +1183,48 @@ System.out.println("压缩后长度: " + compressed.length);
 
 **3、 配合 `ObjectOutputStream` 做序列化**
 
+```java
+public class Demo3 {  
+    public static void main(String[] args) throws IOException, ClassNotFoundException {  
+        Teacher teacher = new Teacher("张三", 25);  
+        // 内存中创建一个字节数组输出流  
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+  
+        // 创建对象输出流，将对象写入到字节数组流中  
+        ObjectOutputStream oos = new ObjectOutputStream(baos);  
+        oos.writeObject(teacher);  
+        oos.close();  
+  
+        // 获取序列化后的字节数组  
+        byte[] serialized = baos.toByteArray();  
+  
+        System.out.println("序列化后字节长度：" + serialized.length);  
+  
+        ByteArrayInputStream bais = new ByteArrayInputStream(serialized);  
+        ObjectInputStream ois = new ObjectInputStream(bais);  
+        Teacher restored = (Teacher) ois.readObject();  
+        ois.close();  
+  
+        System.out.println("还原对象：" + restored.getName() + ", " + restored.getAge());  
+    }  
+}  
+  
+class Teacher implements Serializable {  
+    @Serial  
+    private static final long serialVersionUID = -7608239609620267020L;  
+  
+    private String name;  
+    private int age;  
+  
+    public Teacher(String name, int age) {  
+        this.name = name;  
+        this.age = age;  
+    }  
+}
+```
+
+**4、 深克隆**
+
 
 
 
