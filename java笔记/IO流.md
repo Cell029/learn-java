@@ -1144,6 +1144,8 @@ while ((ch = bais.read()) != -1) {
 }
 ```
 
+## 15.1 应用
+
 **1、 在内存中合并多个字节数组**
 
 ```java
@@ -1225,8 +1227,62 @@ class Teacher implements Serializable {
 
 **4、 深克隆**
 
+```java
+public static void main(String[] args) {  
+    // 创建原始对象  
+    Address address = new Address("Beijing");  
+    People originalPeople = new People("Tom", address);  
+  
+    // 使用字节数组流进行深克隆  
+    People clonedPeople = (People) deepClone(originalPeople);  
+  
+    // 修改克隆对象的地址  
+    clonedPeople.getAddress().setCity("Shanghai");  
+  
+    System.out.println("原始地址: " + originalPeople.getAddress().getCity());  
+    // Beijing  
+    System.out.println("克隆地址: " + clonedPeople.getAddress().getCity());    
+    // Shanghai  
+}  
+  
+public static Object deepClone(Object obj) {  
+    try {  
+        // 序列化对象到字节数组  
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+        ObjectOutputStream oos = new ObjectOutputStream(baos);  
+        oos.writeObject(obj);  // 将对象写入字节数组流  
+        oos.flush();           // 刷新流  
+  
+        // 从字节数组中反序列化为新对象  
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());  
+        ObjectInputStream ois = new ObjectInputStream(bais);  
+        return ois.readObject();  // 返回新克隆的对象  
+  
+    } catch (IOException | ClassNotFoundException e) {  
+        e.printStackTrace();  
+        return null;  
+    }  
+}
+```
 
+>通过序列化和反序列化的方式，可以自动克隆所有的成员对象，对于复杂的对象结构，只需要实现 `Serializable`，不需要递归克隆每一个字段，节省了大量手动操作
 
+****
+## 15.2 总结
+
+**1、 数据的统一表示**
+
+>字节数组是最基本、最通用的数据表示形式，在 Java 中所有类型的数据，包括对象、文本、图片、音频等，都可以最终表示为字节数组。所以，无论是文本、二进制数据还是复杂的对象，字节数组都可以作为统一的处理方式，即对不同的数据类型使用相同的处理机制，便于扩展
+
+**2、 灵活的数据处理操作**
+
+- **切割和合并**：字节数组可以直接进行切割或合并（如使用 `System.arraycopy()` 或通过流读取和写入），例如，将一个大的字节数组分成多个小的字节数组，或者将多个字节数组合并为一个
+
+- **压缩和加密**：字节数组作为数据的通用表示，便于进行各种处理操作，比如压缩或加密，这些操作通常直接作用于字节数组
+
+- **数据转换**：字节数组可以方便地转换为其他数据格式
+
+>将数据转换为字节数组后，它就可以方便地进行扩展和各种操作，作为一种 IO 流，它天生的可以和其他的包装流进行搭配使用，让灵活性和可扩展性更高
 
 
 
