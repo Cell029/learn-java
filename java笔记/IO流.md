@@ -1072,7 +1072,23 @@ public final void readFully(byte[] b, int off, int len) throws IOException {
 >这个就是扩展的读整数型的方法
 
 ****
+# 14. 压缩流
 
+>压缩流指的是用于压缩和解压缩数据的流，它允许在读写数据的同时对其进行压缩或解压缩处理
+
+**1、压缩单个文件为 `.gz`**
+
+```java
+try (
+    GZIPOutputStream gzipOut = new GZIPOutputStream(new FileOutputStream(destFile))
+    ) {
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = fis.read(buffer)) != -1) {
+            gzipOut.write(buffer, 0, len);
+        }
+    }
+```
 
 
 
