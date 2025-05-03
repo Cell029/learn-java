@@ -1079,16 +1079,57 @@ public final void readFully(byte[] b, int off, int len) throws IOException {
 **1、压缩单个文件为 `.gz`**
 
 ```java
-try (
-    GZIPOutputStream gzipOut = new GZIPOutputStream(new FileOutputStream(destFile))
-    ) {
-        byte[] buffer = new byte[1024];
-        int len;
-        while ((len = fis.read(buffer)) != -1) {
-            gzipOut.write(buffer, 0, len);
-        }
-    }
+try (  
+        FileInputStream fis = new FileInputStream("E:\\IOStream\\test08.dat");  
+        GZIPOutputStream gzipOut = new GZIPOutputStream(new FileOutputStream("E:\\IOStream\\test09.gz"));  
+) {  
+    byte[] buffer = new byte[1024];  
+    int len;  
+    while ((len = fis.read(buffer)) != -1) {  
+        gzipOut.write(buffer, 0, len);  
+    }  
+} catch (IOException e) {  
+    e.printStackTrace();  
+}  
+  
+try {  
+    GZIPInputStream gzipIn = new GZIPInputStream(new FileInputStream("E:\\IOStream\\test09.gz"));  
+    byte[] buffer = new byte[1024];  
+    int len;  
+    while ((len = gzipIn.read(buffer)) != -1) {  
+        System.out.println(new String(buffer, 0, len));  
+    }  
+} catch (IOException e) {  
+    e.printStackTrace();  
+}
 ```
+
+**2、 压缩多个文件为 `.zip`**
+
+```java
+try (  
+        ZipOutputStream zipOut = new ZipOutputStream(new FileOutputStream("E:\\IOStream\\test10.zip"))  
+) {  
+    String[] filePaths = {"E:\\IOStream\\test05.txt", "E:\\IOStream\\test06.txt"};  
+    byte[] buffer = new byte[1024];  
+    for (String filePath : filePaths) {  
+        File file = new File(filePath);  
+        try (FileInputStream fis = new FileInputStream(file)) {  
+            zipOut.putNextEntry(new ZipEntry(file.getName()));  
+            int len;  
+            while ((len = fis.read(buffer)) != -1) {  
+                zipOut.write(buffer, 0, len);  
+            }  
+            zipOut.closeEntry();  
+        }  
+    }  
+}  catch (IOException e) {  
+    e.printStackTrace();  
+}
+```
+
+****
+# 15. 字节数组流
 
 
 
