@@ -1287,7 +1287,9 @@ public static Object deepClone(Object obj) {
 ****
 # 16. 流
 
->Java 中的“流”是通过抽象类（如 `InputStream` 和 `OutputStream`）和封装机制构建的一种工具类结构，它隐藏了底层的数据传输细节，使程序员可以更方便地进行输入和输出操作
+>Java 中的流是通过抽象类（如 `InputStream` 和 `OutputStream`）和封装机制构建的一种工具类结构，它封装了底层的数据传输细节，使程序员可以更方便地进行输入和输出操作
+
+......
 
 
 
