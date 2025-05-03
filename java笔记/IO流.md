@@ -1133,6 +1133,56 @@ try (
 
 >字节数组流是一种基于内存中字节数组的数据流，它不涉及文件、网络等外部设备，而是直接在内存中进行读写操作，常用于在内存中临时存储数据、实现数据格式转换、多种流组合使用时的中间缓冲容器
 
+```java
+byte[] data = "Hello ByteArray".getBytes();  
+  
+ByteArrayInputStream bais = new ByteArrayInputStream(data);  
+  
+int ch;  
+while ((ch = bais.read()) != -1) {  
+    System.out.print((char) ch);  
+}
+```
+
+**1、 在内存中合并多个字节数组**
+
+```java
+ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    for (byte[] arr : arrays) {
+        baos.write(arr);
+    }
+    return baos.toByteArray();
+```
+
+>创建一个字节数组输出流 `baos`，它会在内存中维护一个可变大小的字节缓冲区，所以在实际应用中它十分灵活，如果使用手动的创建字节数组，就需频繁的进行手动扩容并复制数组，所以
+
+**2、 数据传输前对数据进行编码和压缩**
+
+```java
+String text = "这是一段要通过网络传输的文本数据，可能很长...";  
+  
+ByteArrayOutputStream baos = new ByteArrayOutputStream();  
+try (  
+        GZIPOutputStream gzipOut = new GZIPOutputStream(baos);  
+        OutputStreamWriter writer = new OutputStreamWriter(gzipOut, "UTF-8")  
+) {  
+    writer.write(text); // 写入原始数据到内存字节数组中  
+} catch (IOException e) {  
+    e.printStackTrace();  
+}  
+  
+byte[] compressed = baos.toByteArray(); // 通过 toByteArray() 获取流中的数组  
+  
+try {  
+    System.out.println("压缩前长度: " + text.getBytes("UTF-8").length);  
+} catch (UnsupportedEncodingException e) {  
+    e.printStackTrace();  
+}  
+System.out.println("压缩后长度: " + compressed.length);
+```
+
+**3、 配合 `ObjectOutputStream` 做序列化**
+
 
 
 
