@@ -24,3 +24,5 @@ group by filename
 - [ ] 快速排序的深入 #todo 
 - [ ] try-catch-finally在Java7之后的优化释放资源深入
 - [ ] 装饰模式的深入 #todo 
+- [ ] happens-before #todo
+- [ ] 内存系统的重排 #todo

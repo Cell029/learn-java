@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "java笔记/多线程.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               },
               "icon": "lucide-file",
@@ -162,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -179,10 +179,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "07cff037e36d4b25",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
-    "java笔记/JVM虚拟机规范(简略版).md",
+    "java笔记/todo.md",
     "java笔记/多线程.md",
+    "java笔记/JVM虚拟机规范(简略版).md",
     "java笔记/images/多线程/file-20250506212712.png",
     "java笔记/images/多线程/file-20250506212101.png",
     "java笔记/images/多线程/79ecdd31b1b145be9dae60e0da0a83ea~tplv-k3u1fbpfcp-jj-mark_3024_0_0_0_q75.awebp",
@@ -221,7 +222,6 @@
     "java笔记/异常.md",
     "java笔记/images/IO流",
     "java笔记/树.md",
-    "java笔记/todo.md",
     "java笔记/images/树",
     "java笔记/images/Set 集合",
     "java笔记/images/栈和队列",
