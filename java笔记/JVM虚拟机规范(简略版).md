@@ -1,4 +1,6 @@
+>Java 虚拟机（Java Virtual Machine, JVM）是运行 Java 字节码的虚拟机。JVM 有针对不同系统的特定实现（Windows，Linux，macOS），目的是使用相同的字节码，它们都会给出相同的结果。字节码和不同系统的 JVM 实现是 Java 语言“一次编译，随处可以运行”的关键所在。
 
+---
 # 一.JVM规范中的运行时数据区
 
 >1. The PC Register(程序计数器):记录正在执行的虚拟机字节码指令的地址
@@ -9,6 +11,8 @@
 >6. Native Method Stacks(本地方法栈):在本地方法的执行过程中会使用到,与Java虚拟机栈十分相似,
 
 **HotSpot**
+
+>JVM 并不是只有一种！只要满足 JVM 规范，每个公司、组织或者个人都可以开发自己的专属 JVM。也就是说我们平时接触到的 HotSpot VM 仅仅是是 JVM 规范的一种实现而已
 
 >HotSpot是Oracle公司开发的,目前最常用的虚拟机实现,也是默认的Java虚拟机
 # 二.jdk6的HotSpot
