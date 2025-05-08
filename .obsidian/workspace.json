@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(上)/基础概念与常识.md",
+                "file": "java笔记/多线程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "基础概念与常识"
+              "title": "多线程"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(上)/基础概念与常识.md",
+                "file": "java笔记/多线程.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "基础概念与常识 的大纲"
+              "title": "多线程 的大纲"
             }
           },
           {
@@ -176,7 +176,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -193,12 +193,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "8746cf1289c80a6d",
   "lastOpenFiles": [
+    "面试题/Java基础常见面试题总结(上)/基础概念与常识.md",
     "java笔记/多线程.md",
     "java笔记/Oracle JDK 和 OpenJDK.md",
     "java笔记/images/多线程/file-20250508193137.png",
-    "面试题/Java基础常见面试题总结(上)/基础概念与常识.md",
     "java笔记/images/多线程/file-20250508154847.png",
     "java笔记/images/多线程/file-20250508154809.png",
     "java笔记/images/多线程/file-20250508153936.png",
