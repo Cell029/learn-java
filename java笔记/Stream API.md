@@ -137,12 +137,48 @@ try (Stream<String> stream = Files.lines(path)) {
 }
 ```
 
+>因为把文件转换成了 Stream 类型，所以可以调用各种 Stream API，对数据进行懒加载，一行一行地处理，因此不会占用太多的内存
 
+****
+## 6. 通过生成器创建
 
+>有时不是处理已有的数据集合，而是希望生成一组重复或递增的数据（如随机数、自然数、斐波那契数列等），这类数据在开始时并不存在于某个集合中，而是通过某种规则动态生成的，Stream 的生成器方法（generate、iterate）正是用来解决这种需求的
 
+1、`Stream.generate()`：通过 Supplier 生成“同质元素”
 
+![](images/Stream%20API/file-20250514221500.png)
 
+>因为 Supplier 不需要传值，并且每调用一次都产生一个新的值，所以生成一些固定的数或者使用一些数学函数生成一些随机数
 
+```java
+Stream<Integer> stream = Stream.generate(() -> 0);
+stream.limit(5).forEach(System.out::println);
+// 输出 0 0 0 0 0
+```
+
+```java
+Stream<Double> stream = Stream.generate(Math::random);
+stream.limit(3).forEach(System.out::println);
+// 输出一组 [0,1) 之间的随机数
+```
+
+2、`Stream.iterate()`：可迭代递增的流
+
+```java
+static <T> Stream<T> iterate(T seed, UnaryOperator<T> f)
+```
+
+>`seed` 是初始值（种子），`UnaryOperator<T>` 是一个函数式接口，表示从当前元素计算下一个元素
+
+```java
+Stream<Integer> stream = Stream.iterate(0, n -> n + 1);
+stream.limit(5).forEach(System.out::println); // 0 1 2 3 4
+```
+
+```java
+Stream<Integer> stream = Stream.iterate(0, n -> n + 2);
+stream.limit(5).forEach(System.out::println); // 0 2 4 6 8
+```
 
 
 ****
