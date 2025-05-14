@@ -108,6 +108,25 @@ entryStream.forEach(entry -> System.out.println(entry.getKey() + " = " + entry.g
 | sorted()   | 对 Stream 中所有的元素按照指定规则进行排序，返回新的 stream 流                         |
 | peek()     | 对 Stream 流中的每个元素进行逐个遍历处理，返回处理后的 stream 流                        |
 
+### 1. 链式调用
+
+```java
+List<String> names = List.of("Tom", "Amy", "Jack", "Jerry");
+
+names.stream()                          // 开始管道
+     .filter(name -> name.length() > 3) // 中间操作1
+     .map(String::toUpperCase)          // 中间操作2
+     .sorted()                          // 中间操作3
+     .forEach(System.out::println);     // 终止操作
+```
+
+>每调用一个中间操作的方法就会创建一个新的 Stream 对象（这些中间 Stream 对象根本不在堆上分配，或者被立即销毁、回收），但这个对象并不会对之前的数据进行处理，而是将之前进行过的操作记录下来保存好，等到调用结束管道中的方法时再一起对数据进行处理
+
+>这种行为方式就非常适合 JIT 编译器的优化，JIT 可以在最后一次性优化整条操作链，可以消除中间对象的创建（临时对象不逃出方法，不会在堆中分配内存），就像最终只调用了一个方法一样
+
+****
+### 2. map 与 flatMap
+
 
 
 
