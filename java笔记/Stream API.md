@@ -92,6 +92,60 @@ entryStream.forEach(entry -> System.out.println(entry.getKey() + " = " + entry.g
 >因为键值对本身就是用 `Set` 集合存储的，所以 `map.entrySet()` 返回一个 `Set<Map.Entry<K, V>>`，通过 `getKey()` 和 `getValue()` 拿到每个 entry 的 key 和 value
 
 ****
+### 4. 通过 Stream.builder() 创建
+
+>如果不确定要添加多少个元素到 Stream 中，可以使用 `Stream.builder()` 创建一个 Stream.Builder 对象，并使用其 `add()` 方法来逐个添加元素，最后调用 `build()` 方法生成 Stream 对象
+
+```java
+// 创建一个 Stream.Builder<String> 构造器  
+Stream.Builder<String> builder = Stream.builder();  
+// 使用 add() 方法添加元素  
+builder.add("Apple");  
+builder.add("Banana");  
+builder.add("Cherry");  
+// 构建出真正的 Stream
+Stream<String> stream = builder.build();  
+// 使用流进行遍历或其他操作  
+stream.forEach(System.out::println);
+```
+
+>相比 `Stream.of(...)` 或 `Arrays.stream(...)` 这种方法不要求一开始就知道所有元素，反而可以配合一些条件判断来动态控制 `add()` 哪些元素，但是得再真正的 Stream 对象创建前就使用完 `add()` 方法，不然后面再使用则会抛出 `IllegalStateException` 异常
+
+****
+### 5. 从 IO 资源创建
+
+>Java 8 引入了 `java.nio.file.Files.lines(Path)` 方法，它可以将一个文件中的每一行封装成一个 `Stream<String>`
+
+```java
+BufferedReader reader = new BufferedReader(new FileReader("data.txt"));
+String line;
+while ((line = reader.readLine()) != null) {
+    // 处理文件的每一行
+}
+reader.close();
+```
+
+>使用了 Stream 流后，本地文件的获取就不需要像 IO 流那样创建一个输入流读取文件，直接将文件地址给 Stream 就可以快速的获取文件内容
+
+```java
+Path path = Paths.get("E:\\IOStream\\test05.txt");  
+try (Stream<String> stream = Files.lines(path)) {  
+    // 使用 stream 逐行处理数据  
+    stream.forEach(System.out::println);  
+} catch (IOException e) {  
+    e.printStackTrace();  
+}
+```
+
+
+
+
+
+
+
+
+
+****
 ## 2.2 中间管道
 
 >从创建后到最终收集结果之前，Stream 在中间管道对流中元素进行一系列处理（可叠加），这些步骤不会立即执行，而是等到终止操作触发
