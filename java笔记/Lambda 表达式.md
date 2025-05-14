@@ -229,9 +229,39 @@ public class ConstructorReference {
 }
 ```
 
+**延迟执行：**
+
+```java
+public static void main(String[] args) {
+    printIfDebug(() -> expensiveCalculation()); 
+    // Supplier<String> supplier = () -> expensiveCalculation()
+    // printIfDebug(supplier)
+}
+
+static void printIfDebug(Supplier<String> supplier) {
+    boolean debug = false;
+    if (debug) {
+        System.out.println(supplier.get());
+    }
+}
+
+static String expensiveCalculation() {
+    System.out.println("执行复杂计算");
+    return "计算结果";
+}
+```
 
 
+>由于 `debug` 是 `false`，所以无法执行 `System.out.println(supplier.get())` ，而不调用 `supplier.get()` 就不会调用 `expensiveCalculation()` ，所以整个 `expensiveCalculation()` 从未被执行过，这就是 `Supplier` 实现的延迟计算
 
+****
+### 3. Predicate
+
+>**Predicate** 抽象了判断这个场景，而且这种抽象不局限于业务，是直接对某一类场景进行抽象
+
+```java
+
+```
 
 
 
