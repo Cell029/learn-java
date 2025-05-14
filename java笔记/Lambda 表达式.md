@@ -367,6 +367,22 @@ System.out.println(function.apply("hello"));
 
 2、Lambda 表达式并不会真实的创建一个 .class 文件，而匿名内部类每次创建时都会生成一个新的 .class 文件
 
+**注意：**
+
+>如果在`lambda表达式`中，使用到了局部变量，那么这个局部变量会被隐式的声明为 final 是⼀个常量，不能修改值（与匿名内部类一致）
+
+```java
+public static void main(String[] args) {
+	int num = 10; // 注意：这个变量被 lambda 捕获了
+
+    Runnable r = () -> {
+        System.out.println("num = " + num); // Lambda 中使用 num
+    };
+    // num = 20; // 编译报错
+    r.run();
+}
+```
+
 ****
 # 5. 方法引用
 
@@ -555,5 +571,28 @@ System.out.println(list);
 ****
 ## 6.3 集合内的排序
 
+![](images/Lambda%20表达式/file-20250514173437.png)
+
 >通过 Lambda 表达式来重写匿名内部类中的 `compareTo()` 方法
 
+```java
+List<String> list = Arrays.asList("banana", "apple", "orange");  
+  
+Collections.sort(list, new Comparator<String>() {  
+    @Override  
+    public int compare(String s1, String s2) {  
+        return s1.compareTo(s2);  
+    }  
+});  
+
+// 等价于
+Collections.sort(list, (s1, s2) -> s1.compareTo(s2));
+
+// 等价于
+Collections.sort(list, String::compareTo);
+
+
+System.out.println(list);
+```
+
+****
