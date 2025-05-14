@@ -43,6 +43,7 @@ new Thread(()->{ // 因为 run 方法不用传参，所以可以直接使用 ()
 ****
 # 2. 函数式接口
 
+## 2.1 定义
 
 >函数式接口要求接口只有一个抽象方法，但它可以有多个默认方法或静态方法，可以通过使用 `@FunctionalInterface` 注解来标明该接口是一个函数式接口。
 
@@ -82,6 +83,14 @@ public class Test {
 ```
 
 ****
+## 2.2 Java 内置的四个函数式接口
+
+
+
+
+
+
+****
 # 3. Lambda 常见格式
 
 1、无参数，无返回值
@@ -114,6 +123,15 @@ public class Test {
 (a, b) -> a + b;
 ```
 
+>如果方法的参数列表中的参数数量有且只有⼀个，参数列表的小括号是可以省略不写的（省略掉小括号的同时， 必须要省略参数的类型）；当⼀个方法体中的逻辑有且只有⼀句的情况下，⼤括号可以省略；如果⼀个方法中唯⼀的⼀条语句是⼀个返回语句， 此时在省略掉大括号的同时， 也必须省略掉 return
+
+5、重要特征
+
+- **可选类型声明：** 不需要声明参数类型，编译器可以统一识别参数值。
+- **可选的参数圆括号：** 一个参数无需定义圆括号，但多个参数需要定义圆括号。
+- **可选的大括号：** 如果主体包含了一个语句，就不需要使用大括号。
+- **可选的返回关键字：** 如果主体只有一个表达式返回值则编译器会自动返回值，大括号需要指定表达式返回了一个数值。
+
 ****
 # 4. 与匿名内部类的关系
 
@@ -127,5 +145,59 @@ public class Test {
 
 ****
 # 5. 方法引用
+
+## 5.1 实例方法的引用
+
+```
+方法归属者::方法名 // 静态方法的归属者为类名，普通方法归属者为对象
+```
+
+>在引用的方法后⾯，不要添加小括号，并且引用的这个方法， 参数（数量、类型） 和 返回值， 必须要跟接口中定义的⼀致
+
+```java
+PrintStream out = System.out;
+Consumer<String> printer = out::println;
+printer.accept("Hello"); // 输出：Hello
+
+// 等价于
+
+Consumer<String> printer = s -> out.println(s);
+```
+
+****
+## 5.2 静态方法的引用
+
+```java
+Function<String, Integer> func = Integer::parseInt;
+System.out.println(func.apply("123")); // 输出：123
+
+// 等价于
+
+Function<String, Integer> func = s -> Integer.parseInt(s);
+```
+
+****
+## 5.3 特殊方法的引用
+
+```
+类名::实例方法
+```
+
+>这种形式其实是将“Lambda 的第一个参数”作为“调用者”，第二个参数作为方法参数
+
+```java
+List<String> list = Arrays.asList("apple", "banana", "cherry");
+list.sort(String::compareToIgnoreCase);
+
+// 等价于
+
+list.sort((s1, s2) -> s1.compareToIgnoreCase(s2));
+```
+
+>需要注意的是：`::` 前的类名指的是调用方法的那个参数的类型所属的类（不是方法返回的类型），因为 `s1` 是字符串，所以使用的是 `String` 
+
+
+
+
 
 
