@@ -196,8 +196,66 @@ list.sort((s1, s2) -> s1.compareToIgnoreCase(s2));
 
 >需要注意的是：`::` 前的类名指的是调用方法的那个参数的类型所属的类（不是方法返回的类型），因为 `s1` 是字符串，所以使用的是 `String` 
 
+```java
+Function<Vip, String> function = new Function<Vip, String>() {
+    @Override
+    public String apply(Vip vip) {
+        return vip.getName();
+    }
+};
 
+Function<Vip, String> function = Vip::getName;
 
+// 等价于
+Function<Vip, String> function = vip -> vip.getName();
+```
 
+>用传进的参数作为对象使用，引用的是任意对象的实例方法，所以不能直接用具体的对象使用，因为传进的参数是 `Vip` 类的实例，所以使用的类名是 `Vip` 
+
+****
+## 5.4 构造方法的引用
+
+```
+类名::new
+```
+
+1、无参构造
+
+```java
+Supplier<Student> supplier = Student::new;
+// 等价于：
+Supplier<Student> supplier = () -> new Student();
+```
+
+2、一个参数的构造方法
+
+```java
+Function<String, Student> function = Student::new;
+// 等价于：
+Function<String, Student> function = name -> new Student(name);
+```
+
+3、两个参数的构造方法
+
+```java
+BiFunction<String, Integer, Student> biFunction = Student::new;
+// 等价于：
+BiFunction<String, Integer, Student> biFunction = (name, age) -> new Student(name, age);
+```
+
+****
+## 5.5 数组的引用
+
+```
+类型[]::new
+```
+
+```java
+Function<Integer, int[]> arrayCreator = int[]::new;
+String[] arr = arrayCreator.apply(5);
+
+// 等价于
+Function<Integer, int[]> arrayCreator = num -> new int[num]
+```
 
 
