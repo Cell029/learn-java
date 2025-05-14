@@ -148,7 +148,91 @@ List<Goods> expensive = filter(goodsList, g -> g.getPrice() > 100);
 
 ![](images/Lambda%20表达式/file-20250514153012.png)
 
->
+```java
+Consumer<String> printer = new Consumer<String>() {  
+    @Override  
+    public void accept(String s) {  
+        System.out.println("打印:" + s);  
+    }  
+};  
+printer.accept("hello");
+
+// 等价于
+
+Consumer<String> printer = s -> System.out.println("打印:" + s);
+printer.accept("hello");
+
+// 等价于
+Consumer<String> printer = System.out::println;
+printer.accept("hello");
+```
+
+>`Consumer` 接口中定义了一个默认方法 `andThen`，它允许多个 `Consumer` 顺序执行
+
+```java
+Consumer<String> first = s -> System.out.println("第一步处理：" + s);
+Consumer<String> second = s -> System.out.println("第二步处理：" + s);
+
+Consumer<String> combined = first.andThen(second);
+
+List<String> dataList = Arrays.asList("数据A", "数据B", "数据C");
+for (String data : dataList) {
+    combined.accept(data); // 对每个数据执行 first → second
+}
+```
+
+```
+第一步处理：数据A
+第二步处理：数据A
+第一步处理：数据B
+第二步处理：数据B
+第一步处理：数据C
+第二步处理：数据C
+```
+
+****
+### 2. Supplier
+
+>它主要针对的是`get`这个场景或者说获取这个场景，它不接受参数但返回一个结果，常用于延迟提供或生成数据
+
+![](images/Lambda%20表达式/file-20250514155551.png)
+
+```java
+Supplier<String> supplier = new Supplier<String>() {  
+    @Override  
+    public String get() {  
+        return "hello";  
+    }  
+};  
+System.out.println(supplier.get()); // hello
+
+// 等价于
+
+Supplier<String> supplier = () -> "hello";
+System.out.println(supplier.get());
+``` 
+
+>`Supplier` 适合与构造方法或静态方法的方法引用（`::`）结合使用
+
+```java
+class Product {
+    public Product() {
+        System.out.println("创建 Product 对象");
+    }
+}
+
+public class ConstructorReference {
+    public static void main(String[] args) {
+        Supplier<Product> supplier = Product::new;
+        Product p = supplier.get();
+    }
+}
+```
+
+
+
+
+
 
 
 
