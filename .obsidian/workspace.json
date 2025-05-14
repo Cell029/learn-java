@@ -35,8 +35,7 @@
               "title": "基本数据类型"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -157,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/基本数据类型.md",
+                "file": "面试题/Java基础常见面试题总结(上)/基本数据类型.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -177,7 +176,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -194,10 +193,16 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "fd7eba89be294fa7",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
-    "面试题/Java基础常见面试题总结(上)/基本数据类型.md",
+    "面试题/Java基础常见面试题总结(上)/images/基本数据类型/file-20250514232226.png",
+    "面试题/Java基础常见面试题总结(上)/images/基本数据类型",
+    "面试题/Java基础常见面试题总结(上)/images",
     "java笔记/基本数据类型.md",
+    "java笔记/images/基本数据类型/file-20250514231955.png",
+    "java笔记/images/基本数据类型/file-20250514231651.png",
+    "java笔记/images/基本数据类型/file-20250514230349.png",
+    "面试题/Java基础常见面试题总结(上)/基本数据类型.md",
     "java笔记/images/基本数据类型/file-20250514225642.png",
     "面试题/Java基础常见面试题总结(上)/基本语法.md",
     "面试题/Java基础常见面试题总结(上)/基础概念与常识.md",
@@ -211,12 +216,9 @@
     "java笔记/images/Lambda 表达式/file-20250514171945.png",
     "java笔记/images/Lambda 表达式/file-20250514165834.png",
     "java笔记/images/Lambda 表达式/file-20250514155551.png",
-    "java笔记/images/Lambda 表达式/file-20250514153012.png",
     "java笔记/images/Lambda 表达式",
     "java笔记/todo.md",
     "java笔记/网络编程.md",
-    "java笔记/images/网络编程/file-20250513173322.png",
-    "java笔记/images/网络编程/file-20250513154304.png",
     "java笔记/包装类.md",
     "java笔记/反射机制.md",
     "未命名.md",
@@ -239,8 +241,6 @@
     "java笔记/JIT 和 AOT.md",
     "java笔记/Java环境.md",
     "java笔记/images/多线程/79ecdd31b1b145be9dae60e0da0a83ea~tplv-k3u1fbpfcp-jj-mark_3024_0_0_0_q75.awebp",
-    "面试题/Java基础常见面试题总结(上)",
-    "未命名",
-    "面试题"
+    "面试题/Java基础常见面试题总结(上)"
   ]
 }
