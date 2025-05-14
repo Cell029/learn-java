@@ -260,11 +260,57 @@ static String expensiveCalculation() {
 >**Predicate** 抽象了判断这个场景，而且这种抽象不局限于业务，是直接对某一类场景进行抽象
 
 ```java
-
+@FunctionalInterface
+public interface Predicate<T> {
+    boolean test(T t);
+}
 ```
 
+```java
+Predicate<String> predicate = new Predicate<String>() {  
+    @Override  
+    public boolean test(String s) {  
+        return s.length()  >5;  
+    }  
+};  
+System.out.println(predicate.test("hello")); // false  
+System.out.println(predicate.test("hello world")); // true
 
+// 等价于
 
+Predicate<String> predicate = s -> s.length > 5;
+System.out.println(isLongEnough.test("hello")); // false
+System.out.println(isLongEnough.test("helloworld")); // true
+```
+
+****
+### 4. Function
+
+>它定义了一个 `apply()` 方法，用于执行将输入类型 `T` 转换为输出类型 `R` 的操作
+
+```java
+@FunctionalInterface
+public interface Function<T, R> {
+    R apply(T t);
+}
+```
+
+>将字符串类型转换成一个 int 类型
+
+```java
+Function<String, Integer> function = new Function<String, Integer>() {  
+    @Override  
+    public Integer apply(String s) {  
+        return s.length();  
+    }  
+};  
+System.out.println(function.apply("hello"));
+
+// 等价于
+
+Function<String, Integer> function = s -> s.length();
+System.out.println(function.apply("hello"));
+```
 
 
 
@@ -436,4 +482,31 @@ String[] arr = arrayCreator.apply(5);
 Function<Integer, int[]> arrayCreator = num -> new int[num]
 ```
 
+****
+# 6. 集合中的应用
 
+## 6.1 集合的遍历
+
+![](images/Lambda%20表达式/file-20250514165834.png)
+
+>集合的 `forEach()` 需要的参数类型是 `Consumer` ，所以可以使用 Lambda 表达式
+
+```java
+ArrayList<Integer> list = new ArrayList<>();  
+Collections.addAll(list, 1,2,3,4,5);
+list.forEach(new Consumer<Integer>() {  
+    @Override  
+    public void accept(Integer integer) {  
+        System.out.println(integer);  
+    }  
+});
+
+// 等价于
+list.forEach(i -> System.out.println(i));
+
+// 等价于
+list.forEach(System.out::println);
+```
+
+****
+## 6.2 
