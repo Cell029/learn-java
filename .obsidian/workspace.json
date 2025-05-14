@@ -162,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -179,10 +179,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "59e937e691d8b532",
   "lastOpenFiles": [
-    "java笔记/网络编程.md",
+    "java笔记/todo.md",
     "java笔记/Lambda 表达式.md",
+    "java笔记/网络编程.md",
     "java笔记/images/网络编程/file-20250513173322.png",
     "java笔记/images/网络编程/file-20250513154304.png",
     "java笔记/images/网络编程/file-20250513154249.png",
@@ -216,7 +217,6 @@
     "java笔记/images/反射机制",
     "java笔记/Oracle JDK 和 OpenJDK.md",
     "java笔记/images/类和对象",
-    "java笔记/todo.md",
     "java笔记/JIT 和 AOT.md",
     "java笔记/Java环境.md",
     "java笔记/JVM虚拟机规范(简略版).md",

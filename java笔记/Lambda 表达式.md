@@ -126,4 +126,6 @@ public class Test {
 2、Lambda 表达式并不会真实的创建一个 .class 文件，而匿名内部类每次创建时都会生成一个新的 .class 文件
 
 ****
+# 5. 方法引用
+
 

@@ -27,3 +27,5 @@ group by filename
 - [ ] happens-before #todo
 - [ ] 内存系统的重排 #todo
 - [ ] GraalVM #todo
+- [ ] TCP和Http的二进制结构 #todo 
+- [ ] 用Socket实现Http服务器 #todo 
