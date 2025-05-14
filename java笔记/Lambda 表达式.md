@@ -508,5 +508,52 @@ list.forEach(i -> System.out.println(i));
 list.forEach(System.out::println);
 ```
 
+```java
+Map<String, Integer> map = new HashMap<>();  
+map.put("A", 1);  
+map.put("B", 2);  
+map.put("C", 3);  
+  
+map.forEach(new BiConsumer<String, Integer>() {  
+    @Override  
+    public void accept(String s, Integer integer) {  
+        System.out.println("key:" + s + ",value:" + integer);  
+    }  
+});  
+  
+// 等价于
+  
+map.forEach((k, v) -> System.out.println("key:" + k + ",value:" + v));
+```
+
 ****
-## 6.2 
+## 6.2 删除集合中的元素
+
+![](images/Lambda%20表达式/file-20250514171945.png)
+
+> `removeIf()` 需要的参数类型是 `Predicate` ，所以可以使用 Lambda 表达式
+
+```java
+List<String> list = new ArrayList<>(Arrays.asList("A", "B", "C", "D"));  
+System.out.println(list);  
+list.removeIf(new Predicate<String>() {  
+    @Override  
+    public boolean test(String s) {  
+        return s.equals("C");  
+    }  
+});  
+
+// 等价于
+list.removeIf(s -> s.equals("C"));
+
+// 等价于
+list.removeIf("C"::equals);
+
+System.out.println(list);
+```
+
+****
+## 6.3 集合内的排序
+
+>通过 Lambda 表达式来重写匿名内部类中的 `compareTo()` 方法
+
