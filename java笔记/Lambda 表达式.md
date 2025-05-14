@@ -83,8 +83,72 @@ public class Test {
 ```
 
 ****
-## 2.2 Java 内置的四个函数式接口
+## 2.2 函数式思想
 
+>Lambda 更大的作用是在解决具体的问题上，并非单纯创造一个匿名类
+
+```java
+public List<Goods> filterByType(List<Goods> list, String type) {
+    List<Goods> result = new ArrayList<>();
+    for (Goods goods : list) {
+        if (goods.getType().equals(type)) {
+            result.add(goods);
+        }
+    }
+    return result;
+}
+```
+
+>如果定义了一个对商品类型进行排查的方法，它可能是这样的，但是如果需要重新定义一个新的方法用来对金额进行排查，就得重新写一串代码
+
+```java
+public List<Goods> filterByPrice(List<Goods> list, Integer price) {
+    List<Goods> result = new ArrayList<>();
+    for (Goods goods : list) {
+        if (goods.getPrice() > price) {
+            result.add(goods);
+        }
+    }
+    return result;
+}
+```
+
+>但实际上除了 `if` 语句里的内容不一样，其余的代码基本一致，这就造成了一旦筛选的条件发生改变，需要更改的代码就非常的多，这对于未来的代码维护是十分不利的，但如果将行为参数化，用函数参数代替判断逻辑，就可以以函数的形式将判断逻辑传入方法中，未来只需要对判断逻辑进行维护就行
+
+```java
+public List<Goods> filter(List<Goods> list, Predicate<Goods> predicate) {
+    List<Goods> result = new ArrayList<>();
+    for (Goods goods : list) {
+        if (predicate.test(goods)) {
+            result.add(goods);
+        }
+    }
+    return result;
+}
+```
+
+>而 Lambda 表达式则可以这样写，
+
+```java
+List<Goods> goodsList = ...;
+
+// 按类型筛选
+List<Goods> fruits = filter(goodsList, g -> g.getType().equals("水果"));
+
+// 按价格筛选
+List<Goods> expensive = filter(goodsList, g -> g.getPrice() > 100);
+```
+
+****
+## 2.3 Java 内置的四种函数式接口
+
+### 1. Consumer
+
+>它是一个消费函数式接口，主要针对的是“消费”这个场景，它接收一个参数，但不返回结果，常用于执行某个动作，如打印、写入文件等
+
+![](images/Lambda%20表达式/file-20250514153012.png)
+
+>
 
 
 
