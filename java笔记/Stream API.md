@@ -536,7 +536,70 @@ System.out.println(result) // [Charlie, David, Eva]
 ****
 ### 7. concat
 
->
+>用于合并两个流，返回一个包含两个流中所有元素的串行流（按先后顺序合并）
+
+```java
+Stream<String> stream1 = Stream.of("A", "B", "C");
+Stream<String> stream2 = Stream.of("D", "E");
+
+Stream<String> combinedStream = Stream.concat(stream1, stream2);
+combinedStream.forEach(System.out::println); // A B C D E
+```
+
+****
+### 8. peek
+
+![](images/Stream%20API/file-20250515162203.png)
+
+> `peek()` 接收一个 `Consumer` 接口，用来查看当前调用位置流中的元素状态，但不会修改流
+
+```java
+List<String> list = Arrays.asList("apple", "banana", "cherry");  
+  
+List<String> result = list.stream()  
+        .filter(s -> s.length() > 5)  
+        .peek(new Consumer<String>() {  
+            @Override  
+            public void accept(String s) {  
+                System.out.println("Filtered value: " + s); 
+            }  
+        })  
+        .map(String::toUpperCase)  
+        .peek(s -> System.out.println("Mapped value: " + s)) 
+        .collect(Collectors.toList());  
+```
+
+```
+Filtered value: banana
+Mapped value: BANANA
+Filtered value: cherry
+Mapped value: CHERRY
+```
+
+>从 `peek` 的结果可以看出流中的元素是被一个一个处理的，具体过程如下
+
+```
+从 list 取出 "apple":
+    `filter("apple")` -> 长度 5，不通过 -> 丢弃，后续操作不执行
+        
+取出 "banana":
+    filter("banana") -> 长度 6，符合 -> 继续执行
+    peek("banana") -> 打印：Filtered value: banana
+    map("banana") -> 转大写 -> "BANANA"
+    peek("BANANA") -> 打印：Mapped value: BANANA
+    collect("BANANA")`
+        
+取出 "cherry":
+    filter("cherry") -> 长度 6，符合 -> 继续执行
+    peek("cherry") -> 打印：Filtered value: cherry
+    map("cherry") -> 转大写 -> "CHERRY"
+    peek("CHERRY") -> 打印：Mapped value: CHERRY
+    collect("CHERRY")
+```
+
+****
+## 2.3 结束管道
+
 
 
 
