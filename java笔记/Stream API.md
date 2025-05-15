@@ -261,9 +261,48 @@ List<String> names = users.stream()
 System.out.println(names); // [Alice, Bob]
 ```
 
-**mapToInt(ToIntFunction<? super T> mapper) **
+****
 
+**1、`mapToInt(ToIntFunction<? super T> mapper)`**
 
+>将一个对象流（如 `Stream<String>`）中的元素转换为 `int` 类型，得到一个 `IntStream`，以此避免数据的自动装箱与拆箱
+
+```java
+List<String> list = Arrays.asList("1", "2", "3");
+IntStream intStream = list.stream()
+        .mapToInt(s -> Integer.parseInt(s)); // 转为 IntStream
+int sum = intStream.sum(); // IntStream 支持 sum, average 等操作
+System.out.println(sum); // 6
+```
+
+**2、`mapToDouble(ToDoubleFunction<? super T> mapper)`**
+
+>将对象流映射为 `double` 类型，返回一个 `DoubleStream`
+
+```java
+List<String> prices = Arrays.asList("19.9", "5.5", "10.0");
+DoubleStream priceStream = prices.stream()
+        .mapToDouble(s -> Double.parseDouble(s)); // 转为 DoubleStream
+double average = priceStream.average().orElse(0.0);
+System.out.println(average); // 输出平均值：11.8
+```
+
+**3、`mapToLong(ToLongFunction<? super T> mapper)`**
+
+>将对象流映射为 `long` 类型，返回一个 `LongStream`
+
+```java
+List<String> values = Arrays.asList("10000000000", "20000000000");
+LongStream longStream = values.stream()
+        .mapToLong(s -> Long.parseLong(s));
+long max = longStream.max().orElse(0L);
+System.out.println(max); // 输出 20000000000
+```
+
+****
+#### 2.2 flatMap
+
+>
 
 
 
