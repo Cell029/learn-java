@@ -878,6 +878,56 @@ Map<String, String> map = Stream.of("1:A", "2:B", "3:C").collect(Collectors.toMa
 ****
 ###### 3. 分组分区
 
+>`Collectors.groupingBy` 是 Java Stream 中用于分组的收集器，其本质是：根据分组函数的返回值对 Stream 中的元素进行分类，并将相同组的数据放到一起形成一个` Map<K, V>` 或其他结构
+
+`groupingBy()` 操作需要指定两个关键输入，即分组函数和值收集器：
+
+- 分组函数：这一项定义了如何对元素进行分组，它是一个函数 `Function<T, K>`，输入一个流中的元素 `T`，返回一个用于分类的键 `K`（作为 Map 的 key），如果多个元素在应用此函数后返回的结果相同，那么这些元素就被归到同一组中
+
+```java
+class Employee {
+    String name;
+    String department;
+    int salary;
+}
+
+Map<String, List<Employee>> map = employees.stream()
+    .collect(Collectors.groupingBy(Employee::getDepartment));
+```
+
+>`Employee::getDepartment` 就是分组函数 `Function<Employee, String>`，如果有多个员工属于 "研发部"，那这个 Map 会有一项："研发部" -> `List<Employee>`（所有部门为“研发部”的员工），即 `Employee::getDepartment` 对应一个 `List<Employee>` 
+
+```java
+List<Employee> employees = List.of(
+    new Employee("张三", "研发部", 10000),
+    new Employee("李四", "销售部", 8000),
+    new Employee("王五", "研发部", 12000),
+    new Employee("赵六", "销售部", 8500)
+);
+
+Map<String, List<Employee>> map = employees.stream()
+    .collect(Collectors.groupingBy(Employee::getDepartment));
+```
+
+```
+{
+  "研发部" = [张三对象, 王五对象], // key(String 类型) : value(List 类型) 
+  "销售部" = [李四对象, 赵六对象]
+}
+```
+
+- 值收集器：对于分组后的数据元素的进一步处理，所有值收集器都是 Collector 的一种实现，把元素分组后（即 Map 的 key 确定），每组内部的元素怎么处理、怎么变成最终结果的 value，交给值收集器来决定
+
+```java
+Map<String, Long> result = 
+    employees.stream().collect(Collectors.groupingBy(
+        Employee::getDepartment,
+        Collectors.counting() // 值收集器
+));
+```
+
+>`Collectors.counting()` 是用来统计数量的，所以这个 map 集合的 key 是部门，value 是人数
+
 
 
 
