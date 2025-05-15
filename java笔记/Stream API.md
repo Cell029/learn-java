@@ -637,7 +637,7 @@ String value = result.orElse("默认值"); // 当 result 为空时就将 result 
 
 ##### 1. `isPresent()` 和 `isEmpty()`
 
-- `isPresent()`：返回 `true` 表示值存在，常与 `if` 配合使用
+- `isPresent()`：返回 `true` 表示值存在，常与 `if` 配合使用，也可以传递一个 `Consumer` 接口执行消费者操作
 - `isEmpty()`：返回 `true` 表示值不存在，是 `!isPresent()` 的语义替代
 
 ```java
@@ -660,9 +660,9 @@ System.out.println(opt.get());  // 输出：hello
 >如果此时的 opt 为空，则会抛出异常
 
 ****
-##### 3. `orElse(T other)`
+##### 3. `orElse(T other)` 、 `orElseGet(Supplier<? extends T>)` 、`orElseThrow()`
 
-- 作用：有值返回值，无值返回传入的默认值。
+-  `orElse(T other)` ：有值返回值，无值返回传入的默认值。
 
 ```java
 Optional<String> opt = Optional.empty();
@@ -685,8 +685,44 @@ public static String getDefault() {
 }
 ```
 
+- `orElseGet(Supplier<? extends T>)` ：用法类似 `orElse()`，但 `Supplier` 是惰性求值，只有在 Optional 为空时，才会执行 `Supplier`
 
+```java
+String result = Optional.empty().orElseGet(() -> {
+    System.out.println("调用了Supplier");
+    return "lazy default";
+});
+```
 
+- `orElseThrow()`：用于强制性地要求值存在的逻辑，如果不存在执行方法体中的抛出异常逻辑
+
+```java
+String result = Optional.of("abc").orElseThrow(); // 正常
+String str2 = Optional.empty().orElseThrow(() -> new RuntimeException("没有值")); // 抛异常
+```
+
+****
+##### 4. `map(Function<? super T, ? extends U>)`
+
+![](images/Stream%20API/file-20250515183106.png)
+
+>与 Stream 中的 `map()` 类似，都是传入一个 `Function` 接口，实现类型的转化功能，但它一次最多只能处理一个元素（处理 null 值不报错）
+
+```java
+Optional<User> userOpt = Optional.empty(); // 可能为空
+Optional<String> name = userOpt.map(User::getName); // 不会抛出异常
+```
+
+****
+##### 5. `flatMap(Function<? super T, Optional<U>>)`
+
+>适用于链式操作中需要避免 `Optional<Optional<T>>` 嵌套的情况
+
+```java
+Optional<String> opt = Optional.of("stream");
+Optional<Integer> result = opt.flatMap(s -> Optional.of(s.length()));
+System.out.println(result.get());  // 6
+```
 
 ****
 ### 2. 遍历类终止操作
