@@ -9,9 +9,9 @@ Stream 流默认是串行的，因为串行更容易控制，结果的输出顺�
 
 # 2. Stream 流的 3 种操作类型
 
-- 创建Stream
-- Stream中间处理
-- 终止Steam
+- 创建 Stream
+- Stream 中间处理
+- 终止 Steam
 
 ![](images/Stream%20API/file-20250514201131.png)
 
@@ -484,7 +484,7 @@ List<Integer> sorted = numbers.stream()
 System.out.println(sorted); // [1, 2, 3, 4, 5]
 ```
 
->对自定义对象排序，使用时需要传入
+>对自定义对象排序，使用时需要传入比较器（若类的内部没有重写比较器）
 
 ```java
 class Person {
@@ -501,11 +501,50 @@ List<Person> people = Arrays.asList(
 );
 
 List<Person> sorted = people.stream()
-    .sorted(Comparator.comparingInt(p -> p.age))
+    .sorted(Comparator.comparingInt(Person::getAge))
     .collect(Collectors.toList());
 
 System.out.println(sorted); // [Alice - 20, Bob - 23, Tom - 25]
 ```
+
+****
+### 6. limit 和 skip
+
+> `limit` 用于截断流，限制从流中获取的元素数量
+
+```java
+List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+
+List<Integer> result = list.stream()
+    .limit(3) // 只取前 3 个元素
+    .collect(Collectors.toList());
+    System.out.println(result); // [1, 2, 3]
+```
+
+> `skip` 用于跳过流中的前 n 个元素，返回剩下的元素组成的新流
+
+```java
+List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David", "Eva");
+
+List<String> result = names.stream()
+    .skip(2)
+    .collect(Collectors.toList());
+System.out.println(result) // [Charlie, David, Eva]
+```
+
+
+****
+### 7. concat
+
+>
+
+
+
+
+
+
+
+
 
 
 
