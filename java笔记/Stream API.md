@@ -635,10 +635,11 @@ String value = result.orElse("默认值"); // 当 result 为空时就将 result 
 ****
 #### 1.2 常用方法
 
-##### 1. `isPresent()` 和 `isEmpty()`
+##### 1. `isPresent()` 、 `isEmpty()` 、`ifPresent()`
 
 - `isPresent()`：返回 `true` 表示值存在，常与 `if` 配合使用，也可以传递一个 `Consumer` 接口执行消费者操作
 - `isEmpty()`：返回 `true` 表示值不存在，是 `!isPresent()` 的语义替代
+- `ifPresent()`
 
 ```java
 Optional<String> opt = Optional.of("java");
@@ -725,9 +726,64 @@ System.out.println(result.get());  // 6
 ```
 
 ****
-### 2. 遍历类终止操作
+### 2. 终止操作
 
 #### 2.1 forEach
+
+![](images/Stream%20API/file-20250515184756.png)
+
+>对流中的每一个元素执行指定的动作，例如打印、写文件等
+
+```java
+List<String> names = Arrays.asList("Alice", "Jack", "Mike");
+names.stream().forEach(name -> System.out.println(name));
+```
+
+****
+#### 2.2 metch
+
+###### 1. anyMatch
+
+>只要有一个匹配的元素就返回 true
+
+```java
+List<String> list = new ArrayList<String>();  
+list.add("a");  
+list.add("b");  
+list.add("c");  
+boolean has = list.stream().anyMatch(s -> s.equals("b"));  
+System.out.println(has); // true
+```
+
+##### 2. allMatch
+
+>需要全部匹配才返回 true
+
+```java
+boolean has = list.stream().allMatch(s -> !s.isEmpty());  
+System.out.println(has); // true
+```
+
+##### 3. noneMatch
+
+>当全部不匹配时返回 true
+
+```java
+boolean has = list.stream().noneMatch(s -> s.contains("C"));  
+System.out.println(has); // true
+```
+
+****
+#### 2.3 reduce
+
+>一种将流中的多个元素“归约”为一个值的操作，例如把所有数加起来求和、把所有字符串拼接成一个大字符串、找出最大值、最小值等，也就是把一个集合变成单个值
+
+```java
+List<Integer> list = Arrays.asList(1, 2, 3, 4);  
+Optional<Integer> sum = list.stream()  
+        .reduce(Integer::sum);  
+sum.ifPresent(System.out::println); // 10
+```
 
 
 
