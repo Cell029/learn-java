@@ -635,7 +635,57 @@ String value = result.orElse("默认值"); // 当 result 为空时就将 result 
 ****
 #### 1.2 常用方法
 
-##### 1. 
+##### 1. `isPresent()` 和 `isEmpty()`
+
+- `isPresent()`：返回 `true` 表示值存在，常与 `if` 配合使用
+- `isEmpty()`：返回 `true` 表示值不存在，是 `!isPresent()` 的语义替代
+
+```java
+Optional<String> opt = Optional.of("java");
+if (opt.isPresent()) {
+    System.out.println(opt.get());
+}
+```
+
+****
+##### 2. `get()`
+
+- 作用：获取 Optional 中的值。
+
+```java
+Optional<String> opt = Optional.of("hello");
+System.out.println(opt.get());  // 输出：hello
+```
+
+>如果此时的 opt 为空，则会抛出异常
+
+****
+##### 3. `orElse(T other)`
+
+- 作用：有值返回值，无值返回传入的默认值。
+
+```java
+Optional<String> opt = Optional.empty();
+String result = opt.orElse("default");
+System.out.println(result); // default
+```
+
+>需要注意的是：即使 opt 不为空，`orElse()` 也会执行传入的参数表达式
+
+```java
+public static void main(String[] args) {
+    String result = Optional.of("value").orElse(getDefault());
+    // 输出: 调用了 getDefault()
+    System.out.println(result); // value
+}
+
+public static String getDefault() {
+    System.out.println("调用了 getDefault()");
+    return "default";
+}
+```
+
+
 
 
 ****
