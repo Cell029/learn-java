@@ -828,8 +828,17 @@ System.out.println(result); // ABC
 ****
 ##### 2. Collector
 
->收集器可以分为三大类：恒等处理、归约汇总、分组分区
+```java
+public interface Collector<T, A, R> {
+    Supplier<A> supplier();                 // 创建中间容器
+    BiConsumer<A, T> accumulator();         // 累加逻辑（元素加入容器）
+    BinaryOperator<A> combiner();           // 并行流合并多个容器
+    Function<A, R> finisher();              // 容器转为最终结果
+    Set<Characteristics> characteristics(); // Collector 的特性
+}
+```
 
+>Collector 定义了五个接口类型变量，`Supplier<A>` 负责创建临时容器（存放流中的元素）；`BiConsumer<A, T>` 负责告诉 Stream 每个元素如何添加进临时容器；如果是并行流，多个线程会创建多个容器，就会用 `BinaryOperator<A>` 合并容器；`Function<A, R>` 负责将将临时容器（中间结果）转换成最终结果类型；最后让 `Set<Characteristics>` 设置一个特征值，告诉 Stream 元素最终应该怎么放进容器中
 ###### 2.1 恒等处理
 
 >恒等处理指的就是 Stream 的元素在经过 Collector 函数处理前后完全不变，例如 `toList()` 操作，只是最终将结果从 Stream 中取出放入到集合对象中，并没有对元素本身做任何的更改处理
@@ -856,7 +865,6 @@ Map<String, String> map = Stream.of("1:A", "2:B", "3:C").collect(Collectors.toMa
 
 >让 Stream 流中的元素逐个进入 Collector 的处理函数中，处理完后会与上一个元素的处理结果进行合并，然后到一个新的结果，以此类推，直到所有元素处理完，输出最终的结果，和 `reduce` 类似，但因为 `collect()` 可以用于构建任何复杂结构，不局限于简单的数值，所以 `collect()` 更灵活
 
-
 | 方法                                   | 说明         | 返回类型          |
 | ------------------------------------ | ---------- | ------------- |
 | `summingInt(ToIntFunction<T>)`       | 求和（int）    | `Integer`     |
@@ -866,6 +874,10 @@ Map<String, String> map = Stream.of("1:A", "2:B", "3:C").collect(Collectors.toMa
 | `maxBy(Comparator<T>)`               | 最大值        | `Optional<T>` |
 | `minBy(Comparator<T>)`               | 最小值        | `Optional<T>` |
 | `averagingInt(ToIntFunction<T>)`     | 平均值（int）   | `Double`      |
+
+****
+###### 3. 分组分区
+
 
 
 
