@@ -874,11 +874,12 @@ Map<String, String> map = Stream.of("1:A", "2:B", "3:C").collect(Collectors.toMa
 | `maxBy(Comparator<T>)`               | 最大值        | `Optional<T>` |
 | `minBy(Comparator<T>)`               | 最小值        | `Optional<T>` |
 | `averagingInt(ToIntFunction<T>)`     | 平均值（int）   | `Double`      |
+| `joining()`                          | 字符串拼接      | `String`      |
 
 ****
 ###### 3. 分组分区
 
->`Collectors.groupingBy` 是 Java Stream 中用于分组的收集器，其本质是：根据分组函数的返回值对 Stream 中的元素进行分类，并将相同组的数据放到一起形成一个` Map<K, V>` 或其他结构
+>`Collectors.groupingBy` 是 Java Stream 中用于分组的收集器，其本质是：根据分组函数的返回值对 Stream 中的元素进行分类，并将相同组的数据放到一起形成一个` Map<K, V>` 
 
 `groupingBy()` 操作需要指定两个关键输入，即分组函数和值收集器：
 
@@ -927,6 +928,24 @@ Map<String, Long> result =
 ```
 
 >`Collectors.counting()` 是用来统计数量的，所以这个 map 集合的 key 是部门，value 是人数
+
+- 还有一种特殊的分组操作，其分组的 key 类型仅为布尔值，这种情况，也可以通过`Collectors.partitioningBy()` 提供的分区收集器来实现
+
+```java
+Map<Boolean, List<Employee>> partitioned = employees.stream()
+    .collect(Collectors.partitioningBy(e -> e.getSalary() > 10000));
+```
+
+```
+{
+  true  = [员工1, 员工2, ...], // 工资大于 10000 的
+  false = [员工3, 员工4, ...]  // 工资小于等于 10000 的
+}
+```
+
+>`partitioningBy` 是一种特殊优化过的分组，它不需要像普通的 key 那样动态计算 `hash` 决定存储在哈希表的哪个位置，永远只需要两个位置，一个放 true 一个放 false，每个流元素只需判断一次布尔值，然后直接将其放入对应的 List 中，无需构建新 key、计算 `hash` 或处理冲突，性能开销小于常规的 `groupingBy`
+
+****
 
 
 
