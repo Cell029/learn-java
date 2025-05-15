@@ -813,9 +813,26 @@ System.out.println(result); // ABC
 ```
 
 ****
-#### 2.4 collect
+#### 2.4 归集
 
+>Stream 的收集操作（`collect()`）本质上就是：把流中的元素经过一套“规则”（由收集器定义，例如：对集合中的元素进行统计、字符串拼接、分组等操作）加工处理后，最终“归集”为一个结果容器
 
+##### 1. collect、Collector、Collectors 区别与关联
+
+>1、`collect` 是 Stream 流的一个终止方法，会使用传入的收集器对结果执行相关的操作，这个收集器必须是 Collector 接口的某个具体实现类
+>
+>2、`Collector` 是一个接口，collect 方法的收集器是 Collector 接口的具体实现类
+>
+>3、`Collectors` 是一个工具类，提供了很多的静态工厂方法，提供了很多 Collector 接口的具体实现类，是为了方便程序员使用而预置的一些较为通用的收集器（如果不使用 Collectors 类，也可以手动实现 Collector 接口）
+
+****
+##### 2. Collector
+
+>收集器可以分为三大类：恒等处理、归约汇总、分组分区
+
+###### 2.1 恒等处理
+
+>恒等处理指的就是 Stream 的元素在经过 Collector 函数处理前后完全不变，例如 `toList()` 操作，只是最终将结果从 Stream 中取出放入到 List 对象中，并没有对元素本身做任何的更改处理
 
 
 
