@@ -29,3 +29,4 @@ group by filename
 - [ ] GraalVM #todo
 - [ ] TCP和Http的二进制结构 #todo 
 - [ ] 用Socket实现Http服务器 #todo 
+- [ ] 字符串常量的字节数 #todo
