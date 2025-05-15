@@ -637,15 +637,20 @@ String value = result.orElse("默认值"); // 当 result 为空时就将 result 
 
 ##### 1. `isPresent()` 、 `isEmpty()` 、`ifPresent()`
 
-- `isPresent()`：返回 `true` 表示值存在，常与 `if` 配合使用，也可以传递一个 `Consumer` 接口执行消费者操作
+- `isPresent()`：返回 `true` 表示值存在，常与 `if` 配合使用
 - `isEmpty()`：返回 `true` 表示值不存在，是 `!isPresent()` 的语义替代
-- `ifPresent()`
+- `ifPresent(Consumer<? super T)` ：如果值存在，则执行消费者行为
 
 ```java
 Optional<String> opt = Optional.of("java");
 if (opt.isPresent()) {
     System.out.println(opt.get());
 }
+```
+
+```java
+Optional<String> opt = Optional.of("stream");
+opt.ifPresent(s -> System.out.println(s.toUpperCase()));  // 输出：STREAM
 ```
 
 ****
@@ -778,12 +783,42 @@ System.out.println(has); // true
 
 >一种将流中的多个元素“归约”为一个值的操作，例如把所有数加起来求和、把所有字符串拼接成一个大字符串、找出最大值、最小值等，也就是把一个集合变成单个值
 
+##### 1. `Optional<T> reduce(BinaryOperator<T> accumulator)`
+
+>不传递初始值，最终结果用 `Optional` 包裹
+
 ```java
 List<Integer> list = Arrays.asList(1, 2, 3, 4);  
 Optional<Integer> sum = list.stream()  
-        .reduce(Integer::sum);  
+        .reduce(Integer::sum); // 等价于: (((1 + 2) + 3) + 4) 
 sum.ifPresent(System.out::println); // 10
 ```
+
+##### 2. `T reduce(T identity, BinaryOperator<T> accumulator)`
+
+>提供一个初始值，返回结果的类型是初始值的类型
+
+```java
+List<Integer> list = Arrays.asList(1, 2, 3, 4); 
+int sum = list.stream()
+    .reduce(0, (a, b) -> a + b); // 等价于: ((((0 + 1) + 2) + 3) + 4)
+sum.ifPresent(System.out::println); // 10    
+```
+
+```java
+List<String> strs = Arrays.asList("A", "B", "C");
+String result = strs.stream()
+    .reduce("", (a, b) -> a + b); // 字符串拼接
+System.out.println(result); // ABC
+```
+
+****
+#### 2.4 collect
+
+
+
+
+
 
 
 
