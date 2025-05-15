@@ -832,7 +832,41 @@ System.out.println(result); // ABC
 
 ###### 2.1 恒等处理
 
->恒等处理指的就是 Stream 的元素在经过 Collector 函数处理前后完全不变，例如 `toList()` 操作，只是最终将结果从 Stream 中取出放入到 List 对象中，并没有对元素本身做任何的更改处理
+>恒等处理指的就是 Stream 的元素在经过 Collector 函数处理前后完全不变，例如 `toList()` 操作，只是最终将结果从 Stream 中取出放入到集合对象中，并没有对元素本身做任何的更改处理
+
+```java
+list.stream().collect(Collectors.toList()); // 具体是哪种 List 是不确定的，随机的
+list.stream().collect(Collectors.toSet());
+list.stream().collect(Collectors.toCollection(Supplier)); // 可以自己提供容器类型
+// 例如
+list.stream().collect(Collectors.toCollection(ArrayList::new));
+list.stream().collect(Collectors.toCollection(HashSet::new));
+```
+
+map 集合的归集
+
+```java
+map.stream().collect(Collectors.toMap(对 key 处理, 对 value 处理))
+// 例如
+Map<String, String> map = Stream.of("1:A", "2:B", "3:C").collect(Collectors.toMap(s -> s.substring(0, s.indexOf(":")), s -> s.substring(s.indexOf(":") + 1)));
+```
+
+****
+###### 2. 归约汇总
+
+>让 Stream 流中的元素逐个进入 Collector 的处理函数中，处理完后会与上一个元素的处理结果进行合并，然后到一个新的结果，以此类推，直到所有元素处理完，输出最终的结果，和 `reduce` 类似，但因为 `collect()` 可以用于构建任何复杂结构，不局限于简单的数值，所以 `collect()` 更灵活
+
+
+| 方法                                   | 说明         | 返回类型          |
+| ------------------------------------ | ---------- | ------------- |
+| `summingInt(ToIntFunction<T>)`       | 求和（int）    | `Integer`     |
+| `summingLong(ToLongFunction<T>)`     | 求和（long）   | `Long`        |
+| `summingDouble(ToDoubleFunction<T>)` | 求和（double） | `Double`      |
+| `counting()`                         | 计数         | `Long`        |
+| `maxBy(Comparator<T>)`               | 最大值        | `Optional<T>` |
+| `minBy(Comparator<T>)`               | 最小值        | `Optional<T>` |
+| `averagingInt(ToIntFunction<T>)`     | 平均值（int）   | `Double`      |
+
 
 
 
