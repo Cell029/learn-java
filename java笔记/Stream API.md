@@ -302,7 +302,61 @@ System.out.println(max); // 输出 20000000000
 ****
 #### 2.2 flatMap
 
->
+>`flatMap()` 是用来处理嵌套集合、嵌套结构的，它可以把“多个集合”或“多个数组”合并成一个流
+
+```java
+List<Integer> list1 = new ArrayList<Integer>();  
+list1.add(1);  
+list1.add(2);  
+list1.add(3);  
+List<Integer> list2 = new ArrayList<Integer>();  
+list2.add(4);  
+list2.add(5);  
+list2.add(6);  
+  
+Stream<List<Integer>> listStream = Stream.of(list1, list2);  
+listStream.flatMap(new Function<List<Integer>, Stream<?>>() {  
+    @Override  
+    public Stream<?> apply(List<Integer> integers) {  
+        return integers.stream();  
+    }  
+}).forEach(System.out::print);
+```
+
+>将两个集合转换成一个流输出
+
+```java
+List<String> lines = Arrays.asList("hello world", "java stream");
+List<String> words = lines.stream()
+    .flatMap(line -> Arrays.stream(line.split(" ")))
+    .collect(Collectors.toList());
+System.out.println(words); // [hello, world, java, stream]
+```
+
+>对象属性的展开
+
+```java
+class Student {
+    String name;
+    List<String> courses;
+    public Student(String name, List<String> courses) {
+        this.name = name;
+        this.courses = courses;
+    }
+    public List<String> getCourses() { return courses; }
+}
+
+List<Student> students = Arrays.asList(
+    new Student("Alice", Arrays.asList("Math", "English")),
+    new Student("Bob", Arrays.asList("Physics", "Chemistry"))
+);
+
+List<String> allCourses = students.stream()
+    .flatMap(student -> student.getCourses().stream())
+    .distinct()
+    .collect(Collectors.toList());
+System.out.println(allCourses); // [Math, English, Physics, Chemistry]
+```
 
 
 
