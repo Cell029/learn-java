@@ -302,7 +302,9 @@ System.out.println(max); // 输出 20000000000
 ****
 #### 2.2 flatMap
 
->`flatMap()` 是用来处理嵌套集合、嵌套结构的，它可以把“多个集合”或“多个数组”合并成一个流
+>`flatMap()` 是用来处理嵌套集合、嵌套结构的，先把每个元素处理并返回一个新的Stream，然后将多个 Stream 展开合并为了一个完整的、新的 Stream 
+
+![](images/Stream%20API/file-20250515144947.png)
 
 ```java
 List<Integer> list1 = new ArrayList<Integer>();  
@@ -323,6 +325,17 @@ listStream.flatMap(new Function<List<Integer>, Stream<?>>() {
 }).forEach(System.out::print);
 ```
 
+```
+原始数据: [[1, 2, 3], [4, 5, 6]]
+
+map: [
+	    Stream(1, 2, 3),
+        Stream(4, 5, 6)
+     ]
+
+flatMap: Stream(1, 2, 3, 4, 5, 6)
+```
+
 >将两个集合转换成一个流输出
 
 ```java
@@ -331,6 +344,15 @@ List<String> words = lines.stream()
     .flatMap(line -> Arrays.stream(line.split(" ")))
     .collect(Collectors.toList());
 System.out.println(words); // [hello, world, java, stream]
+```
+
+```
+原始数据: [["hello world"], ["java stream"]]
+map: [
+		Stream("hello", "world"),
+		Stream("java", "stream")
+	 ]
+flatMap: Stream("hello", "world", "java", "stream")
 ```
 
 >对象属性的展开
@@ -357,6 +379,24 @@ List<String> allCourses = students.stream()
     .collect(Collectors.toList());
 System.out.println(allCourses); // [Math, English, Physics, Chemistry]
 ```
+
+```
+原始数据: [
+			["Alice", ["Math", "English"]], 
+			["Bob", ["Physics", "Chemistry"]]
+		 ]
+map: [
+		Stream("Math", "English"),
+		Stream("Physics", "Chemistry")
+	 ]
+flatMap: Stream("Math", "English", "Physics", "Chemistry")
+```
+
+>所以 `flatMap` 就是在 `map` 的基础上，把每个元素变成的子流统一扁平化为一个流，
+
+****
+### 3. filter
+
 
 
 
