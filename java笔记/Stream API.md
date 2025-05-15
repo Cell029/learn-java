@@ -604,7 +604,44 @@ Mapped value: CHERRY
 
 ### 1. Optional 对象
 
+#### 1.1 定义
 
+>在使用 Stream 进行操作时，有些终止操作（如 `findFirst()`、`findAny()`、`max()`、`min()` 等）可能找不到任何结果，如果这些方法直接返回 null，就必须手动做 null 检查，不然很容易丢出异常，为了可以显式地处理结果可能不存在的情况，就规定这些方法返回的是 `Optional` 类型，而不是直接返回值或 null
+
+```java
+List<String> list = new ArrayList<>();
+String result = list.get(0); // 抛出 IndexOutOfBoundsException
+
+List<String> list = new ArrayList<>();
+Optional<String> result = list.stream().findFirst(); // 不会抛异常
+```
+
+>通常会在流的终止操作后面加上一些显示处理的结果方法，以防空值的情况，让代码的可读性更高
+
+```java
+Optional<String> result = list.stream().findFirst();
+String value = result.orElse("默认值"); // 当 result 为空时就将 result 赋值为 xxx
+```
+
+下面是常见返回 `Optional` 的 Stream 终止方法：
+
+|方法名|返回类型|说明|
+|---|---|---|
+|`findFirst()`|`Optional<T>`|返回第一个元素（可能不存在）|
+|`findAny()`|`Optional<T>`|返回任意一个元素（并行流中可能更快）|
+|`min()`|`Optional<T>`|返回最小元素（通过 Comparator 比较）|
+|`max()`|`Optional<T>`|返回最大元素（通过 Comparator 比较）|
+|`reduce()`|`Optional<T>`|如果不提供初始值，可能会没有结果|
+****
+#### 1.2 常用方法
+
+##### 1. 
+
+
+****
+### 2. 遍历类终止操作
+
+#### 2.1 forEach
 
 
 
