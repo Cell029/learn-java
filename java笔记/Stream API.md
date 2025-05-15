@@ -217,7 +217,51 @@ names.stream()                          // 开始管道
 ****
 ### 2. map 与 flatMap
 
+#### 2.1 map
 
+>将流中每个元素映射成另外一个元素，形成一个新的流，但原始流不变
+
+![](images/Stream%20API/file-20250515133125.png)
+
+>`map` 里面要求的参数是一个 `Function` 接口，而这个接口就是用来转换类型的
+
+```java
+List<String> list = Arrays.asList("1", "2", "3");  
+List<Integer> intList = list.stream()  
+        .map(new Function<String, Integer>() {  
+            @Override  
+            public Integer apply(String s) {  
+                return Integer.parseInt(s);  
+            }  
+        })  
+        .collect(Collectors.toList());  
+System.out.println(intList); // [1, 2, 3]
+```
+
+```java
+// 等价于
+List<Integer> intList = list.stream()  
+        .map(Integer::parseInt)  
+        .collect(Collectors.toList()); 
+```
+
+```java
+class User {
+    private String name;
+    private int age;
+    public User(String name, int age) { this.name = name; this.age = age; }
+    public String getName() { return name; }
+    public int getAge() { return age; }
+}
+
+List<User> users = Arrays.asList(new User("Alice", 20), new User("Bob", 22));
+List<String> names = users.stream()
+    .map(User::getName)
+    .collect(Collectors.toList());
+System.out.println(names); // [Alice, Bob]
+```
+
+**mapToInt(ToIntFunction<? super T> mapper) **
 
 
 
