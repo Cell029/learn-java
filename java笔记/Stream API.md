@@ -397,8 +397,115 @@ flatMap: Stream("Math", "English", "Physics", "Chemistry")
 ****
 ### 3. filter
 
+![](images/Stream%20API/file-20250515151609.png)
 
+>`filter` 接收一个 `Predicate<T>` 函数式接口，表示对流中元素的布尔条件判断，它用于从原始数据流中筛选出符合条件的元素，是一种行为抽象的方式，常作为中间操作链中的首个步骤，用于提前剔除不必要的数据，从而减少后续操作的处理成本。
 
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+List<Integer> evens = numbers.stream()
+    .filter(new Predicate<Integer>() {  
+	    @Override  
+	    public boolean test(Integer integer) {  
+	        return integer % 2 == 0;  
+	    }  
+	}) 
+    .collect(Collectors.toList());
+
+System.out.println(evens); // [2, 4, 6]
+
+// 等价于
+.filter(integer -> integer % 2 == 0)
+```
+
+****
+### 4. distinct
+
+>把流中的重复元素过滤掉，只保留元素的第一个出现，保证返回的流中元素唯一
+
+```java
+List<Integer> list = Arrays.asList(1, 2, 3, 2, 1, 4, 5);
+List<Integer> distinctList = list.stream()
+    .distinct()
+    .collect(Collectors.toList());
+
+System.out.println(distinctList); // [1, 2, 3, 4, 5]
+```
+
+>如果是对自定义的对象使用的话，就需要自定义的类中重写 `equals()` 和 `hashCode()` 方法
+
+```java
+class Person {
+    String name;
+    int age;
+    Person(String name, int age) {
+        this.name = name; this.age = age;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Person)) return false;
+        Person p = (Person) o;
+        return age == p.age && Objects.equals(name, p.name);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+    @Override
+    public String toString() {
+        return name + ":" + age;
+    }
+}
+
+List<Person> persons = Arrays.asList(
+    new Person("Tom", 20),
+    new Person("Jerry", 25),
+    new Person("Tom", 20)
+);
+
+List<Person> distinctPersons = persons.stream()
+    .distinct()
+    .collect(Collectors.toList());
+
+System.out.println(distinctPersons); // [Tom:20, Jerry:25]
+```
+
+****
+### 5. sorted
+
+>对基础类型排序
+
+```java
+List<Integer> numbers = Arrays.asList(3, 5, 1, 4, 2);
+List<Integer> sorted = numbers.stream()
+    .sorted()
+    .collect(Collectors.toList());
+System.out.println(sorted); // [1, 2, 3, 4, 5]
+```
+
+>对自定义对象排序，使用时需要传入
+
+```java
+class Person {
+    String name;
+    int age;
+    Person(String name, int age) { this.name = name; this.age = age; }
+    public String toString() { return name + " - " + age; }
+}
+
+List<Person> people = Arrays.asList(
+    new Person("Tom", 25),
+    new Person("Alice", 20),
+    new Person("Bob", 23)
+);
+
+List<Person> sorted = people.stream()
+    .sorted(Comparator.comparingInt(p -> p.age))
+    .collect(Collectors.toList());
+
+System.out.println(sorted); // [Alice - 20, Bob - 23, Tom - 25]
+```
 
 
 
