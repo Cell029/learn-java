@@ -948,7 +948,40 @@ Map<Boolean, List<Employee>> partitioned = employees.stream()
 ****
 # 3. 并行流
 
+## 1. 定义
 
+>并行 Stream 是一种能够利用多核 CPU 优势，对集合元素进行并发处理的工具，它通过将数据拆分为多个子任务，在多个线程中并发处理后合并结果
+
+```java
+// 1. Collection 的 stream() 转 parallelStream()
+list.parallelStream().forEach(System.out::println);
+
+// 2. Stream 的 parallel() 方法
+list.stream().parallel().forEach(System.out::println);
+```
+
+>因为是并行处理流中的元素，所以先后处理的顺序是不确定的，如果想要有序输出可以使用 `.forEachOrdered()` 
+
+```java
+List<Integer> list = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);  
+  
+System.out.println("=== parallelStream().forEach ===");  
+list.parallelStream().forEach(num -> System.out.print(num + " "));  
+System.out.println();  
+  
+System.out.println("=== stream().parallel().forEach ===");  
+list.stream().parallel().forEach(num -> System.out.print(num + " "));  
+System.out.println();  
+  
+System.out.println("=== 保证顺序的 forEachOrdered ===");  
+list.parallelStream().forEachOrdered(num -> System.out.print(num + " "));  
+System.out.println(); // 1 2 3 4 5 6 7 8 9 10 
+```
+
+****
+## 2. 线程安全问题
+
+>并行流默认情况下所有的并行操作是共享一个线程池的，
 
 
 
