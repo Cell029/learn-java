@@ -946,6 +946,8 @@ Map<Boolean, List<Employee>> partitioned = employees.stream()
 >`partitioningBy` 是一种特殊优化过的分组，它不需要像普通的 key 那样动态计算 `hash` 决定存储在哈希表的哪个位置，永远只需要两个位置，一个放 true 一个放 false，每个流元素只需判断一次布尔值，然后直接将其放入对应的 List 中，无需构建新 key、计算 `hash` 或处理冲突，性能开销小于常规的 `groupingBy`
 
 ****
+# 3. 并行流
+
 
 
 
