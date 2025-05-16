@@ -981,8 +981,27 @@ System.out.println(); // 1 2 3 4 5 6 7 8 9 10
 ****
 ## 2. 线程安全问题
 
->并行流默认情况下所有的并行操作是共享一个线程池的，
+>因为是并行操作，可能多个线程同时对共享数据进行修改，所以会导致线程安全问题的存在，可以通过使用`reduce()` 或 `collect()` 终端操作来避免线程安全问题
 
+```java
+int sum = list.parallelStream().reduce(0, Integer::sum); // 线程安全
+
+List<Integer> result = list.parallelStream()
+                           .collect(Collectors.toList()); // 线程安全
+```
+
+****
+## 3. 并行流的并行时机
+
+```java
+list.parallelStream()
+list.stream().parallel()
+Stream.of(list).parallel()
+```
+
+>这三种并行流的使用只是告诉底层这个流可以采取并行的方式，但是不一定要使用并行，因为是共享一个线程池的，所以过多的并行只会导致线程之间互相抢占资源，导致互相等待，然后从并行变成了串行
+
+****
 
 
 
