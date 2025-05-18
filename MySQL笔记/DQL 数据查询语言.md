@@ -422,7 +422,7 @@ select concat('zhangsan', 'lisi', 'wangwu');
 
 ![](images/DQL%20数据查询语言/file-20250518194721.png)
 
->需要注意的是 sql 语句中不能使用 `+` 拼接，它只会被识别为加法运算符，将加号两边的数据尽最大的努力转换成数字再求和，如果无法转换成数字，最终运算结果通通是0
+>需要注意的是 sql 语句中不能使用 `+` 拼接，它只会被识别为加法运算符，将加号两边的数据尽最大的努力转换成数字再求和，如果无法转换成数字，最终运算结果通通是 0
 
 ```sql
 select 'zhangsan' + 'lisi';
@@ -430,9 +430,105 @@ select 'zhangsan' + 'lisi';
 
 ![](images/DQL%20数据查询语言/file-20250518194919.png)
 
+7、去除字符串前后空白 trim
 
+```sql
+select concat(trim('    abc    '), 'def');
+```
 
+![](images/DQL%20数据查询语言/file-20250518195337.png)
 
+默认是去除前后空白，也可以去除指定的前缀后缀，例如：去除前置 0
 
+```sql
+select trim(leading '0' from '000111000');
+```
 
+![](images/DQL%20数据查询语言/file-20250518195439.png)
+
+去除后置 0 
+
+```sql
+select trim(trailing '0' from '000111000');
+```
+
+![](images/DQL%20数据查询语言/file-20250518195508.png)
+
+前置0和后置0全部去除
+
+```sql
+select trim(both '0' from '000111000');
+```
+
+![](images/DQL%20数据查询语言/file-20250518195540.png)
+
+****
+## 5.2 数字相关
+
+1、rand() 和 rand(x)
+
+rand() 生成 0 到 1 的随机浮点数
+
+```sql
+select rand();
+```
+
+![](images/DQL%20数据查询语言/file-20250518200336.png)
+
+rand(x) 生成 0 到 1 的随机浮点数，通过指定整数 x 来确定每次获取到相同的浮点值
+
+```sql
+select rand(100);
+```
+
+2、round(x) 和 round(x,y) 四舍五入
+
+round(x) 四舍五入，保留整数位，舍去所有小数
+
+```sql
+select round(9.464);
+```
+
+![](images/DQL%20数据查询语言/file-20250518200904.png)
+
+round(x,y) 四舍五入，保留y位小数
+
+```sql
+select round(9.765, 2);
+```
+
+![](images/DQL%20数据查询语言/file-20250518200958.png)
+
+3、truncate(x, y) 舍去
+
+```sql
+-- 保留两位小数，剩下的全部舍去
+select truncate(9.999, 2);
+```
+
+![](images/DQL%20数据查询语言/file-20250518201113.png)
+
+4、ceil 和 floor
+
+ceil 函数：返回大于或等于数值 x 的最小整数
+
+```sql
+select ceil(5.3);
+```
+
+![](images/DQL%20数据查询语言/file-20250518201223.png)
+
+floor 函数：返回小于或等于数值x的最大整数
+
+```sql
+select floor(5.3);
+```
+
+5、空处理
+
+ifnull(x, y)：空处理函数，当 x 为 NULL 时，将其替换为 y
+
+```sql
+
+```
 
