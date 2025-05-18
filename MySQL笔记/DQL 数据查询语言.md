@@ -714,5 +714,44 @@ select md5('123');
 ****
 # 6. 分组函数
 
->分组函数的执行原则：先分组，然后对每一组数据执行分组函数，如果没有分组语句 group by 的话，整张表的数据自成一组
+>分组函数的执行原则：先分组，然后对每一组数据执行分组函数，如果没有分组语句 group by 的话，整张表的数据自成一组，如果使用了 where 关键字就一定要使用 group by 才能使用以下分组函数
 
+1、max
+
+```sql
+select max(sal) from emp; -- 找出员工的最高薪资
+```
+
+2、min
+
+```sql
+select min(sal) from emp;
+```
+
+3、avg
+
+```sql
+select avg(sal) from emp; -- 计算平均值
+```
+
+4、sum
+
+```sql
+select sum(sal) from emp;
+```
+
+5、count
+
+```sql
+select count(ename) from emp;
+select count(*) from emp;
+select count(1) from emp;
+```
+
+>`count(*)` 和 `count(1) `的效果一样，统计该组中总记录行数，而 `count(ename)` 统计的是这个ename 字段中不为 NULL 的个数总和
+
+```sql
+select count(distinct job) from emp; -- 统计岗位数量
+```
+
+****
