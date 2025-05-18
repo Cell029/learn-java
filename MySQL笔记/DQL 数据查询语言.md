@@ -633,13 +633,70 @@ select last_day(now()); -- 获取给定日期所在月的最后一天的日期
 8、datediff 函数
 
 ```sql
-select datediff('2019-1-12', '2016-3-31'); -- 计算两个日期之间所差天数(前面的减后面的)
+select datediff('2019-1-12', '2016-3-31'); -- 计算两个日期之间所差天数(前面的减后面的，时分秒不算)
 ```
 
-9、
+9、timediff函数
 
+```sql
+select timediff('2019-1-1 23:12:47', '2016-3-23 12:30:30'); -- 计算两个日期所差时间（计算时分秒）
+```
 
+![](images/DQL%20数据查询语言/file-20250518212144.png)
 
+****
+## 5.4 if 函数
+
+```sql
+SELECT IF(500<1000, "YES", "NO"); -- 如果条件为 TRUE 则返回 YES，如果条件为 FALSE 则返回 NO，类似于三目运算符
+```
+
+****
+## 5.5 case 表达式
+
+```sql
+CASE field
+    WHEN value1 THEN result1
+    WHEN value2 THEN result2
+    ...
+    ELSE default_result
+END
+
+-- 类似于
+switch(field) {
+  case value1: return result1;
+  case value2: return result2;
+  default: return default_result;
+}
+```
+
+- case：开始条件判断语句
+- when：条件
+- then：满足条件时返回的值
+- else：所有条件都不满足时返回的值
+- end：结束条件判断语句
+
+```sql
+select ename,job,
+	case job
+	when 'MANAGER' then sal*1.1
+	when 'SALESMAN' then sal*1.2
+	else sal
+	end 
+	as sal
+	from emp;
+-- manager 的薪水上涨 10%，salesman 的薪水上涨 20%，其余的不变，
+```
+
+****
+## 5.6 cast 函数
+
+>cast 函数用于将值从一种数据类型转换为表达式中指定的另一种数据类型
+
+```sql
+-- cast(值 as 数据类型)
+select cast('1999-1-12 12:29:45' as date);
+```
 
 
 
