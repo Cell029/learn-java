@@ -304,6 +304,51 @@ WHERE comment LIKE '%95!%%' ESCAPE '!';
 ****
 # 3. 排序操作
 
+```sql
+SELECT 字段列表 FROM 表名
+[WHERE 条件]
+ORDER BY 排序字段 [ASC|DESC];
+```
+
+- `ORDER BY`：用于指定排序字段。
+
+- `ASC`：升序（Ascending），从小到大。**默认方式**。
+
+- `DESC`：降序（Descending），从大到小。
+
+## 3.1 单字段升序
+
+1、升序
+
+>`ASC` 可省略，`ORDER BY sal` 效果一样
+
+```sql
+SELECT empno, ename, sal FROM emp ORDER BY sal ASC;
+```
+
+2、降序
+
+```sql
+SELECT empno, ename, sal FROM emp ORDER BY sal DESC;
+```
+
+****
+## 3.2 多字段排序
+
+>当排序字段有重复值时，可以进一步指定第二个字段排序规则：先按 `deptno` 升序排序，如果同部门编号员工有多名，则再按 `sal` 降序排序
+
+```sql
+SELECT empno, ename, sal, deptno
+FROM emp
+ORDER BY deptno ASC, sal DESC;
+```
+
+![](images/DQL%20数据查询语言/file-20250518183233.png)
+
+****
+## 3.3 排序字段可以是数字、表达式或别名
+
+
 
 
 
