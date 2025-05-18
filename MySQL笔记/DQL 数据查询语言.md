@@ -120,7 +120,7 @@ from
 where
   sal < 1500 and deptno = 20 or deptno = 30;
 
-## 系统解析为
+-- 系统解析为
 (sal < 1500 AND deptno = 20) OR (deptno = 30)
 ```
 
@@ -142,11 +142,82 @@ WHERE
 ****
 ## 2.3 between...and...
 
+>用于判断值是否在某个区间范围内，包含边界，即等同于： `>= 最小值 AND <= 最大值` ，但必须是左小右大，与 `>= AND <=` 区别只是语法写法不同，底层原理与执行效率完全一致
 
+```sql
+表达式 BETWEEN 最小值 AND 最大值
+```
 
+```sql
+SELECT 
+  ename, sal
+FROM
+  emp
+WHERE
+  sal BETWEEN 3000 AND 1600;
 
+-- 等于
+sal >= 3000 AND sal <= 1600
+```
 
+查找不到数据
 
+![](images/DQL%20数据查询语言/file-20250518172212.png)
+
+****
+## 2.4 in、not in
+
+>`job in('MANAGER','SALESMAN','CLERK')` 等同于 `job = 'MANAGER' or job = 'SALESMAN' or job = 'CLERK'` ， `sal in(1600, 3000, 5000)` 等同于 `sal = 1600 or sal = 3000 or sal = 5000`
+
+```sql
+select
+  ename,sal,job
+from
+  emp
+where
+  job in('MANAGER', 'SALESMAN');
+```
+
+![](images/DQL%20数据查询语言/file-20250518172811.png)
+
+>`job not in('MANAGER','SALESMAN')` 等同于 `job <> 'MANAGER' and job <> 'SALESMAN'` ， `sal not in(1600, 5000)` 等同于 `sal <> 1600 and sal <> 5000`
+
+```sql
+select 
+  ename,job
+from
+  emp
+where
+  job not in('MANAGER', 'SALESMAN');
+```
+
+![](images/DQL%20数据查询语言/file-20250518172928.png)
+### in、not in 与 NULL
+
+>在 SQL 中，`NULL` 表示“未知”或“没有值”，不是 0、不是空字符串，也不是布尔意义上的 false，所以`NULL = NULL` 是不成立的，任何与 `NULL` 进行比较的表达式结果都是 `UNKNOWN` ，只有 `IS NULL` 或 `IS NOT NULL` 可以判断 NULL 值
+
+1、`IN` 忽略 `NULL`
+
+```sql
+SELECT * FROM emp WHERE comm IN (NULL, 300);
+```
+
+>这条语句的直观预期是：查询 `comm` 为 NULL 或 300 的数据，但实际执行后只会查询到 `comm = 300` 的记录，因为`IN (NULL, 300)` 实际等价于 `comm = NULL OR comm = 300`
+
+2、`NOT IN` 与 `NULL`
+
+```sql
+SELECT * FROM emp WHERE comm NOT IN (NULL, 300);
+```
+
+>这条语句的直观预期是：查询 `comm` 不是 NULL，也不是 300 的记录，但实际执行后什么记录都没查询到，因为`NOT IN (NULL, 300)` 实际等价于 `comm <> NULL AND comm <> 300` ，由于 `comm <> NULL` 是 `UNKNOWN`，然后 `AND` 运算中只要有一个是 `UNKNOWN` 或 `FALSE`，整体就不是 `TRUE`，所以所有记录都被排除了
+
+**正确处理 in、not in 和 null**
+
+>如果要查找 `comm` 是 NULL 或 300 就使用 `SELECT * FROM emp WHERE comm IS NULL OR comm = 300;`，如果要查找 `comm` 不是 NULL 且不等于 300 就使用 `SELECT * FROM emp WHERE comm IS NOT NULL AND comm <> 300;`
+
+****
+## 2.5 
 
 
 
