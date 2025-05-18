@@ -561,4 +561,85 @@ select curtime();
 
 select current_time();
 
+select current_time;
 ```
+
+![](images/DQL%20数据查询语言/file-20250518205036.png)
+
+3、获取单独的年、月、日、时、分、秒
+
+```sql
+select year(now());
+select month(now());
+select day(now());
+select hour(now());
+select minute(now());
+select second(now());
+```
+
+>这些函数在使用的时候，需要传递一个日期参数给它，它可以获取到你给定的这个日期相关的年、月、日、时、分、秒的信息
+
+```sql
+select date(now()) -- 一次性提取一个给定日期的“年月日”部分
+select time(now()) -- 一次性提取一个给定日期的“时分秒”部分
+```
+
+4、date_add 函数
+
+>给指定的日期添加间隔的时间，从而得到一个新的日期
+
+```sql
+-- date_add(日期, interval expr 单位)
+select date_add('2021-07-08', interval 2 month);
+```
+
+![](images/DQL%20数据查询语言/file-20250518210131.png)
+
+5、date_format 日期格式化函数
+
+>将日期转换成具有某种格式的日期字符串，通常用在查询操作当中（date类型转换成char类型）
+
+- 第一个参数：这个参数就是即将要被格式化的日期，类型是 date 类型
+- 第二个参数：指定要格式化的格式字符串。
+  - %Y：四位年份
+  - %y：两位年份
+  - %m：月份（1..12）
+  - %d：日（1..30）
+  - %H：小时（0..23）
+  - %i：分（0..59）
+  - %s：秒（0..59）
+
+```sql
+-- 获取当前系统时间，让其以这个格式展示：2000-10-11 20:15:30
+select date_format(now(), '%Y-%m-%d %H:%i:%s');
+```
+
+![](images/DQL%20数据查询语言/file-20250518210607.png)
+
+6、dayofweek、dayofmonth、dayofyear 函数
+
+```sql
+select dayofweek(now()); -- 当前是一周的第几天（周日为第一天）
+select dayofmonth(now());
+select dayofyear(now());
+```
+
+7、last_day 函数
+
+```sql
+select last_day(now()); -- 获取给定日期所在月的最后一天的日期
+```
+
+8、datediff 函数
+
+```sql
+select datediff('2019-1-12', '2016-3-31'); -- 计算两个日期之间所差天数(前面的减后面的)
+```
+
+9、
+
+
+
+
+
+
