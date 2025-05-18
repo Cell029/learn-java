@@ -11,10 +11,14 @@
             "id": "886ab1c4f368d117",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "MySQL笔记/MySQL 的下载与配置.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "MySQL 的下载与配置"
             }
           }
         ]
@@ -138,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(上)/方法.md",
+                "file": "MySQL笔记/MySQL 的下载与配置.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "方法 的大纲"
+              "title": "MySQL 的下载与配置 的大纲"
             }
           },
           {
@@ -158,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -175,12 +179,14 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c3f34de6cf1867d4",
+  "active": "886ab1c4f368d117",
   "lastOpenFiles": [
+    "MySQL笔记/SQL 概述.md",
+    "MySQL笔记/MySQL 的下载与配置.md",
+    "面试题/Java基础常见面试题总结(上)/方法.md",
     "MySQL笔记",
     "java笔记/多态.md",
     "java笔记/todo.md",
-    "面试题/Java基础常见面试题总结(上)/方法.md",
     "java笔记/方法.md",
     "java笔记/static.md",
     "java笔记/新特性.md",
@@ -219,10 +225,8 @@
     "java笔记/images/网络编程",
     "java笔记/注解.md",
     "java笔记/images/注解",
-    "java笔记/package和import.md",
     "java笔记/images/反射机制",
     "java笔记/images/类和对象",
-    "java笔记/images/多线程/79ecdd31b1b145be9dae60e0da0a83ea~tplv-k3u1fbpfcp-jj-mark_3024_0_0_0_q75.awebp",
-    "面试题/Java基础常见面试题总结(上)"
+    "java笔记/images/多线程/79ecdd31b1b145be9dae60e0da0a83ea~tplv-k3u1fbpfcp-jj-mark_3024_0_0_0_q75.awebp"
   ]
 }
