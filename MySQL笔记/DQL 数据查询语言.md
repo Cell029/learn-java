@@ -83,4 +83,72 @@ select ename, sal * 12 yearsal from emp;
 ****
 # 2. 条件查询
 
+| **条件**              | **说明**                              |
+| ------------------- | ----------------------------------- |
+| =                   | 等于                                  |
+| <> 或 !=             | 不等于                                 |
+| >=                  | 大于等于                                |
+| <=                  | 小于等于                                |
+| >                   | 大于                                  |
+| <                   | 小于                                  |
+| BETWEEN ... AND ... | 在某个范围内（包括边界），等同于 >= 和 <= 的组合        |
+| IS NULL             | 值为空（NULL）                           |
+| IS NOT NULL         | 值不为空                                |
+| <=>                 | 安全等于（NULL-safe 等于），用于判断 NULL 相等，极少用 |
+| AND 或 &&            | 逻辑“并且”                              |
+| OR 或 \|             | 逻辑“或者”                              |
+| IN                  | 值在指定集合中                             |
+| NOT IN              | 值不在指定集合中                            |
+| EXISTS              | 子查询结果集非空时为真（用于判断子查询是否有数据）           |
+| NOT EXISTS          | 子查询结果集为空时为真                         |
+| LIKE                | 模糊匹配，通常配合 `%`（任意字符）和 `_`（单字符）       |
+
+## 2.1 where 关键字
+
+>`WHERE` 是 SQL 语句中用来指定筛选条件的关键字，它用来从表中筛选出满足条件的行（记录），只有满足 `WHERE` 条件的记录才会被查询、更新或删除，一般后面跟的字段都要加上 `''`
+ 
+****
+## 2.2 and 和 or 的优先级
+
+>在 SQL 中 and 的优先级高于 or，但使用时建议用 `()` 明确优先级
+
+```sql
+select
+  ename,sal,deptno
+from
+  emp
+where
+  sal < 1500 and deptno = 20 or deptno = 30;
+
+## 系统解析为
+(sal < 1500 AND deptno = 20) OR (deptno = 30)
+```
+
+![](images/DQL%20数据查询语言/file-20250518171721.png)
+
+>薪资高于 1500 的也被查找出来了，所以应该把 sql 语句修改为：
+
+```sql
+SELECT
+  ename, sal, deptno
+FROM
+  emp
+WHERE
+  sal < 1500 AND (deptno = 20 OR deptno = 30);
+```
+
+![](images/DQL%20数据查询语言/file-20250518171822.png)
+
+****
+## 2.3 between...and...
+
+
+
+
+
+
+
+
+
+
 
