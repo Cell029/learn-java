@@ -529,6 +529,36 @@ select floor(5.3);
 ifnull(x, y)：空处理函数，当 x 为 NULL 时，将其替换为 y
 
 ```sql
-
+SELECT 
+  ename,
+  sal,
+  comm,
+  (sal + IFNULL(comm, 0)) * 12 AS annual_salary
+FROM emp;
 ```
 
+>在 sql 中所有与 null 的运算结果都是 null，为了避免这种情况就可以把 y 设为 0
+
+****
+## 5.3 日期和时间相关函数
+
+1、获取当前日期和时间
+
+now()：获取的是执行 select 语句的时刻
+
+now()：获取的是执行 select 语句的时刻
+
+```sql
+select sysdate(), sleep(2), now();
+```
+
+![](images/DQL%20数据查询语言/file-20250518204849.png)
+
+2、获取当前日期
+
+```sql
+select curtime();
+
+select current_time();
+
+```
