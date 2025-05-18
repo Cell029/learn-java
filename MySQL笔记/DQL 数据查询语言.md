@@ -217,7 +217,92 @@ SELECT * FROM emp WHERE comm NOT IN (NULL, 300);
 >如果要查找 `comm` 是 NULL 或 300 就使用 `SELECT * FROM emp WHERE comm IS NULL OR comm = 300;`，如果要查找 `comm` 不是 NULL 且不等于 300 就使用 `SELECT * FROM emp WHERE comm IS NOT NULL AND comm <> 300;`
 
 ****
-## 2.5 
+## 2.5 模糊查询
+
+>在 SQL 中，模糊查询是指使用通配符对字符串字段进行部分匹配查询，常用的是 `LIKE` 和 `NOT LIKE` 操作符，结合 `%` 和 `_` 这两个通配符来实现
+
+```sql
+SELECT 列名
+FROM 表名
+WHERE 列名 LIKE '匹配模式';
+```
+
+| 通配符   | 含义                                   | 示例                   |
+| ----- | ------------------------------------ | -------------------- |
+| `%`   | 匹配任意数量的任意字符（可为0个）                    | `'A%'`：以 A 开头        |
+| `_`   | 匹配任意一个字符                             | `'A_'`：A 开头，后跟任意一个字符 |
+| `[]`  | 匹配指定范围内的任意一个字符（部分数据库支持，如 SQL Server） | `'[ae]'`：匹配 a 或 e    |
+| `[^]` | 排除指定范围的任意一个字符（部分数据库支持）               | `'[^ae]'`：排除 a 和 e   |
+
+
+1、查找以 **S** 开头的员工姓名：
+
+```sql
+SELECT ename
+FROM emp
+WHERE ename LIKE 'S%';
+```
+
+![](images/DQL%20数据查询语言/file-20250518175903.png)
+
+2、查找以 **N** 结尾的员工姓名
+
+```sql
+SELECT ename
+FROM emp
+WHERE ename LIKE '%N';
+```
+
+![](images/DQL%20数据查询语言/file-20250518175946.png)
+
+3、查找姓名中包含 **A** 的员工
+
+```sql
+SELECT ename
+FROM emp
+WHERE ename LIKE '%A%';
+```
+
+>`%` 可匹配任意个字符，因此 `%A%` 表示 A 出现在任意位置
+
+![](images/DQL%20数据查询语言/file-20250518180018.png)
+
+4、查找第二个字母是 **L** 的员工姓名
+
+```sql
+SELECT ename
+FROM emp
+WHERE ename LIKE '_L%';
+```
+
+>`_` 匹配一个字符，`_L%` 表示第二个字符是 L
+
+![](images/DQL%20数据查询语言/file-20250518180134.png)
+
+5、查找不以 **S** 开头的员工姓名
+
+```sql
+SELECT ename
+FROM emp
+WHERE ename NOT LIKE 'S%';
+```
+
+![](images/DQL%20数据查询语言/file-20250518180232.png)
+
+### 转义字符（ESCAPE）
+
+如果你要查询内容中本身包含通配符字符，比如 `%` 或 `_`，需要使用 `ESCAPE` 来定义转义符：
+
+```sql
+SELECT *
+FROM remarks
+WHERE comment LIKE '%95!%%' ESCAPE '!';
+```
+
+>`!%` 表示字面上的 `%` 字符，`ESCAPE '!'` 定义 `!` 是转义字符，所以查找的记录是 `comment` 中带有 `95%` 的
+
+****
+# 3. 排序操作
 
 
 
