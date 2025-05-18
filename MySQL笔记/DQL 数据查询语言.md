@@ -80,4 +80,7 @@ select ename, sal * 12 as yearsal from emp;
 select ename, sal * 12 yearsal from emp;
 ```
 
+****
+# 2. 条件查询
+
 
