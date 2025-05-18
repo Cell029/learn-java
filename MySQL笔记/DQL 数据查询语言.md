@@ -368,7 +368,67 @@ FROM 表名
 
 ## 5.1 字符串相关
 
+1、转大写 upper 和 ucase
 
+```sql
+-- 查询所有员工名字，以大写形式展现
+select upper(ename) as ename from emp;
+
+select ucase(ename) as ename from emp;
+```
+
+2、转小写 lower 和 lcase
+
+```sql
+-- 查询员工姓名，以小写形式展现
+select lower(ename) as ename from emp;
+select lcase(ename) as ename from emp;
+```
+
+3、截取字符串 substr
+
+```sql
+-- substr('被截取的字符串', 起始下标, 截取长度)，未指定截取长度时默认截取到字符串末尾
+-- 找出员工名字中第二个字母是A的
+select ename from emp where substr(ename, 2, 1) = 'A';
+```
+
+![](images/DQL%20数据查询语言/file-20250518193925.png)
+
+4、获取字符串长度 length
+
+```sql
+select length('你好hello 123');
+```
+
+>可以看出一个汉字占三个长度
+
+![](images/DQL%20数据查询语言/file-20250518194127.png)
+
+5、获取字符的个数 char_length
+
+```sql
+select char_length('你好hello 123');
+```
+
+![](images/DQL%20数据查询语言/file-20250518194438.png)
+
+6、字符串拼接
+
+```sql
+-- concat('字符串1', '字符串2', '字符串3'....)
+select concat('zhangsan', 'lisi', 'wangwu');
+```
+
+![](images/DQL%20数据查询语言/file-20250518194721.png)
+
+>需要注意的是 sql 语句中不能使用 `+` 拼接，它只会被识别为加法运算符，将加号两边的数据尽最大的努力转换成数字再求和，如果无法转换成数字，最终运算结果通通是0
+
+```sql
+select 'zhangsan' + 'lisi';
+```
+
+![](images/DQL%20数据查询语言/file-20250518194919.png)
 
 
 
