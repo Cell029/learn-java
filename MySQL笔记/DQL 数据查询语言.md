@@ -346,7 +346,30 @@ ORDER BY deptno ASC, sal DESC;
 ![](images/DQL%20数据查询语言/file-20250518183233.png)
 
 ****
-## 3.3 排序字段可以是数字、表达式或别名
+## 3.3 null 的排序
+
+>在 MySQL 中默认升序排序时 null 在最前面，降序排序时 null 在最后面
+
+****
+# 4. distinct去重
+
+>对指定的所有列组合进行去重，保留唯一行，但 `DISTINCT` 必须放在 `SELECT` 和列名之间，也就是所有字段的最前面
+
+```sql
+SELECT DISTINCT 列名1, 列名2, ...
+FROM 表名
+[WHERE 条件];
+```
+
+![](images/DQL%20数据查询语言/file-20250518191308.png)
+
+****
+# 5. 数据处理函数
+
+## 5.1 字符串相关
+
+
+
 
 
 
