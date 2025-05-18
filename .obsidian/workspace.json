@@ -4,35 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "4ff5d02bdef9e8cc",
+        "id": "341c016fbf1346c7",
         "type": "tabs",
         "children": [
           {
-            "id": "b27a561e9dca39ea",
+            "id": "886ab1c4f368d117",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "面试题/Java基础常见面试题总结(上)/方法.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "方法"
-            }
-          },
-          {
-            "id": "d541952eed129ab2",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "java笔记/多态.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "多态"
+              "title": "新标签页"
             }
           }
         ]
@@ -193,8 +175,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "c3f34de6cf1867d4",
   "lastOpenFiles": [
+    "MySQL笔记",
     "java笔记/多态.md",
     "java笔记/todo.md",
     "面试题/Java基础常见面试题总结(上)/方法.md",
@@ -237,7 +220,6 @@
     "java笔记/注解.md",
     "java笔记/images/注解",
     "java笔记/package和import.md",
-    "java笔记/类和对象.md",
     "java笔记/images/反射机制",
     "java笔记/images/类和对象",
     "java笔记/images/多线程/79ecdd31b1b145be9dae60e0da0a83ea~tplv-k3u1fbpfcp-jj-mark_3024_0_0_0_q75.awebp",
