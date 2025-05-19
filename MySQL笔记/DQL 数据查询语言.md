@@ -1,3 +1,8 @@
+
+```sql
+FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
+```
+
 # 1. 简单查询
 
 ## 1.1 查询一个字段
@@ -312,7 +317,7 @@ ORDER BY 排序字段 [ASC|DESC];
 
 - `ORDER BY`：用于指定排序字段。
 
-- `ASC`：升序（Ascending），从小到大。**默认方式**。
+- `ASC`：升序（Ascending），从小到大，也是默认排序方式。
 
 - `DESC`：降序（Descending），从大到小。
 
@@ -758,4 +763,39 @@ select count(distinct job) from emp; -- 统计岗位数量
 # 7. 分组查询
 
 ## 7.1 group by
+
+>按照某个字段分组，或者按照某些字段联合分组，并且 group by 的执行是在 where 之后执行，查询的字段也只能是进行分组的字段和分组函数
+
+```sql
+group by 字段 
+group by 字段1,字段2,字段3....
+```
+
+```sql
+select ename,deptno,avg(sal) from emp group by deptno; -- 这个 SQL 执行后会报错
+select deptno,avg(sal) from emp group by deptno; -- 这样写才是对的
+```
+
+****
+## 7.2 having
+
+>having 写在 group by 的后面，对分组之后的数据不满意时可以继续通过 having 对分组之后的数据进行再次过滤（尽量先用 where 过滤大部分记录），但是当过滤的是聚合函数的结果时，只能用 `HAVING`
+
+```sql
+select deptno,avg(sal) from emp where deptno<>20 group by deptno; // 建议
+select deptno,avg(sal) from emp group by deptno having deptno <> 20; // 不建议
+```
+
+```sql
+SELECT deptno, AVG(sal)
+FROM emp
+GROUP BY deptno
+HAVING AVG(sal) > 3000;  -- 此时不能用WHERE
+```
+
+****
+## 7.3 组内排序
+
+1、substring_index 函数的使用
+
 
