@@ -1159,16 +1159,89 @@ WHERE EXISTS (
 
 ![](images/DQL%20数据查询语言/file-20250519163744.png)
 
+**SELECT 1：从数据库中选择常数值 1，结果就是返回一个值为 1 的结果集**
+
 #### 2.筛选没有相关记录的主表数据
 
 ```sql
 -- 查询从未下单的客户
 SELECT * 
-FROM customers c
+FROM t_customer c
 WHERE NOT EXISTS (
-    SELECT 1 FROM orders o WHERE o.customer_id = c.customer_id
+    SELECT 1 FROM t_order o WHERE o.customer_id = c.customer_id
 );
 ```
+
+>返回那些在 `t_order` 表中没有任何订单的客户
+
+#### 3. exists 和 in 的区别
+
+| 比较项     | EXISTS               | IN                       |
+| ------- | -------------------- | ------------------------ |
+| 判断机制    | 是否返回记录（存在性）          | 值是否属于某个集合（值匹配）           |
+| 子查询     | 可返回任意列，常用 `SELECT 1` | 必须返回单列                   |
+| 性能      | 对大数据量更稳定             | 若子查询结果多，性能可能急剧下降         |
+| NULL 处理 | NULL 不影响判断           | 子查询中有 NULL，可能导致主查询返回 0 条 |
+
+- 子查询结果集中可能包含 `NULL` -> 用 `EXISTS`
+- 子查询结果是确定的值集合且不大 -> 可用 `IN`
+
+****
+## 9.5 union 和 union all
+
+>`UNION` 和 `UNION ALL` 都是集合操作符，用于将两个或多个 `SELECT` 查询结果纵向合并（拼在一起，结果向下追加
+
+```sql
+SELECT 列1, 列2 FROM 表A
+UNION
+SELECT 列1, 列2 FROM 表B;
+```
+
+- 会对结果去重（默认去除重复行），返回的是不重复的所有记录
+
+```sql
+SELECT 列1, 列2 FROM 表A
+UNION ALL
+SELECT 列1, 列2 FROM 表B;
+```
+
+- 不会去重，保留所有记录，因为不用去重，所以性能更好
+
+****
+## 9.6 limit
+
+>用于限制查询结果的行数
+
+```sql
+SELECT * FROM 表名
+LIMIT N;
+```
+
+### 分页查询
+
+```sql
+SELECT 列1, 列2, ...
+FROM 表名
+LIMIT offset, size;
+
+-- offset：起始位置（从第几行开始）；size：返回的记录数（每页显示多少条）
+```
+
+```sql
+-- 查询第 ? 页，每页 ? 条
+SELECT 列1, 列2, ...
+FROM 表名
+WHERE 条件
+ORDER BY 排序字段
+LIMIT (页码 - 1) * 每页条数, 每页条数;
+```
+
+
+
+
+
+
+
 
 
 
