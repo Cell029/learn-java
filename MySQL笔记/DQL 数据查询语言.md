@@ -1149,9 +1149,16 @@ WHERE NOT EXISTS (
 ```sql
 -- 查询有下过订单的客户
 SELECT * 
-FROM customers c
+FROM t_customer c
 WHERE EXISTS (
-    SELECT 1 FROM orders o WHERE o.customer_id = c.customer_id
+    SELECT 1 FROM t_order o WHERE o.customer_id = c.customer_id
+);
+
+-- 等价于
+SELECT * 
+FROM t_customer c
+WHERE c.customer_id IN (
+    SELECT customer_id FROM t_order
 );
 ```
 
@@ -1236,6 +1243,7 @@ ORDER BY 排序字段
 LIMIT (页码 - 1) * 每页条数, 每页条数;
 ```
 
+****
 
 
 
