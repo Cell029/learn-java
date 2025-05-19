@@ -796,6 +796,25 @@ HAVING AVG(sal) > 3000;  -- 此时不能用WHERE
 ****
 ## 7.3 组内排序
 
-1、substring_index 函数的使用
+1、group_concat 函数的使用
+
+```sql
+-- GROUP_CONCAT(expr ORDER BY col DESC SEPARATOR ',')，设置拼接字段之间的分隔符，默认是逗号 ,
+SELECT job, GROUP_CONCAT(ename ORDER BY sal DESC) FROM emp GROUP BY job;
+-- 每个岗位下，按照工资降序排列的员工名字，拼接成字符串
+```
+
+![](images/DQL%20数据查询语言/file-20250519141814.png)
+
+2、substring_index 函数的使用
+
+```sql
+-- SUBSTRING_INDEX(str, delim, count)，从字符串中按 delim 拆分，提取前 count 个部分
+SELECT SUBSTRING_INDEX('Tom,Jack,Lisa,Bob', ',', 2);
+-- 结果：Tom,Jack
+```
+
+****
+# 8. 连接查询
 
 
