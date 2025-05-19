@@ -817,4 +817,91 @@ SELECT SUBSTRING_INDEX('Tom,Jack,Lisa,Bob', ',', 2);
 ****
 # 8. 连接查询
 
+>从一张表中查询数据称为单表查询，从两张或更多张表中联合查询数据称为多表查询，又叫做连接查询。
+
+## 8.1 笛卡尔积现象
+
+>在 MySQL 中，如果在多表查询时，没有正确的连接条件（ON 或 WHERE 约束），就会出现笛卡尔积，也叫交叉连接，即每一行来自表 A 的记录，都与每一行来自表 B 的记录组合，形成所有可能的组合行
+
+```
+结果总行数 = 表A的行数 × 表B的行数
+```
+
+例如：
+
+|emp.id|ename|dept.id|dname|
+|---|---|---|---|
+|1|张三|1|销售部|
+|1|张三|2|技术部|
+|2|李四|1|销售部|
+|2|李四|2|技术部|
+|3|王五|1|销售部|
+|3|王五|2|技术部|
+
+****
+## 8.2 内连接
+
+>满足条件的记录才会出现在结果集中
+
+```sql
+SELECT 字段列表
+FROM 表1
+INNER JOIN 表2
+ON 表1.字段 = 表2.字段
+
+-- 等价于
+SELECT 字段列表
+FROM 表1, 表2
+WHERE 表1.字段 = 表2.字段
+```
+
+1、等值连接
+
+>连接时，条件为等量关系
+
+```sql
+-- 查询每个员工所在的部门名称，显示员工名、部门名（inner 可以省略）
+select e.ename,d.dname
+from emp e
+inner join dept d
+on e.deptno = d.deptno;
+```
+
+![](images/DQL%20数据查询语言/file-20250519145835.png)
+
+2、非等值连接
+
+>连接时，条件是非等量关系
+
+```sql
+-- 查询每个员工的工资等级，显示员工名、工资、工资等级
+select e.ename,e.sal,s.grade
+from emp e
+join salgrade s
+on e.sal between s.losal and s.hisal;
+```
+
+![](images/DQL%20数据查询语言/file-20250519150306.png)
+
+3、自连接
+
+>连接时，一张表看做两张表，自己和自己进行连接
+
+```sql
+-- 找出每个员工的直属领导，显示员工名、领导名
+select e.ename 员工名, l.ename 领导名
+from emp e
+join emp l
+on e.mgr = l.empno;
+```
+
+![](images/DQL%20数据查询语言/file-20250519150907.png)
+
+****
+## 8.3 
+
+
+
+
+
 
