@@ -843,6 +843,8 @@ SELECT SUBSTRING_INDEX('Tom,Jack,Lisa,Bob', ',', 2);
 
 >满足条件的记录才会出现在结果集中
 
+![](images/DQL%20数据查询语言/file-20250519151317.png)
+
 ```sql
 SELECT 字段列表
 FROM 表1
@@ -855,7 +857,7 @@ FROM 表1, 表2
 WHERE 表1.字段 = 表2.字段
 ```
 
-1、等值连接
+### 1、等值连接
 
 >连接时，条件为等量关系
 
@@ -869,7 +871,7 @@ on e.deptno = d.deptno;
 
 ![](images/DQL%20数据查询语言/file-20250519145835.png)
 
-2、非等值连接
+### 2、非等值连接
 
 >连接时，条件是非等量关系
 
@@ -883,7 +885,7 @@ on e.sal between s.losal and s.hisal;
 
 ![](images/DQL%20数据查询语言/file-20250519150306.png)
 
-3、自连接
+### 3、自连接
 
 >连接时，一张表看做两张表，自己和自己进行连接
 
@@ -893,12 +895,101 @@ select e.ename 员工名, l.ename 领导名
 from emp e
 join emp l
 on e.mgr = l.empno;
+-- 将emp表当做员工表 e，将emp表当做领导表，连接条件是：e.mgr = l.empno（员工的领导编号=领导的员工编号），
 ```
 
 ![](images/DQL%20数据查询语言/file-20250519150907.png)
 
 ****
-## 8.3 
+## 8.3 外连接
+
+>外连接（OUTER JOIN）是一种多表连接方式，用于保留一张主表中的所有记录，即使另一张表中没有匹配项也不会丢弃数据
+
+左外连接：
+
+![](images/DQL%20数据查询语言/file-20250519151404.png)
+
+右外连接：
+
+![](images/DQL%20数据查询语言/file-20250519151419.png)
+
+### 1、左外连接（左连接）
+
+>左表全部保留，右表有就匹配，没就补 NULL
+
+```sql
+-- 查询所有部门信息，并且找出每个部门下的员工（outer 可以省略）
+select d.*,e.ename
+from dept d
+left outer join emp e
+on d.deptno = e.deptno;
+```
+
+>depton、dname、loc 就是左表（dept 表），右边就是匹配到的记录
+
+![](images/DQL%20数据查询语言/file-20250519151604.png)
+
+任何一个左连接都可以写作右连接：
+
+```sql
+select d.*,e.ename
+from emp e
+right outer join dept d
+on d.deptno = e.deptno;
+```
+
+### 2、右外连接（右连接）
+
+>右表全部保留，左表有就匹配，没就补 NULL
+
+```sql
+-- 找出所有员工的上级领导，显示员工名和领导名
+select e.ename 员工名,l.ename 领导名 
+from emp l 
+right join emp e 
+on e.mgr = l.empno;
+```
+
+对比内连接就多了个 KING
+
+![](images/DQL%20数据查询语言/file-20250519152248.png)
+
+### 3、全连接
+
+>MySQL 不支持全连接，Oracle 支持，两张表数据全部查询出来，没有匹配的记录，各自为对方模拟出 NULL 进行匹配
+
+![](images/DQL%20数据查询语言/file-20250519152351.png)
+
+```sql
+SELECT emp.ename, dept.dname  
+FROM emp LEFT JOIN dept ON emp.empno = dept.deptno  
+UNION  
+SELECT emp.ename, dept.dname  
+FROM emp RIGHT JOIN dept ON emp.empno = dept.deptno;
+```
+
+>用 `LEFT JOIN` + `RIGHT JOIN` 合并结果，模拟 `FULL OUTER JOIN` 效果
+
+![](images/DQL%20数据查询语言/file-20250519152725.png)
+
+### 4、多张表连接
+
+>多张表连接时推荐使用内连接，当需要展示有 NULL 的数据时再使用外连接
+
+```sql
+-- 三张表的连接，找出每个员工的部门，显示每个员工的薪资等级
+select e.ename,d.dname,s.grade 
+from emp e 
+join dept d 
+on e.deptno = d.deptno 
+join salgrade s 
+on e.sal between s.losal and s.hisal;
+```
+
+![](images/DQL%20数据查询语言/file-20250519153313.png)
+
+****
+# 9. 子查询
 
 
 
