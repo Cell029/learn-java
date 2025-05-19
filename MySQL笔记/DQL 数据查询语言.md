@@ -991,6 +991,14 @@ on e.sal between s.losal and s.hisal;
 ****
 # 9. 子查询
 
+>子查询 = SQL 中的查询中嵌套查询
+
+```sql
+SELECT ...
+FROM ...
+WHERE 字段 [比较运算符] (SELECT ...);
+```
+
 
 
 
