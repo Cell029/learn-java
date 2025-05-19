@@ -13,29 +13,30 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "MySQL笔记/数据库表的结构.md",
+                "file": "MySQL笔记/SQL 概述.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "数据库表的结构"
+              "title": "SQL 概述"
             }
           },
           {
-            "id": "47f5c25d9374fc43",
+            "id": "e83f13e25ad47d00",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "MySQL笔记/MySQL 数据类型.md",
+                "file": "MySQL笔记/DML 数据操作语言.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "MySQL 数据类型"
+              "title": "DML 数据操作语言"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "MySQL笔记/数据库表的结构.md",
+                "file": "MySQL笔记/DML 数据操作语言.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "数据库表的结构 的大纲"
+              "title": "DML 数据操作语言 的大纲"
             }
           },
           {
@@ -193,12 +194,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "ce99b2ca473454e6",
+  "active": "e83f13e25ad47d00",
   "lastOpenFiles": [
-    "MySQL笔记/MySQL 数据类型.md",
-    "MySQL笔记/数据库表的结构.md",
     "MySQL笔记/SQL 概述.md",
+    "MySQL笔记/DDL 数据定义语言.md",
+    "MySQL笔记/DML 数据操作语言.md",
+    "MySQL笔记/数据库表的结构.md",
+    "MySQL笔记/MySQL 的下载与配置.md",
     "MySQL笔记/DQL 数据查询语言.md",
+    "MySQL笔记/MySQL 数据类型.md",
     "MySQL笔记/images/DQL 数据查询语言/file-20250519163744.png",
     "MySQL笔记/images/DQL 数据查询语言/file-20250519162303.png",
     "MySQL笔记/images/DQL 数据查询语言/file-20250519162217.png",
@@ -217,7 +221,6 @@
     "Java基础常见面试题总结(中)未命名",
     "面试题/Java基础常见面试题总结(中).md",
     "面试题/Java基础常见面试题总结(上)/变量.md",
-    "MySQL笔记/MySQL 的下载与配置.md",
     "MySQL笔记/images/DQL 数据查询语言",
     "MySQL笔记/数据的初始化.md",
     "MySQL笔记/images/MySQL 的下载与配置",
@@ -235,10 +238,8 @@
     "面试题/Java基础常见面试题总结(上)/基本数据类型.md",
     "面试题/Java基础常见面试题总结(上)/基础概念与常识.md",
     "java笔记/Lambda 表达式.md",
-    "java笔记/基本数据类型.md",
     "面试题/Java基础常见面试题总结(上)/images/基本数据类型",
     "面试题/Java基础常见面试题总结(上)/images",
-    "面试题/Java基础常见面试题总结(上)/基本语法.md",
     "java笔记/images/Stream API",
     "java笔记/images/Lambda 表达式",
     "未命名.canvas"
