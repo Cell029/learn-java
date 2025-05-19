@@ -755,3 +755,7 @@ select count(distinct job) from emp; -- 统计岗位数量
 ```
 
 ****
+# 7. 分组查询
+
+## 7.1 group by
+

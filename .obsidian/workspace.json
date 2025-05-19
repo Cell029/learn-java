@@ -4,35 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "341c016fbf1346c7",
+        "id": "f5dd2e624bc2bf43",
         "type": "tabs",
         "children": [
           {
-            "id": "38a3d7aa19de72c8",
+            "id": "ce99b2ca473454e6",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(中)/面向对象基础.md",
+                "file": "MySQL笔记/DQL 数据查询语言.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "面向对象基础"
-            }
-          },
-          {
-            "id": "ca5aa294b41073f8",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "java笔记/类和对象.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "类和对象"
+              "title": "DQL 数据查询语言"
             }
           }
         ]
@@ -67,7 +53,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "order by",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -88,7 +74,8 @@
               "title": "书签"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -156,13 +143,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(中)/面向对象基础.md",
+                "file": "MySQL笔记/DQL 数据查询语言.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "面向对象基础 的大纲"
+              "title": "DQL 数据查询语言 的大纲"
             }
           },
           {
@@ -176,7 +163,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -193,10 +180,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "05dfda64206ab750",
   "lastOpenFiles": [
-    "java笔记/类和对象.md",
     "面试题/Java基础常见面试题总结(中)/面向对象基础.md",
+    "java笔记/类和对象.md",
     "java笔记/面向对象和面向过程.md",
     "面试题/Java基础常见面试题总结(上)/方法.md",
     "面试题/Java基础常见面试题总结(中)",
