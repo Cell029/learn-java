@@ -999,6 +999,187 @@ FROM ...
 WHERE 字段 [比较运算符] (SELECT ...);
 ```
 
+| 分类维度  | 类型                                             | 说明            |
+| ----- | ---------------------------------------------- | ------------- |
+| 结果维度  | 单行子查询 / 多行子查询                                  | 返回 1 条记录或多条记录 |
+| 位置维度  | SELECT 子句中 / FROM 子句中 / WHERE 子句中 / HAVING 子句中 | 子查询的位置不同      |
+| 相关性维度 | 相关子查询 / 非相关子查询                                 | 是否依赖外层表的数据    |
+
+## 9.1 按结果分类
+
+1、单行子查询
+
+- 子查询返回一行一列
+- 常与 `=、<、>、<=、>=、<>` 搭配使用
+
+```sql
+-- 查询工资高于 MARTIN 的所有员工
+SELECT ename, sal
+FROM emp
+WHERE sal > (
+    SELECT sal FROM emp WHERE ename = 'MARTIN'
+);
+```
+
+![](images/DQL%20数据查询语言/file-20250519161321.png)
+
+2、多行子查询
+
+- 子查询返回多行
+- 需用 `IN`、`EXISTS` 等运算符
+
+```sql
+SELECT ename
+FROM emp
+WHERE deptno IN (
+    SELECT deptno FROM dept WHERE loc = 'NEW YORK'
+);
+```
+
+![](images/DQL%20数据查询语言/file-20250519161458.png)
+
+****
+## 9.2 按位置分类
+
+1、WHERE 子句中的子查询
+
+```sql
+SELECT * FROM emp
+WHERE deptno = (
+    SELECT deptno FROM dept WHERE dname = 'SALES'
+);
+```
+
+![](images/DQL%20数据查询语言/file-20250519161947.png)
+
+2、SELECT 子句中的子查询(作为列值)
+
+```sql
+SELECT ename,
+       (SELECT dname FROM dept WHERE dept.deptno = emp.deptno) AS 部门名
+FROM emp;
+```
+
+![](images/DQL%20数据查询语言/file-20250519162039.png)
+
+3、FROM 子句中的子查询(子查询作为临时表)
+
+```sql
+SELECT t.ename, t.sal
+FROM (
+    SELECT ename, sal FROM emp WHERE sal > 2000
+) AS t
+WHERE t.sal < 5000;
+```
+
+![](images/DQL%20数据查询语言/file-20250519162217.png)
+
+4、HAVING 子句中的子查询(聚合函数配合使用)
+
+```sql
+-- 找出工资平均值高于全公司平均工资的部门
+SELECT deptno, AVG(sal) AS avg_sal
+FROM emp
+GROUP BY deptno
+HAVING AVG(sal) > (
+    SELECT AVG(sal) FROM emp
+);
+```
+
+![](images/DQL%20数据查询语言/file-20250519162303.png)
+
+****
+## 9.3 按是否依赖外层查询分类
+
+1、非相关子查询
+
+>子查询独立执行，不会引用外层查询字段
+
+```sql
+SELECT ename FROM emp
+WHERE sal > (
+    SELECT AVG(sal) FROM emp
+);
+```
+
+2、相关子查询(效率较低)
+
+>子查询依赖外层查询的字段，对外层每一行执行一次
+
+```sql
+-- 查询每个员工中，工资高于本部门平均工资的员工
+SELECT e1.ename, e1.sal
+FROM emp e1
+WHERE sal > (
+    SELECT AVG(sal)
+    FROM emp e2
+    WHERE e2.deptno = e1.deptno
+);
+```
+
+****
+## 9.4 exists、not exists
+
+>**`EXISTS`** 和 **`NOT EXISTS`** 是 SQL 中用于进行子查询存在性判断的逻辑运算符，判断某个子查询是否返回结果，返回值永远是：TRUE 或 FALSE
+
+```sql
+SELECT ... 
+FROM 表A
+WHERE EXISTS|NOT EXISTS (
+    SELECT ... FROM 表B WHERE 条件
+);
+
+SELECT ... 
+FROM 表A
+WHERE NOT EXISTS (
+    SELECT ... FROM 表B WHERE 条件
+);
+```
+
+#### 执行逻辑
+
+- 外层查询（表A）每读一行 -> 执行一次子查询（表B）
+
+- 子查询一旦返回一行 -> 外层记录保留（`EXISTS`）或剔除（`NOT EXISTS`）
+
+>即每一行对另一张表发起一次是否存在的询问
+
+#### 1. 筛选存在相关记录的主表数据
+
+```sql
+-- 查询有下过订单的客户
+SELECT * 
+FROM customers c
+WHERE EXISTS (
+    SELECT 1 FROM orders o WHERE o.customer_id = c.customer_id
+);
+```
+
+>只返回那些在 `t_order` 表中有对应记录的客户
+
+![](images/DQL%20数据查询语言/file-20250519163744.png)
+
+#### 2.筛选没有相关记录的主表数据
+
+```sql
+-- 查询从未下单的客户
+SELECT * 
+FROM customers c
+WHERE NOT EXISTS (
+    SELECT 1 FROM orders o WHERE o.customer_id = c.customer_id
+);
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
 
