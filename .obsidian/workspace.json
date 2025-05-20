@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "MySQL笔记/三范式.md",
+                "file": "MySQL笔记/数据库表的结构.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "三范式"
+              "title": "数据库表的结构"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "MySQL笔记/三范式.md",
+                "file": "MySQL笔记/数据库表的结构.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "三范式 的大纲"
+              "title": "数据库表的结构 的大纲"
             }
           },
           {
@@ -181,8 +181,8 @@
   },
   "active": "b5e039ed231d5f9b",
   "lastOpenFiles": [
-    "MySQL笔记/约束.md",
     "MySQL笔记/三范式.md",
+    "MySQL笔记/约束.md",
     "MySQL笔记/DML 数据操作语言.md",
     "MySQL笔记/DDL 数据定义语言.md",
     "java笔记/Object类中的方法.md",
