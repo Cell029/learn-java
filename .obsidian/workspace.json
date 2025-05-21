@@ -35,8 +35,7 @@
               "title": "String 字符串"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -157,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/String 字符串.md",
+                "file": "面试题/Java基础常见面试题总结(中)/String.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "String 字符串 的大纲"
+              "title": "String 的大纲"
             }
           },
           {
@@ -177,7 +176,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -194,11 +193,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "b865461eea3c6c0b",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
+    "java笔记/String 字符串.md",
+    "面试题/Java基础常见面试题总结(中)/String.md",
     "java笔记/images/String 字符串/file-20250521223157.png",
     "java笔记/images/String 字符串",
-    "面试题/Java基础常见面试题总结(中)/String.md",
     "MySQL笔记/存储过程.md",
     "MySQL笔记/images/存储过程/file-20250521221255.png",
     "MySQL笔记/DQL 数据查询语言.md",
@@ -234,7 +234,6 @@
     "MySQL笔记/DBA 命令.md",
     "MySQL笔记/DDL 数据定义语言.md",
     "MySQL笔记/images/DBA 命令/file-20250520212129.png",
-    "MySQL笔记/images/DBA 命令/file-20250520210506.png",
     "MySQL笔记/images/DBA 命令",
     "images",
     "MySQL笔记/images/DBA（Database Administrator) 命令",
