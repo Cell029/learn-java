@@ -695,7 +695,71 @@ select ename,job,
 -- manager 的薪水上涨 10%，salesman 的薪水上涨 20%，其余的不变，
 ```
 
-2、
+2、搜索形式（适用于多个不等值比较的复杂条件）
+
+```sql
+CASE
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+    ...
+    ELSE default_result
+END
+```
+
+```sql
+SELECT 
+    s_name,
+    CASE 
+        WHEN s_id = 1 THEN '一号学生'
+        WHEN s_id > 2 THEN '大于2号学生'
+        ELSE '其他'
+    END AS description
+FROM student;
+```
+
+### 1. 在 ORDER BY 中自定义排序规则
+
+将课程 "C1" 排在最前面，其他在后面：
+
+```sql
+SELECT * 
+FROM course
+ORDER BY 
+    CASE 
+        WHEN c_id = 'C1' THEN 1
+        ELSE 2
+    END;
+```
+
+****
+### 2. 在 UPDATE 中批量修改数据
+
+根据学生编号设置分数等级字段：
+
+```sql
+UPDATE score
+SET grade_level = 
+    CASE 
+        WHEN grade >= 90 THEN '优秀'
+        WHEN grade >= 70 THEN '良好'
+        WHEN grade >= 60 THEN '及格'
+        ELSE '不及格'
+    END;
+```
+
+****
+### 3. 在 WHERE 中做条件分支
+
+```sql
+SELECT * 
+FROM score 
+WHERE 
+    CASE 
+        WHEN grade >= 60 THEN 1
+        ELSE 0
+    END = 1; -- 返回等于 1 的数据
+-- 通常直接用 where grade >= 60
+```
 
 ****
 ## 5.6 cast 函数
