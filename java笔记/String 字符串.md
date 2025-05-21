@@ -8,7 +8,7 @@
 
 >`String` 对象一旦被创建，其内容是不可更改的，就算修改了字符串的值，实际上也是创建了一个新的对象，原对象保持不变，而接收变量的那个引用指向新的对象
 
-![](images/字符串/file-20250422093106.png)
+![](images/String%20字符串/file-20250422093106.png)
 
 >String类是被final修饰的，它不允许被继承，其次`String` 类内部定义了一个用来存储字符串内容的字节数组（在 Java 9 之后为 `byte[]`，在此之前为 `char[]`），该数组被 `private` 和 `final` 修饰，`final` 关键字保证了数组引用在对象创建后不可更改，也就是说它始终指向同一个数组，无法重新赋值，`private` 关键字限制了对数组的直接访问，防止外部程序绕过方法直接修改内容，所以对字符串进行修改操作（如拼接、截取等）时，实际上都会创建一个新的 `String` 对象，而不是在原对象上进行更改
 
@@ -103,7 +103,7 @@ String str = "Hello" + "World";
 
 >拼接结果 `"HelloWorld"` 直接存入字符串常量池中，因为完全在编译期间完成，JVM 运行时只加载常量
 
-![](images/字符串/file-20250423164215.png)
+![](images/String%20字符串/file-20250423164215.png)
 
 >给 s2 加上 final 后，s2 成为了常量，它不再是变量，所以 s3 的拼接是在编译阶段完成的（可看作 s3 = "a" + "b"），输出结果为 ture
 
@@ -153,11 +153,11 @@ char[] c = {'H', 'e', 'l', 'l', 'o', '!'};
 String str = new String(c);
 ```
 
-![](images/字符串/file-20250422212358.png)
+![](images/String%20字符串/file-20250422212358.png)
 
 >检查传入的字符属于哪个编码的范围，然后决定使用哪种编码，决定好后就把 `char[]` 转换成 `byte[]` 作为原始字符数据的编码存储形式存储在 `String` 对象中
 
-![](images/字符串/file-20250422213548.png)
+![](images/String%20字符串/file-20250422213548.png)
 
 ****
 
@@ -168,11 +168,11 @@ byte[] bytes = {72, 101, 108, 108, 111}; // "Hello"
 String str = new String(bytes);
 ```
 
-![](images/字符串/file-20250422214021.png)
+![](images/String%20字符串/file-20250422214021.png)
 
 >`String` 会根据传入的 `charset` 创建对应的解码器，把 `byte[]` 中存储的编码解码成相应的字符，
 
-![](images/字符串/file-20250422214940.png)
+![](images/String%20字符串/file-20250422214940.png)
 
 >为了节省内存，Java就会把`char[]` 转换成 `byte[]` 存储在 `String` 对象中，所以这其实是个`byte[]`->`char[]`->`byte[]`的过程
 
@@ -184,17 +184,17 @@ String str = new String(bytes);
 
 >字符串乱码本质上是使用错误的编码方式去解读字节流
 
-![](images/字符串/file-20250423135639.png)
+![](images/String%20字符串/file-20250423135639.png)
 
 >对一个字符串使用GBK的编码方式编码，然后再使用UTF-8进行解码，就会导致出现乱码
 
-![](images/字符串/file-20250423140214.png)
+![](images/String%20字符串/file-20250423140214.png)
 
 >通过 `String` 构造器对字节流进行编码和解码时可以使用 `""` 手动输入想用的编码方式，也可以使用底层自带的默认编码方式，
 
-![](images/字符串/file-20250423140319.png)
+![](images/String%20字符串/file-20250423140319.png)
 
-![](images/字符串/file-20250423140522.png)
+![](images/String%20字符串/file-20250423140522.png)
 
 ****
 
@@ -204,42 +204,42 @@ String str = new String(bytes);
 
 >获取字符串中指定位置（索引处）的字符
 
-![](images/字符串/file-20250423142827.png)
+![](images/String%20字符串/file-20250423142827.png)
 
 ****
 ### 10.2 int length()
 
 >用于获取字符串中字符的数量
 
-![](images/字符串/file-20250423142953.png)
+![](images/String%20字符串/file-20250423142953.png)
 
 ****
 ### 10.3 boolean isEmpty()
 
 >用于判断字符串是否为空（即长度为 0）
 
-![](images/字符串/file-20250423143156.png)
+![](images/String%20字符串/file-20250423143156.png)
 
 ****
 ### 10.4 boolean equals(Object anObject)
 
 >判断两个字符串内容是否相等
 
-![](images/字符串/file-20250423143452.png)
+![](images/String%20字符串/file-20250423143452.png)
 
 ****
 ### 10.5 boolean equalsIgnoreCase(String anotherString)
 
 >忽略大小写的情况下判断两个字符串的内容是否相等
 
-![](images/字符串/file-20250423143709.png)
+![](images/String%20字符串/file-20250423143709.png)
 
 ****
 ### 10.6 boolean contains(CharSequence s)
 
 >判断当前字符串中是否包含某个子字符串
 
-![](images/字符串/file-20250423143944.png)
+![](images/String%20字符串/file-20250423143944.png)
 
 ****
 
@@ -247,21 +247,21 @@ String str = new String(bytes);
 
 >判断当前字符串是否以某个字符串开头
 
-![](images/字符串/file-20250423144434.png)
+![](images/String%20字符串/file-20250423144434.png)
 
 ****
 ### 10.8 boolean endsWith(String suffix)
 
 >用来判断当前字符串是否以指定的后缀结尾
 
-![](images/字符串/file-20250423144544.png)
+![](images/String%20字符串/file-20250423144544.png)
 
 ****
 ### 10.9 int compareTo(String anotherString)
 
 >两个字符串按照字典顺序比较大小，返回一个整数，表示两个字符串的字典顺序，如果两个字符串相等返回 0， 如果当前字符串大于 `anotherString` 返回正整数，如果当前字符串小于 `anotherString` 返回负整数
 
-![](images/字符串/file-20250423144924.png)
+![](images/String%20字符串/file-20250423144924.png)
 
 >该方法通过逐个比较两个字符串的每个字符，进行相减，因为大小写字母的Unicode值不一样，所以需要区分大小写
 
@@ -270,49 +270,49 @@ String str = new String(bytes);
 
 >两个字符串按照字典顺序比较大小，比较时忽略大小写
 
-![](images/字符串/file-20250423145206.png)
+![](images/String%20字符串/file-20250423145206.png)
 
 ****
 ### 10.11 int indexOf(String str, int fromIndex)
 
 >从当前字符串的 `fromIndex` 下标开始往右搜索，获取当前字符串中 `str` 字符串的第一次出现处的下标
 
-![](images/字符串/file-20250423145542.png)
+![](images/String%20字符串/file-20250423145542.png)
 
 ****
 ### 10.12 int lastIndexOf(String str, int fromIndex)
 
 >从当前字符串的 `fromIndex` 下标开始往左搜索，获取当前字符串中 `str` 字符串的最后一次出现处的下标
 
-![](images/字符串/file-20250423150002.png)
+![](images/String%20字符串/file-20250423150002.png)
 
 ****
 ### 10.13 byte[] getBytes()
 
 >将字符串转换成字节数组，其实就是对字符串进行编码，默认按照系统默认字符集
 
-![](images/字符串/file-20250423151052.png)
+![](images/String%20字符串/file-20250423151052.png)
 
 ****
 ### 10.14 byte[] getBytes(String charsetName)
 
 >将字符串按照指定字符集的方式进行编码
 
-![](images/字符串/file-20250423151222.png)
+![](images/String%20字符串/file-20250423151222.png)
 
 ****
 ### 10.15 byte[] getBytes(Charset charset)
 
 >将字符串按照指定编码转换为字节数组
 
-![](images/字符串/file-20250423151440.png)
+![](images/String%20字符串/file-20250423151440.png)
 
 ****
 ### 10.16 char[] toCharArray()
 
 >将字符串转换字符数组
 
-![](images/字符串/file-20250423151612.png)
+![](images/String%20字符串/file-20250423151612.png)
 
 ****
 ### 10.17 String toLowerCase()
@@ -324,44 +324,44 @@ String str = new String(bytes);
 
 >转大写
 
-![](images/字符串/file-20250423151843.png)
+![](images/String%20字符串/file-20250423151843.png)
 
 ****
 ### 10.19 String concat(String str)
 
 >将当前字符串和另一个字符串连接起来，因为字符串是不能改变的，所以返回的是源字符串和 str 拼接后的新字符串
 
-![](images/字符串/file-20250423153426.png)
+![](images/String%20字符串/file-20250423153426.png)
 
 **与 + 对比**
 
 >这两种拼接的方式很类似，都会创建一个新的字符串，并且都放在堆中（用 + 拼接两个引用对象），不会进入常量池，所以进行多次的拼接操作时会创建多个 `String` 对象，导致占用很多内存  
 >但 + 号拼接更灵活，不会出现空指针异常的情况
 
-![](images/字符串/file-20250423154103.png)
+![](images/String%20字符串/file-20250423154103.png)
 
-![](images/字符串/file-20250423154125.png)
+![](images/String%20字符串/file-20250423154125.png)
 
 ****
 ### 10.20 String substring(int beginIndex, int endIndex)
 
 >截取字符串的一部分子字符串，范围是从 `beginIndex`（包括）到 `endIndex`（不包括）
 
-![](images/字符串/file-20250423155318.png)
+![](images/String%20字符串/file-20250423155318.png)
 
 ****
 ### 10.21 static String join
 
 >将多个字符串以某个分隔符连接
 
-![](images/字符串/file-20250423155953.png)
+![](images/String%20字符串/file-20250423155953.png)
 
 ****
 ### 10.22 static String valueOf
 
 >将非字符串转换成字符串
 
-![](images/字符串/file-20250423160735.png)
+![](images/String%20字符串/file-20250423160735.png)
 
 ****
 ## 11. StringBuilder
@@ -370,26 +370,26 @@ String str = new String(bytes);
 
 ### 11.1 底层结构
 
-![](images/字符串/file-20250423173616.png)
+![](images/String%20字符串/file-20250423173616.png)
 
-![](images/字符串/file-20250423173716.png)
+![](images/String%20字符串/file-20250423173716.png)
 
 >`StringBuilder` 的父类中的核心字段为`char[] value` 和 `int count`，分别用来存储字符内容和记录当前字符串的长度，因为没有使用 `final` 修饰，所以它的实例对象的属性值是可以改变的，也就是创建的字符串是可变的
 
-![](images/字符串/file-20250423173927.png)
+![](images/String%20字符串/file-20250423173927.png)
 
-![](images/字符串/file-20250423173905.png)
+![](images/String%20字符串/file-20250423173905.png)
 
 >在创建 `StringBuilder` 对象时会传入一个 16，这个就是 `StringBuilder` 的默认容量，如果后续拼接字符串大于默认长度后就会进行扩容操作
 
-![](images/字符串/file-20250423175631.png)
+![](images/String%20字符串/file-20250423175631.png)
 
 >先创建了一个长度为32的字符串，已经大于默认的容量了，所以肯定会进行扩容操作，底层会先对原容量（16）进行 ×2 + 2 的操作，此时的数组容量就成了 34，大于了32  
 >当minGrowth > prefGrowth 时，可能就不是进行 ×2 + 2 的操作了，主要是看那个 growth（传进去后的参数名是minGrowth）
 
-![](images/字符串/file-20250423180752.png)
+![](images/String%20字符串/file-20250423180752.png)
 
-![](images/字符串/file-20250423181137.png)
+![](images/String%20字符串/file-20250423181137.png)
 
 ****
 ### 11.2 实现字符串的拼接
