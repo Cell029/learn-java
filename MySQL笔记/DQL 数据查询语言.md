@@ -659,6 +659,8 @@ SELECT IF(500<1000, "YES", "NO"); -- 如果条件为 TRUE 则返回 YES，如果
 ****
 ## 5.5 case 表达式
 
+1、简单形式
+
 ```sql
 CASE field
     WHEN value1 THEN result1
@@ -692,6 +694,8 @@ select ename,job,
 	from emp;
 -- manager 的薪水上涨 10%，salesman 的薪水上涨 20%，其余的不变，
 ```
+
+2、
 
 ****
 ## 5.6 cast 函数

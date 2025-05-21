@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "MySQL笔记/企业真题.md",
+                "file": "MySQL笔记/MySQL 行转列.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "企业真题"
+              "title": "MySQL 行转列"
             }
           },
           {
@@ -35,7 +35,8 @@
               "title": "DQL 数据查询语言"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "MySQL笔记/企业真题.md",
+                "file": "MySQL笔记/DQL 数据查询语言.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "企业真题 的大纲"
+              "title": "DQL 数据查询语言 的大纲"
             }
           },
           {
@@ -193,11 +194,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "1bc40e423c5ca02d",
+  "active": "a13b889640997cef",
   "lastOpenFiles": [
+    "MySQL笔记/MySQL 行转列.md",
+    "MySQL笔记/企业真题.md",
     "MySQL笔记/DQL 数据查询语言.md",
     "MySQL笔记/DML 数据操作语言.md",
-    "MySQL笔记/企业真题.md",
     "MySQL笔记/images/企业真题/file-20250521134216.png",
     "MySQL笔记/images/企业真题",
     "面试题/Java基础常见面试题总结(上)/基本数据类型.md",
