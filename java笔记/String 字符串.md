@@ -10,7 +10,7 @@
 
 ![](images/String%20字符串/file-20250422093106.png)
 
->String类是被final修饰的，它不允许被继承，其次`String` 类内部定义了一个用来存储字符串内容的字节数组（在 Java 9 之后为 `byte[]`，在此之前为 `char[]`），该数组被 `private` 和 `final` 修饰，`final` 关键字保证了数组引用在对象创建后不可更改，也就是说它始终指向同一个数组，无法重新赋值，`private` 关键字限制了对数组的直接访问，防止外部程序绕过方法直接修改内容，所以对字符串进行修改操作（如拼接、截取等）时，实际上都会创建一个新的 `String` 对象，而不是在原对象上进行更改
+>String 类是被 final 修饰的，它不允许被继承，其次 `String` 类内部定义了一个用来存储字符串内容的字节数组（在 Java 9 之后为 `byte[]`，在此之前为 `char[]`），该数组被 `private` 和 `final` 修饰，`final` 关键字保证了数组引用在对象创建后不可更改，也就是说它始终指向同一个数组，无法重新赋值，`private` 关键字限制了对数组的直接访问，防止外部程序绕过方法直接修改内容，所以对字符串进行修改操作（如拼接、截取等）时，实际上都会创建一个新的 `String` 对象，而不是在原对象上进行更改
 
 ****
 ## 3. 字符串常量池
@@ -374,7 +374,7 @@ String str = new String(bytes);
 
 ![](images/String%20字符串/file-20250423173716.png)
 
->`StringBuilder` 的父类中的核心字段为`char[] value` 和 `int count`，分别用来存储字符内容和记录当前字符串的长度，因为没有使用 `final` 修饰，所以它的实例对象的属性值是可以改变的，也就是创建的字符串是可变的
+>`StringBuilder` 的父类中的核心字段为`char[]`、`value` 和 `int count`，分别用来存储字符内容和记录当前字符串的长度，因为没有使用 `final` 修饰，所以它的实例对象的属性值是可以改变的，也就是创建的字符串是可变的
 
 ![](images/String%20字符串/file-20250423173927.png)
 
@@ -436,3 +436,83 @@ for (int i = 0; i < 100000; i++) {
 }
 String str = sb.toString();
 ```
+
+****
+# 12. StringBuffer
+
+>`StringBuffer` 是 Java 提供的一个可变字符序列类，用于高效地修改字符串内容，与 `String` 不同的是，`StringBuffer` 修改内容时不会新建对象，而是在原有基础上操作，因此效率更高，并且 `StringBuffer` 的所有方法都添加了 `synchronized` 所以它是线程安全的
+
+![](images/String%20字符串/file-20250521223157.png)
+
+构造方法：
+
+```java
+// 1. 空构造，默认初始容量 16
+StringBuffer sb1 = new StringBuffer();
+
+// 2. 指定初始容量
+StringBuffer sb2 = new StringBuffer(50);
+
+// 3. 以字符串作为初始内容
+StringBuffer sb3 = new StringBuffer("Hello");
+```
+
+## 12.1 常用方法
+
+1、添加内容
+
+```java
+append(String str) // 追加内容
+insert(int offset, ...)  // 指定位置插入内容
+```
+
+```java
+StringBuffer sb = new StringBuffer("hello");
+sb.append("世界"); // hello世界
+sb.insert(5, "哈哈"); // hello世界哈哈
+System.out.println(sb);
+```
+
+2、 删除内容
+
+```java
+delete(int start, int end) // 删除从 start 到 end-1 的字符
+deleteCharAt(int index) // 删除指定位置字符
+```
+
+3、替换内容
+
+```java
+replace(int start, int end, String str) // 替换指定区间内容
+```
+
+4、反转字符串
+
+```java
+reverse()
+```
+
+5、设置长度 / 容量
+
+```java
+setLength(int newLength); // 设置字符串长度（截断或填充空字符）
+ensureCapacity(int minCap); // 保证容量不小于 minCap
+```
+
+6、取值
+
+```java
+charAt(int index); // 获取指定下标字符
+length(); // 返回字符长度
+substring(int start, int end); // 截取子串
+```
+
+****
+## 12.2 String、StringBuilder、StringBuffer 三者的区别
+
+
+
+
+
+
+
