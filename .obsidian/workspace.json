@@ -197,6 +197,8 @@
   "lastOpenFiles": [
     "MySQL笔记/约束.md",
     "MySQL笔记/索引.md",
+    "MySQL笔记/images/索引/file-20250522173148.png",
+    "MySQL笔记/images/索引",
     "MySQL笔记/DDL 数据定义语言.md",
     "MySQL笔记/存储引擎.md",
     "MySQL笔记/存储过程.md",
@@ -218,7 +220,6 @@
     "MySQL笔记/images/存储过程/file-20250521195954.png",
     "MySQL笔记/images/存储过程/file-20250521195257.png",
     "MySQL笔记/images/存储过程/file-20250521194821.png",
-    "MySQL笔记/images/存储过程/file-20250521194732.png",
     "MySQL笔记/images/存储过程",
     "MySQL笔记/DML 数据操作语言.md",
     "MySQL笔记/images/企业真题",
@@ -234,13 +235,11 @@
     "MySQL笔记/Navicat 工具的使用.md",
     "MySQL笔记/SQL 概述.md",
     "MySQL笔记/三范式.md",
-    "MySQL笔记/视图.md",
     "MySQL笔记/images/DBA 命令",
     "images",
     "MySQL笔记/images/DBA（Database Administrator) 命令",
     "MySQL笔记/images/事务",
     "MySQL笔记/images/视图",
-    "MySQL笔记/images/约束",
     "未命名.canvas"
   ]
 }
