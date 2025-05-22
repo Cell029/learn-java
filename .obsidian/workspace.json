@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "MySQL笔记/存储引擎.md",
+                "file": "MySQL笔记/索引.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "存储引擎"
+              "title": "索引"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "MySQL笔记/存储引擎.md",
+                "file": "MySQL笔记/索引.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "存储引擎 的大纲"
+              "title": "索引 的大纲"
             }
           },
           {
@@ -181,10 +181,11 @@
   },
   "active": "510a13ab2752fc52",
   "lastOpenFiles": [
+    "MySQL笔记/存储引擎.md",
+    "MySQL笔记/索引.md",
+    "MySQL笔记/存储过程.md",
     "MySQL笔记/images/存储引擎/file-20250522154733.png",
     "MySQL笔记/images/存储引擎",
-    "MySQL笔记/存储过程.md",
-    "MySQL笔记/存储引擎.md",
     "MySQL笔记/images/存储过程/file-20250522143401.png",
     "面试题/Java基础常见面试题总结(中)/String.md",
     "java笔记/String 字符串.md",
@@ -205,7 +206,6 @@
     "MySQL笔记/images/存储过程/file-20250521194732.png",
     "MySQL笔记/images/存储过程",
     "MySQL笔记/DML 数据操作语言.md",
-    "MySQL笔记/images/企业真题/file-20250521134216.png",
     "MySQL笔记/images/企业真题",
     "面试题/Java基础常见面试题总结(上)/基本数据类型.md",
     "面试题/Java基础常见面试题总结(上)/基本语法.md",
