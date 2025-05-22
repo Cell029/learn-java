@@ -4,35 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "1a7443bba9052c98",
+        "id": "d130bf7d5e2d1969",
         "type": "tabs",
         "children": [
           {
-            "id": "c4101a30e83f26e7",
+            "id": "510a13ab2752fc52",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(中)/String.md",
+                "file": "MySQL笔记/存储过程.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "String"
-            }
-          },
-          {
-            "id": "b865461eea3c6c0b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "java笔记/String 字符串.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "String 字符串"
+              "title": "存储过程"
             }
           }
         ]
@@ -156,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(中)/String.md",
+                "file": "MySQL笔记/存储过程.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "String 的大纲"
+              "title": "存储过程 的大纲"
             }
           },
           {
@@ -176,7 +162,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -193,10 +179,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "8746cf1289c80a6d",
   "lastOpenFiles": [
-    "java笔记/String 字符串.md",
+    "MySQL笔记/未命名.md",
     "面试题/Java基础常见面试题总结(中)/String.md",
+    "java笔记/String 字符串.md",
     "java笔记/images/String 字符串/file-20250521223157.png",
     "java笔记/images/String 字符串",
     "MySQL笔记/存储过程.md",
@@ -232,7 +219,6 @@
     "MySQL笔记/视图.md",
     "MySQL笔记/数据库表的结构.md",
     "MySQL笔记/DBA 命令.md",
-    "MySQL笔记/DDL 数据定义语言.md",
     "MySQL笔记/images/DBA 命令/file-20250520212129.png",
     "MySQL笔记/images/DBA 命令",
     "images",
