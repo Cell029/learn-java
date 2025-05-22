@@ -20,6 +20,20 @@
               "icon": "lucide-file",
               "title": "索引"
             }
+          },
+          {
+            "id": "c0ddf0e50ea3fd20",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "MySQL笔记/约束.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "约束"
+            }
           }
         ]
       }
@@ -181,8 +195,10 @@
   },
   "active": "510a13ab2752fc52",
   "lastOpenFiles": [
-    "MySQL笔记/存储引擎.md",
+    "MySQL笔记/约束.md",
     "MySQL笔记/索引.md",
+    "MySQL笔记/DDL 数据定义语言.md",
+    "MySQL笔记/存储引擎.md",
     "MySQL笔记/存储过程.md",
     "MySQL笔记/images/存储引擎/file-20250522154733.png",
     "MySQL笔记/images/存储引擎",
@@ -197,7 +213,6 @@
     "MySQL笔记/事务.md",
     "MySQL笔记/企业真题.md",
     "MySQL笔记/images/存储过程/file-20250521202536.png",
-    "MySQL笔记/约束.md",
     "MySQL笔记/MySQL 行转列.md",
     "MySQL笔记/images/存储过程/file-20250521201307.png",
     "MySQL笔记/images/存储过程/file-20250521195954.png",
@@ -220,7 +235,6 @@
     "MySQL笔记/SQL 概述.md",
     "MySQL笔记/三范式.md",
     "MySQL笔记/视图.md",
-    "MySQL笔记/数据库表的结构.md",
     "MySQL笔记/images/DBA 命令",
     "images",
     "MySQL笔记/images/DBA（Database Administrator) 命令",
