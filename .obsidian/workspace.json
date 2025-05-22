@@ -195,6 +195,8 @@
   },
   "active": "510a13ab2752fc52",
   "lastOpenFiles": [
+    "MySQL笔记/images/B+ 树索引/file-20250522195021.png",
+    "MySQL笔记/images/B+ 树索引",
     "MySQL笔记/索引.md",
     "MySQL笔记/B+ 树索引.md",
     "MySQL笔记/约束.md",
@@ -235,12 +237,10 @@
     "java笔记/包装类.md",
     "MySQL笔记/Navicat 工具的使用.md",
     "MySQL笔记/SQL 概述.md",
-    "MySQL笔记/三范式.md",
     "MySQL笔记/images/DBA 命令",
     "images",
     "MySQL笔记/images/DBA（Database Administrator) 命令",
     "MySQL笔记/images/事务",
-    "MySQL笔记/images/视图",
     "未命名.canvas"
   ]
 }
