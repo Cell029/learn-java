@@ -13,26 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
+                "file": "MySQL笔记/B+ 树索引.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "B+ 树索引"
+            }
+          },
+          {
+            "id": "61ecd972d7f61f66",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
                 "file": "MySQL笔记/索引.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
               "title": "索引"
-            }
-          },
-          {
-            "id": "c0ddf0e50ea3fd20",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "MySQL笔记/约束.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "约束"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "MySQL笔记/索引.md",
+                "file": "MySQL笔记/B+ 树索引.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "索引 的大纲"
+              "title": "B+ 树索引 的大纲"
             }
           },
           {
@@ -195,10 +195,11 @@
   },
   "active": "510a13ab2752fc52",
   "lastOpenFiles": [
+    "MySQL笔记/索引.md",
+    "MySQL笔记/B+ 树索引.md",
     "MySQL笔记/约束.md",
     "MySQL笔记/存储引擎.md",
     "MySQL笔记/存储过程.md",
-    "MySQL笔记/索引.md",
     "MySQL笔记/images/索引/file-20250522173148.png",
     "MySQL笔记/images/索引",
     "MySQL笔记/DDL 数据定义语言.md",
