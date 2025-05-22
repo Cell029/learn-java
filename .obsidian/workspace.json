@@ -179,8 +179,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8746cf1289c80a6d",
+  "active": "510a13ab2752fc52",
   "lastOpenFiles": [
+    "MySQL笔记/images/存储过程/file-20250522143401.png",
     "MySQL笔记/未命名.md",
     "面试题/Java基础常见面试题总结(中)/String.md",
     "java笔记/String 字符串.md",
@@ -218,7 +219,6 @@
     "MySQL笔记/三范式.md",
     "MySQL笔记/视图.md",
     "MySQL笔记/数据库表的结构.md",
-    "MySQL笔记/DBA 命令.md",
     "MySQL笔记/images/DBA 命令/file-20250520212129.png",
     "MySQL笔记/images/DBA 命令",
     "images",
