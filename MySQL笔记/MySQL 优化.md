@@ -319,7 +319,7 @@ EXPLAIN ANALYZE SELECT * FROM film WHERE id = 1;
 - `rows=1 loops=1`:实际返回的行数和执行次数
 
 ****
-# 4. EXPLAIN 的列
+## 3.2 EXPLAIN 的列
 
 ### 1. id：查询块标识
 
@@ -438,5 +438,23 @@ LIMIT 10;
 >`Using temporary`：因为后面有 `ORDER BY`，MySQL 需要临时表来存储排序结果
 >
 >`Using filesort`：排序操作不能使用索引，需要额外的排序步骤
+
+****
+# 4. 索引失效问题
+
+先给表添加两个索引：
+
+```sql
+ALTER TABLE users ADD PRIMARY KEY p_user_id(user_id); -- 主键索引
+ALTER TABLE users ADD KEY unite_index(user_name,user_sex,password); -- 组合索引
+```
+
+### 1. 查询中带有OR会导致索引失效
+
+```sql
+EXPLAIN SELECT * FROM `zz_users` WHERE user_id = 1 OR user_name = "熊猫";
+```
+
+
 
 
