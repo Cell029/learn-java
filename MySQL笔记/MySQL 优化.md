@@ -446,14 +446,59 @@ LIMIT 10;
 
 ```sql
 ALTER TABLE users ADD PRIMARY KEY p_user_id(user_id); -- 主键索引
-ALTER TABLE users ADD KEY unite_index(user_name,user_sex,password); -- 组合索引
+ALTER TABLE users ADD KEY unite_index(user_name,password); -- 组合索引
 ```
-
-### 1. 查询中带有OR会导致索引失效
 
 ```sql
-EXPLAIN SELECT * FROM `zz_users` WHERE user_id = 1 OR user_name = "熊猫";
+SHOW INDEX FROM users;
 ```
+
+![](images/MySQL%20优化/file-20250523205430.png)
+
+****
+### 1. 不满足最左前缀
+
+>最左前缀原则是指：在使用联合索引（复合索引）时，查询条件必须从索引定义的最左边字段开始按顺序使用才能有效命中索引，否则就会导致索引失效
+
+```sql
+EXPLAIN SELECT * FROM users WHERE password = "1234";
+```
+
+![](images/MySQL%20优化/file-20250523210018.png)
+
+从结果中看到 `type = ALL`，索引完全失效，使用了全表扫描。联合索引底层是按组合键排序的，如果查询时不指定最左字段，MySQL 就无法快速定位第一条数据的位置，也就无法利用索引
+
+```sql
+EXPLAIN SELECT * FROM users WHERE user_name = "熊猫";
+```
+
+![](images/MySQL%20优化/file-20250523210213.png)
+
+使用了 `user_name` 后就可以看到 MySQL 底层进行了优化，使用了组合索引中的前缀索引，没有导致索引失效
+
+****
+### 2. 范围查询之后
+
+
+
+
+
+
+
+****
+### 3. 查询中带有OR会导致索引失效
+
+>只要一个 `OR` 条件中的任意一个子条件无法使用索引，整个 SQL 查询将不会使用索引（即：全表扫描），无论其他子条件是否可以使用索引
+
+```sql
+EXPLAIN SELECT * FROM users WHERE user_id = 1 OR user_sex = "男";
+```
+
+![](images/MySQL%20优化/file-20250523205515.png)
+
+从结果中看到 `type = ALL`，索引完全失效，使用了全表扫描，虽然用到了主键，但是后面的 `user_sex` 并不是索引
+
+
 
 
 

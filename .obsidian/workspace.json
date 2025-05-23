@@ -35,8 +35,7 @@
               "title": "索引"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -157,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "MySQL笔记/索引.md",
+                "file": "MySQL笔记/MySQL 优化.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "索引 的大纲"
+              "title": "MySQL 优化 的大纲"
             }
           },
           {
@@ -194,10 +193,16 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "a686ed72e5d28fbf",
+  "active": "8d1f883295ae67bb",
   "lastOpenFiles": [
-    "MySQL笔记/MySQL 优化.md",
+    "MySQL笔记/images/MySQL 优化/file-20250523210213.png",
+    "MySQL笔记/images/MySQL 优化/file-20250523210018.png",
+    "MySQL笔记/images/MySQL 优化/file-20250523205515.png",
+    "MySQL笔记/images/MySQL 优化/file-20250523205430.png",
     "MySQL笔记/索引.md",
+    "MySQL笔记/MySQL 优化.md",
+    "MySQL笔记/images/MySQL 优化/file-20250523204415.png",
+    "MySQL笔记/images/MySQL 优化/file-20250523204020.png",
     "MySQL笔记/images/MySQL 优化/file-20250523175648.png",
     "MySQL笔记/images/MySQL 优化/file-20250523175153.png",
     "MySQL笔记/images/MySQL 优化/file-20250523174236.png",
@@ -209,16 +214,11 @@
     "MySQL笔记/B+ 树索引.md",
     "MySQL笔记/存储过程.md",
     "MySQL笔记/存储引擎.md",
-    "MySQL笔记/images/B+ 树索引/file-20250522203937.png",
-    "MySQL笔记/images/B+ 树索引/file-20250522195021.png",
     "MySQL笔记/images/B+ 树索引",
     "MySQL笔记/约束.md",
-    "MySQL笔记/images/索引/file-20250522173148.png",
     "MySQL笔记/images/索引",
     "MySQL笔记/DDL 数据定义语言.md",
-    "MySQL笔记/images/存储引擎/file-20250522154733.png",
     "MySQL笔记/images/存储引擎",
-    "MySQL笔记/images/存储过程/file-20250522143401.png",
     "java笔记/images/String 字符串",
     "MySQL笔记/DQL 数据查询语言.md",
     "java笔记/IO流.md",
