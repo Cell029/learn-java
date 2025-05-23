@@ -117,6 +117,8 @@ SET SESSION long_query_time = 1;
 
 >这个参数的值只在当前登录的这条 MySQL 会话中生效，一旦断开连接，设置就失效，新开的连接默认仍是 `10.000000` 秒（或配置文件中的值）
 
+如果希望当前连接立即生效 + 后续连接也生效，就可以同时执行以上两个
+
 ****
 ## 2.2 慢查询日志的位置
 
@@ -162,9 +164,76 @@ select sleep(2);
 
 >通过 `Query_time` 和 `Rows_examined` 可以快速判断 SQL 是否有性能问题
 
+```sql
+-- 查询当前系统中有多少条慢查询记录
+SHOW GLOBAL STATUS LIKE '%Slow_queries%';
+```
 
+![](images/MySQL%20优化/file-20250523174236.png)
 
+****
+### 2. SHOW PROFILES 查看 SQL 耗时
 
+1、查看当前数据库是否支持 profile 操作：
 
+```sql
+select @@have_profiling;
+```
+
+2、查看 profiling 开关是否打开（默认关闭）：
+
+```sql
+select @@profiling; -- 0 关闭，1 打开
+```
+
+3、将 profiling 开关打开：
+
+```sql
+set profiling = 1;
+```
+
+4、可用执行多条 DQL 语句，然后使用 `show profiles` 查看当前数据库中执行过的每个SELECT语句的耗时情况：
+
+```sql
+select empno,ename from emp;
+select empno,ename from emp where empno=7369;
+select count(*) from emp;
+show profiles;
+```
+
+![](images/MySQL%20优化/file-20250523175153.png)
+
+- `Query_ID`: 执行顺序编号，越大表示越晚执行
+- `Duration`: 总耗时（秒）
+- `Query`: 执行的 SQL 内容
+
+5、查看某一条 SQL 的详细执行阶段：
+
+```sql
+SHOW PROFILE FOR QUERY Query_ID;
+```
+
+![](images/MySQL%20优化/file-20250523175648.png)
+
+- `starting`：启动 SQL 解析器
+- `Executing hook on tt`：执行表的特殊钩子函数（通常与存储引擎相关）
+- `checking permissions`：检查用户权限
+- `Opening tables`：打开表文件
+- `init`：初始化临时表或缓存（如子查询优化）
+- `System lock`：等待表级锁或行级锁
+- `optimizing`：选择最佳执行路径（使用索引、连接顺序等）
+- `statistics`：收集表统计信息，用于优化器决策
+- `preparing`：预处理阶段（生成执行计划）
+- `executing`：实际开始执行 SQL（如取数据）
+- `Sending data`：发送结果数据给客户端
+- `end`：执行结束准备清理资源
+- `query end`：查询正式结束（等待存储引擎确认完成）
+- `waiting for handler commit`：线程正在等待存储引擎完成事务的提交操作
+- `closing tables`：关闭已打开的表
+- `freeing items`：释放内存缓存（如临时表、排序缓冲区）
+- `cleaning up`：最终清理（重置线程状态）
+
+****
+### 3. 慢查询日志分析工具
 
 
