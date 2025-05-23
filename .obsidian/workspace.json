@@ -181,6 +181,9 @@
   },
   "active": "8d1f883295ae67bb",
   "lastOpenFiles": [
+    "MySQL笔记/images/MySQL 优化/file-20250523163023.png",
+    "MySQL笔记/images/MySQL 优化/file-20250523163002.png",
+    "MySQL笔记/images/MySQL 优化",
     "MySQL笔记/索引.md",
     "MySQL笔记/MySQL 优化.md",
     "面试题/Java基础常见面试题总结(中)/String.md",
@@ -208,7 +211,6 @@
     "MySQL笔记/images/存储过程/file-20250521202536.png",
     "MySQL笔记/MySQL 行转列.md",
     "MySQL笔记/images/存储过程/file-20250521201307.png",
-    "MySQL笔记/images/存储过程/file-20250521195954.png",
     "MySQL笔记/images/存储过程",
     "MySQL笔记/DML 数据操作语言.md",
     "MySQL笔记/images/企业真题",
@@ -222,11 +224,9 @@
     "java笔记/Set 集合.md",
     "java笔记/包装类.md",
     "MySQL笔记/Navicat 工具的使用.md",
-    "MySQL笔记/SQL 概述.md",
     "MySQL笔记/images/DBA 命令",
     "images",
     "MySQL笔记/images/DBA（Database Administrator) 命令",
-    "MySQL笔记/images/事务",
     "未命名.canvas"
   ]
 }
