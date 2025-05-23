@@ -234,8 +234,27 @@ SHOW PROFILE FOR QUERY Query_ID;
 - `cleaning up`：最终清理（重置线程状态）
 
 ****
-### 3. 慢查询日志分析工具
+# 3. EXPLAIN 执行计划
 
->它的核心作用是：对慢查询日志文件中的 SQL 语句进行归类、排序和简化，输出聚合统计信息，帮助快速定位热点 SQL
+>使用 `EXPLAIN` 关键字可以模拟优化器执行 SQL 语句，分析查询语句或结构的性能瓶颈。 在 `SELECT` 语句之前增加 `EXPLAIN` 关键字，MySQL 会在查询上设置一个标记，执行查询会返回执行计划的信息，而不是执行这条 SQL（如果 from 中包含子查询，仍会执行该子查询，将结果放入临时表中）
+
+****
+## 3.1 两个变种
+
+1、EXPLAIN EXTENDED：查看优化器如何改写 SQL
+
+>会在 explain 的基础上额外提供一些查询优化的信息。紧随其后通过 show warnings 命令可 以得到优化后的查询语句，从而看出优化器优化了什么。额外还有 filtered 列，是一个半分比的值，rows * filtered/100 可以估算出将要和 explain 中前一个表进行连接的行数（前一个表指 explain 中的id值比当前表id值小的表）
+
+`EXPLAIN EXTENDED` 在传统 `EXPLAIN` 输出的基础上展示更多的优化信息：
+
+- `filtered` 字段：估算当前表通过 `WHERE` 条件过滤后的百分比
+- 搭配 `SHOW WARNINGS` 查看优化器实际执行的改写后 SQL 语句，这有助于理解优化器是否省略了某些字段、合并了某些子查询等操作
+
+```sql
+EXPLAIN EXTENDED SELECT * FROM film WHERE id = 1;
+SHOW WARNINGS;
+```
+
+
 
 
