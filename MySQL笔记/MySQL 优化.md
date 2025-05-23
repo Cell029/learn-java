@@ -109,7 +109,13 @@ log_queries_not_using_indexes = 1  -- 是否记录未使用索引的SQL
 SET GLOBAL long_query_time = 1;
 ```
 
->适用于临时调整阈值来分析慢查询行为位是秒，设置为 1 表示记录所有执行时间超过 1 秒的查询
+>改变的是全局默认值，之后任何新的连接（包括重新连 MySQL）都会使用这个新值，但已经打开的连接仍然使用它们各自的 `SESSION` 值（不会立刻改变），重启 MySQL 后会恢复为配置文件中的默认值，除非写进 `my.cnf` / `my.ini` 配置文件
+
+```sql
+SET SESSION long_query_time = 1;
+```
+
+>这个参数的值只在当前登录的这条 MySQL 会话中生效，一旦断开连接，设置就失效，新开的连接默认仍是 `10.000000` 秒（或配置文件中的值）
 
 ****
 ## 2.2 慢查询日志的位置
@@ -129,6 +135,34 @@ set global slow_query_log_file = '...-slow.log';
 
 ****
 ## 2.3 慢 SQL 的查看
+
+### 1. 查看慢查询日志内容
+
+执行了一条模拟
+
+```sql
+E:\mysqlEnvironment\mysql-8.4.5-winx64\bin\mysqld, Version: 8.4.5 (MySQL Community Server - GPL). started with:
+TCP Port: 3306, Named Pipe: MySQL
+Time                 Id Command    Argument
+# Time: 2025-05-23T09:23:56.446824Z
+# User@Host: root[root] @ localhost [::1]  Id:     9
+# Query_time: 2.007068  Lock_time: 0.000000 Rows_sent: 1  Rows_examined: 1
+use demo_01;
+SET timestamp=1747992234;
+select sleep(2);
+```
+
+- `Time`：执行时间
+- `User@Host`：发起请求的用户和 IP
+- `Query_time`：执行 SQL 花费的总时间（秒）
+- `Lock_time`：等待锁的时间
+- `Rows_sent`：返回的记录数
+- `Rows_examined`：扫描的记录数
+- `SET timestamp=...`：与 Time 一致的秒数形式，用于重现执行时间
+
+>通过 `Query_time` 和 `Rows_examined` 可以快速判断 SQL 是否有性能问题
+
+
 
 
 
