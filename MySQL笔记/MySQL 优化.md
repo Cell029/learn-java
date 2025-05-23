@@ -479,11 +479,19 @@ EXPLAIN SELECT * FROM users WHERE user_name = "熊猫";
 ****
 ### 2. 范围查询之后
 
+>如果对其中一个字段使用范围查询会导致部分索引失效
 
+```sql
+EXPLAIN SELECT * FROM users WHERE user_name > '熊' AND password = '1234';
+```
 
+![](images/MySQL%20优化/file-20250523211324.png)
 
+可以看到 `type = range` ，表示使用了索引的范围扫描方式，这是比全表扫描更优的一种访问类型，但 `password` 字段未使用索引，是在回表之后再判断的，因为范围查询会导致后续字段无法使用索引
 
+为什么范围查询后面的字段索引失效：
 
+>当定位到某个确切的键值时，B+ 树可以精准定位到该键下对应的所有数据，然后继续利用剩余字段判断，但如果是范围查询那 MySQL 就只能定位一个区间，可区间内可能有很多键值，在这个范围内索引树结构已经无法再有效细分（此时可能定位到两个叶子节点区间），所以必须扫描范围内所有符合进行范围判断的字段的行，拿到主键后再回表过滤剩余字段
 
 ****
 ### 3. 查询中带有OR会导致索引失效
@@ -498,8 +506,30 @@ EXPLAIN SELECT * FROM users WHERE user_id = 1 OR user_sex = "男";
 
 从结果中看到 `type = ALL`，索引完全失效，使用了全表扫描，虽然用到了主键，但是后面的 `user_sex` 并不是索引
 
+****
+### 4. 索引字段做运算或参与函数
 
+>索引字段做运算或使用函数时会导致 MySQL 无法使用索引的有序性进行快速定位，因为被处理后的表达式不再直接对应索引中存储的结构，索引结构就错位了，必须扫描全表来判断每一行是否满足条件
 
+```sql
+EXPLAIN SELECT * FROM users WHERE user_id + 1 = 2;
+```
 
+```sql
+EXPLAIN SELECT * FROM users WHERE LEFT(user_name, 2) = '熊猫';
+```
 
+![](images/MySQL%20优化/file-20250523213029.png)
 
+****
+### 5. MySQL 进行隐式类型转换
+
+>如果对字符串字段查询时没有加单引号，MySQL 会进行隐式类型转换，这将导致无法使用索引，进而降低查询性能
+
+```sql
+EXPLAIN SELECT * FROM users WHERE password = 1234;
+```
+
+![](images/MySQL%20优化/file-20250523213701.png)
+
+因为 `password` 是 `varchar` 类型的，
