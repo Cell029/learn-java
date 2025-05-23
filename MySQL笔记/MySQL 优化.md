@@ -74,7 +74,7 @@ SHOW GLOBAL STATUS LIKE 'Com_rollback';
 ### 1. 查看慢查询日志是否开启
 
 ```sql
-show variables like '%slow_query_log';
+SHOW VARIABLES LIKE '%slow_query_log';
 ```
 
 ![](images/MySQL%20优化/file-20250523163023.png)
@@ -97,6 +97,38 @@ long_query_time = 1      -- 默认10秒，建议设为1或更低
 log_queries_not_using_indexes = 1  -- 是否记录未使用索引的SQL
 ```
 
+- `slow_query_log`：是否启用慢查询日志，1 表示开启
+- `slow_query_log_file`：指定慢查询日志保存路径
+- `long_query_time`：查询耗时超过该值（秒）就记录，建议设为 1 或更低
+- `log_queries_not_using_indexes`：是否记录未使用索引的 SQL 查询
+
+****
+### 3. 修改慢查询阈值
+
+```sql
+SET GLOBAL long_query_time = 1;
+```
+
+>适用于临时调整阈值来分析慢查询行为位是秒，设置为 1 表示记录所有执行时间超过 1 秒的查询
+
+****
+## 2.2 慢查询日志的位置
+
+### 1. 查看慢查询日志的位置
+
+```sql
+SHOW VARIABLES LIKE 'slow_query_log_file';
+```
+
+****
+### 2. 修改慢查询日志位置
+
+```sql
+set global slow_query_log_file = '...-slow.log';
+```
+
+****
+## 2.3 慢 SQL 的查看
 
 
 
