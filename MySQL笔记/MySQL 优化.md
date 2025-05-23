@@ -328,7 +328,115 @@ EXPLAIN ANALYZE SELECT * FROM film WHERE id = 1;
 ****
 ### 2. select_type：查询类型
 
+- `SIMPLE`：简单查询，不包含子查询或 UNION
+- `PRIMARY`：最外层的 SELECT
+- `SUBQUERY`：子查询
+- `DERIVED`：派生表（FROM 子句中的子查询）
+- `UNION`：UNION 中的第二个及后续查询
+- `UNION RESULT`：UNION 合并结果集
+- `DEPENDENT SUBQUERY`：依赖外层的子查询
 
+****
+### 3. table：访问的表
 
+>显示当前执行计划中正在访问的表或别名，如果是临时表则显示 `derived` 或 `union result`
+
+****
+### 4. partitions：分区信息（如无分区则为空）
+
+>指示命中了哪些分区（对分区表才有用）
+
+****
+### 5. type：连接类型（访问类型）
+
+- `system`：表仅有一行（等价于 const）
+- `const`：使用主键或唯一索引进行等值查询
+- `eq_ref`：对于驱动表（前一个表）中的每一行，MySQL 会使用某个索引，到被驱动表中精确地查找一行数据进行匹配
+- `ref`：非唯一索引或前缀索引，返回多行匹配项
+- `range`：使用索引范围查找，如 `BETWEEN`、`<`、`>`
+- `index`：全索引扫描（比全表扫描好）
+- `ALL`：全表扫描（最差）
+
+****
+### 6. 总结
+
+| 列名              | 含义                           |
+| --------------- | ---------------------------- |
+| `id`            | 查询中每个 SELECT 子句或 UNION 的唯一标识 |
+| `select_type`   | SELECT 的类型，如简单查询、子查询、派生表等    |
+| `table`         | 当前正在访问的表名                    |
+| `partitions`    | 显示命中查询的分区（如果表使用了分区）          |
+| `type`          | 连接类型（访问类型），表示表访问方式的效率        |
+| `possible_keys` | 查询可能用到的索引（优化器预估）             |
+| `key`           | 实际使用的索引                      |
+| `key_len`       | 使用的索引长度（字节）                  |
+| `ref`           | 哪些列或常量与 key 进行了匹配            |
+| `rows`          | 预估需要读取的行数                    |
+| `filtered`      | 表示行过滤率（百分比）                  |
+| `Extra`         | 附加信息（如是否使用临时表、文件排序等）         |
+
+```sql
+EXPLAIN
+SELECT a.name, f.name AS film_name
+FROM actor a
+JOIN film_actor fa ON a.id = fa.actor_id
+JOIN film f ON fa.film_id = f.id
+WHERE f.release_year BETWEEN 2000 AND 2010
+  AND a.name LIKE 'A%'
+ORDER BY f.release_year DESC
+LIMIT 10;
+```
+
+| id  | select_type | table | partitions | type   | possible_keys     | key               | key_len | ref                | rows | filtered | Extra                                                   |
+| --- | ----------- | ----- | ---------- | ------ | ----------------- | ----------------- | ------- | ------------------ | ---- | -------- | ------------------------------------------------------- |
+| 1   | SIMPLE      | a     | NULL       | ALL    | PRIMARY           | NULL              | NULL    | NULL               | 5    | 20.00    | Using where; Using temporary; Using filesort            |
+| 1   | SIMPLE      | fa    | NULL       | index  | idx_film_actor_id | idx_film_actor_id | 8       | NULL               | 7    | 14.29    | Using where; Using index; Using join buffer (hash join) |
+| 1   | SIMPLE      | f     | NULL       | eq_ref | PRIMARY           | PRIMARY           | 4       | demo_01.fa.film_id | 1    | 11.11    | Using where                                             |
+
+- **id = 1，select_type = SIMPLE**  
+
+>说明这是主查询（非子查询）
+
+- **table = a**  
+>表示当前处理的是 `actor` 表
+
+- **partitions = NULL**  
+
+>没用分区
+
+- **type = ALL**  
+
+>全表扫描，这是比较低效的连接方式，说明索引没有被用在这个表上，可能是因为 `a.name LIKE 'A%'` 这类条件不能有效用索引（字符串前缀匹配可以用索引，但需要确认字段和索引情况）
+
+- **possible_keys = PRIMARY**  
+
+>优化器认为有主键索引可用，但没选用
+
+- **key = NULL**  
+
+>实际没使用任何索引
+
+- **key_len = NULL** 
+
+>无索引使用
+
+- **ref = NULL**  
+
+>无引用字段
+
+- **rows = 5**  
+
+>估计需要扫描5行
+
+- **filtered = 20.00**  
+
+>过滤效率20%，表示大概20%的行会通过 `WHERE` 条件过滤
+
+- **Extra = Using where; Using temporary; Using filesort**
+>`Using where`：有 `WHERE` 条件过滤（你例子里的 `a.name LIKE 'A%'`）
+>
+>`Using temporary`：因为后面有 `ORDER BY`，MySQL 需要临时表来存储排序结果
+>
+>`Using filesort`：排序操作不能使用索引，需要额外的排序步骤
 
 
