@@ -654,7 +654,7 @@ SET optimizer_switch='index_condition_pushdown=on';
 ```
 
 ****
-## 5.3 MRR(Multi-Range Read)机制
+## 5.3 MRR(Multi-Range Read) 机制
 
 >多范围读取（扫描），它的主要目标是减少磁盘随机读取次数，优化从磁盘中读取多个不连续数据页的效率
 
@@ -671,9 +671,7 @@ SELECT * FROM score WHERE grade BETWEEN 0 AND 59;
 
 那此时假设此时成绩 0~5 分的表数据，位于磁盘空间的 `page_01` 页上，而成绩为 5~10 分的数据位于磁盘空间的 `page_02` 页上，成绩为 10~15 分的数据，又位于磁盘空间的 `page_01` 页上。此时回表查询时就会导致在 `page_01`、`page_02` 两页空间上来回切换，但 0~5、10~15 分的数据完全可以合并，然后读一次 `page_01` 就可以了，既能减少 IO 次数，同时还避免了离散 IO
 
->先扫描索引，根据查询条件定位符合条件的索引条目（一般是主键或聚簇索引的行指针），但不立即回表读取数据行，接着将对应数据行所在的数据页号全部收集起来，存在一个缓冲区，将收集到的数据页号排序（通常是页号的顺序），以优化后续的磁盘访问
-
->而在 `MRR` 机制中，对于辅助索引中查询出的 `ID`，会将其放到缓冲区的 `read_rnd_buffer` 中，然后等全部的索引检索工作完成后，或者缓冲区中的数据达到 `read_rnd_buffer_size` 大小时，此时 MySQL 会对缓冲区中的数据排序，从而得到一个有序的 `ID` 集合：`rest_sort`，最终再根据顺序 IO 去聚簇/主键索引中回表查询数据。`MySQL5.6` 及以后的版本是默认开启的：
+>先扫描索引，根据查询条件定位符合条件的索引条目（一般是主键或聚簇索引的行指针），但不立即回表读取数据行，接着将对应数据行所在的数据页号全部收集起来，存在一个缓冲区，并对数据页号排序（通常是页号的顺序），以优化后续的磁盘访问，最后按顺序访问这些数据页，一次读取一页，根据已读取的数据页返回符合条件的数据，减少磁盘 IO 次数。`MySQL5.6` 及以后的版本是默认开启的：
 
 ```sql
 -- 查看当前设置
@@ -685,6 +683,51 @@ SET GLOBAL innodb_use_mrr = OFF;
 -- 开启MRR
 SET GLOBAL innodb_use_mrr = ON;
 ```
+
+****
+## 5.4 Index Skip Scan 索引跳跃式扫描
+
+>最左前缀匹配原则就是 `SQL` 的查询条件中必须要包含联合索引的第一个字段，这样才能命中联合索引查询，但实际上这条规则也并不是 100% 遵循的。因为在 `MySQL8.x` 版本中加入了一个新的优化机制，也就是索引跳跃式扫描，这种机制使得即使查询条件中没有使用联合索引的第一个字段，也依旧可以使用联合索引，看起来就像跳过了联合索引中的第一个字段一样
+
+假设建立了一个联合索引 `(A、B、C)` ，有如下一条 `SQL`：
+
+```sql
+SELECT * FROM tb_xx WHERE B = 'xxx' AND C = 'xxx';
+```
+
+优化器会重构 `SQL` ，并不是真正的跳过了第一个字段：
+
+```sql
+SELECT * FROM tb_xx WHERE B = 'xxx' AND C = 'xxx'
+UNION ALL
+SELECT * FROM tb_xx WHERE B = 'xxx' AND C = 'xxx' AND A = "yyy"
+......
+SELECT * FROM tb_xx WHERE B = 'xxx' AND C = 'xxx' AND A = "zzz";
+```
+
+>跳跃扫描中 MySQL 利用索引的有序性，先跳过所有不同的 `A` 值，针对每个 `A` 的值，使用索引查找 `B = ?` 、`C = ?` 的记录
+
+例如：联合索引为 `(customer_id, status)`
+
+```sql
+SELECT * FROM orders WHERE status = 'shipped';
+```
+
+>MySQL 会在索引中跳过不同的 `customer_id`，然后在每个 `customer_id` 子组中扫描 `status = 'shipped'`，跳过不匹配的条目，这就会比全索引扫描效率高很多，MySQL 8.0.12 后就支持了跳跃扫描（默认开启）：
+
+```sql
+-- 查看当前配置
+SHOW VARIABLES LIKE 'optimizer_switch';
+
+-- 开启
+SET SESSION optimizer_switch = 'skip_scan=on';
+
+-- 关闭
+SET SESSION optimizer_switch = 'skip_scan=off';
+```
+
+****
+
 
 
 
