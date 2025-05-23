@@ -241,19 +241,93 @@ SHOW PROFILE FOR QUERY Query_ID;
 ****
 ## 3.1 两个变种
 
-1、EXPLAIN EXTENDED：查看优化器如何改写 SQL
+### 1. EXPLAIN FORMAT=JSON
 
->会在 explain 的基础上额外提供一些查询优化的信息。紧随其后通过 show warnings 命令可 以得到优化后的查询语句，从而看出优化器优化了什么。额外还有 filtered 列，是一个半分比的值，rows * filtered/100 可以估算出将要和 explain 中前一个表进行连接的行数（前一个表指 explain 中的id值比当前表id值小的表）
-
-`EXPLAIN EXTENDED` 在传统 `EXPLAIN` 输出的基础上展示更多的优化信息：
-
-- `filtered` 字段：估算当前表通过 `WHERE` 条件过滤后的百分比
-- 搭配 `SHOW WARNINGS` 查看优化器实际执行的改写后 SQL 语句，这有助于理解优化器是否省略了某些字段、合并了某些子查询等操作
+>返回更结构化、更详细的执行计划信息（如索引使用、过滤条件、连接类型、排序方式等）。输出是 JSON 格式，适合工具自动化解析或深入分析优化器行为
 
 ```sql
-EXPLAIN EXTENDED SELECT * FROM film WHERE id = 1;
-SHOW WARNINGS;
+EXPLAIN FORMAT=JSON SELECT * FROM film WHERE id = 1;
 ```
+
+```json
+{
+  "query_block": {
+    "select_id": 1,
+    "cost_info": {
+      "query_cost": "1.00"
+    },
+    "table": {
+      "table_name": "film",
+      "access_type": "const",
+      "possible_keys": [
+        "PRIMARY"
+      ],
+      "key": "PRIMARY",
+      "used_key_parts": [
+        "id"
+      ],
+      "key_length": "4",
+      "ref": [
+        "const"
+      ],
+      "rows_examined_per_scan": 1,
+      "rows_produced_per_join": 1,
+      "filtered": "100.00",
+      "cost_info": {
+        "read_cost": "0.00",
+        "eval_cost": "0.10",
+        "prefix_cost": "0.00",
+        "data_read_per_join": "72"
+      },
+      "used_columns": [
+        "id",
+        "name"
+      ]
+    }
+  }
+}
+```
+
+常见字段：
+
+- `select_id`：查询块的 ID，子查询会有多个
+- `table_name`：查询的表名
+- `access_type`：表访问类型，如 `const`（常量级别访问）、`ref`（基于索引的非唯一等值查找）、`ALL`（全表扫描）
+- `possible_keys`：查询可用的索引
+- `key`：实际使用的索引
+- `rows`：预计扫描的行数
+- `filtered`：过滤后保留的比例（百分比）
+
+****
+### 2. EXPLAIN ANALYZE
+
+>实际执行 SQL 语句（区别于普通 EXPLAIN 只是估算）并显示真实的执行时间、扫描行数、每一步的耗时，主要用于深入性能分析与调优，比普通 `EXPLAIN` 更真实
+
+```sql
+EXPLAIN ANALYZE SELECT * FROM film WHERE id = 1;
+```
+
+```sql
+-> Rows fetched before execution  (cost=0..0 rows=1) (actual time=0.0011..0.0012 rows=1 loops=1)
+```
+
+关键字段：
+
+- `Rows fetched before execution`：MySQL 在真正进入执行计划前就能确定结果，因为语句中是 `WHERE id = 1`，而 `id` 是主键，所以它知道只要查一行、直接定位，无需真正执行复杂计划
+- `cost=0..0 rows=1`：优化器的估算成本和行数
+- `actual time=0.0011..0.0012`：实际执行开始和结束时间（单位：秒）
+- `rows=1 loops=1`:实际返回的行数和执行次数
+
+****
+# 4. EXPLAIN 的列
+
+### 1. id：查询块标识
+
+>每个 `SELECT` 子句的编号，值越大，执行优先级越高，如果是子查询或联合查询，就会有多个 ID
+
+****
+### 2. select_type：查询类型
+
 
 
 
