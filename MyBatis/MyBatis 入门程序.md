@@ -153,7 +153,7 @@ public class MyBatisIntroductionTest {
             // 3.创建SqlSession对象  
             SqlSession sqlSession = sqlSessionFactory.openSession();  
             // 4.执行SQL  
-            int count = sqlSession.insert("insertCar");  
+            int count = sqlSession.insert("insertCar"); // 返回执行的条数 
             System.out.println("更新了几条记录：" + count);  
             // 5.提交  
             sqlSession.commit();  
@@ -258,6 +258,35 @@ public class MyBatisIntroductionTest {
 ****
 # 7. MyBatis 工具类 SqlSessionUtil 的封装
 
+```java
+public class SqlSessionUtil {  
+    /*  
+     * 类加载时初始化 sqlSessionFactory 对象  
+     */    private static SqlSessionFactory sqlSessionFactory;  
+  
+    static {  
+        try {  
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsStream("mybatis-config.xml"));  
+        } catch (IOException e) {  
+            e.printStackTrace();  
+        }  
+    }  
+  
+    private SqlSessionUtil(){}  
+  
+    /*  
+     * 每调用一次 openSession() 可获取一个新的会话  
+     */    public static SqlSession openSession() {  
+        return sqlSessionFactory.openSession(); // 手动提交  
+    }  
+  
+    public static void closeSession(SqlSession session) {  
+        if (session != null) {  
+            session.close();  
+        }  
+    }  
+}
+```
 
 
 
