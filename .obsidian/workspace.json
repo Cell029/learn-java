@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "MyBatis/MyBatis 概述.md",
+                "file": "MyBatis/MyBatis 入门程序.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "MyBatis 概述"
+              "title": "MyBatis 入门程序"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "MyBatis/MyBatis 概述.md",
+                "file": "MyBatis/MyBatis 入门程序.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "MyBatis 概述 的大纲"
+              "title": "MyBatis 入门程序 的大纲"
             }
           },
           {
@@ -181,7 +181,10 @@
   },
   "active": "26029dd9332615b0",
   "lastOpenFiles": [
-    "MyBatis/MyBatis 概述.md",
+    "MyBatis/images/MyBatis 入门程序/file-20250524174450.png",
+    "MyBatis/images/MyBatis 入门程序",
+    "MyBatis/images",
+    "MyBatis/MyBatis 入门程序.md",
     "MyBatis",
     "MySQL笔记/MySQL 优化.md",
     "MySQL笔记/images/MySQL 优化/file-20250524144728.png",
@@ -224,9 +227,6 @@
     "java笔记/Object类中的方法.md",
     "java笔记/Set 集合.md",
     "java笔记/包装类.md",
-    "MySQL笔记/Navicat 工具的使用.md",
-    "MySQL笔记/images/DBA 命令",
-    "images",
     "未命名.canvas"
   ]
 }
