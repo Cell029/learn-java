@@ -151,7 +151,7 @@ public class MyBatisIntroductionTest {
 			sqlSessionFactoryBuilder
 			.build(Resources.getResourceAsStream("mybatis-config.xml"));  
             // 3.创建SqlSession对象  
-            sqlSession = sqlSessionFactory.openSession();  
+            SqlSession sqlSession = sqlSessionFactory.openSession();  
             // 4.执行SQL  
             int count = sqlSession.insert("insertCar");  
             System.out.println("更新了几条记录：" + count);  
@@ -174,7 +174,6 @@ public class MyBatisIntroductionTest {
 ```
 
 ****
-# 6.MyBatis 的两种事务管理器
 
 
 
