@@ -190,7 +190,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -207,7 +207,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "8746cf1289c80a6d",
   "lastOpenFiles": [
     "MySQL笔记/索引.md",
     "MySQL笔记/MySQL 优化.md",
