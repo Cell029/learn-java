@@ -81,9 +81,62 @@
 ```
 
 ****
-## 5. 完整代码
+## 5. 整体流程
 
 >每个基于 MyBatis 的应用都是以一个 `SqlSessionFactory` 的实例为核心的。`SqlSessionFactory` 的实例可以通过 `SqlSessionFactoryBuilder` 获得。而 `SqlSessionFactoryBuilder` 则可以从 XML 配置文件来构建出 `SqlSessionFactory` 实例
+
+具体流程：
+
+```
+配置文件 → SqlSessionFactoryBuilder → SqlSessionFactory → SqlSession
+```
+
+1、`SqlSessionFactoryBuilder`：构建器（临时对象）
+
+>用来读取 MyBatis 配置文件，构建 `SqlSessionFactory` ，用完即丢，不需要保存
+
+通过 IO 流读取本地文件，调用`build()` 方法解析 XML 文件，然后返回一个 `SqlSessionFactory` 对象：
+
+```java
+InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
+SqlSessionFactory factory = builder.build(inputStream);
+```
+
+2、`SqlSessionFactory`：会话工厂（核心对象）
+
+>创建 `SqlSession` 对象来执行数据库操作，管理连接
+
+```java
+SqlSession session = factory.openSession();  // 获取一个 SqlSession
+```
+
+3、`SqlSession`：数据库会话
+
+>用于执行 SQL 操作（CRUD），每次的数据库操作都要创建一个新的 `SqlSession`
+
+```java
+SqlSession session = factory.openSession(); // 默认关闭自动提交
+UserMapper mapper = session.getMapper(UserMapper.class); 
+List<User> list = mapper.selectAll(); // 调用方法
+session.close(); // 必须关闭
+```
+
+```
+1. 加载配置文件（mybatis-config.xml）
+         ↓
+2. SqlSessionFactoryBuilder 解析 XML
+         ↓
+3. 构建 SqlSessionFactory（包含数据源、事务管理器、映射器等信息）
+         ↓
+4. 调用 factory.openSession() 获取 SqlSession
+         ↓
+5. 通过 SqlSession 获取 Mapper 接口代理
+         ↓
+6. 调用 mapper 中方法 → 执行 SQL → 返回结果
+```
+
+完整代码：
 
 ```java
 public class MyBatisIntroductionTest {  
