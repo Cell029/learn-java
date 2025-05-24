@@ -729,6 +729,41 @@ SET SESSION optimizer_switch = 'skip_scan=off';
 ****
 # 6. SQL 优化
 
+## 1. 子查询用 EXISTS 代替 IN
+
+>当 IN 的参数是子查询时，数据库首先会执行子查询，然后将结果存储在一张临时的工作表里（内联视图），然后扫描整个视图，但很多情况下这种做法都非常耗费资源。使用EXISTS的话，数据库就不会生成临时的工作表。不过从代码的可读性上来看 IN 要比 EXISTS 好，使用 IN 时的代码看起来更加一目了然，易于理解。因此，如果确信使用 IN 也能快速获取结果，就没有必要非得改成 EXISTS 了。
+
+```sql
+SELECT * FROM A WHERE column IN (SELECT column FROM B);
+
+SELECT * FROM A WHERE EXISTS (
+    SELECT 1 FROM B WHERE B.column = A.column
+);
+```
+
+这两种写法在结果上通常是等价的，都是用于筛选符合条件的行，但它们的执行方式不同，导致在性能上会有显著差异，通常使用 EXISTS 会更快点：
+
+>`EXISTS` 子查询一旦找到一条符合条件的记录就终止并返回 TRUE，而 `IN` 会扫描完整个子查询结果集进行比较；`EXISTS` 子查询可通过关联字段的索引快速定位，提高性能，而 `IN` 在很多情况下会生成临时表或不能走索引
+
+****
+## 2. 避免排序并添加索引
+
+>在 SQL 语言中，除了 ORDER BY 子句会进行显示排序外，还有很多操作默认也会在底层进行排序，如果排序字段没有添加索引，就会导致查询性能很慢。SQL中会进行排序的代表性的运算有下面这些：
+
+- GROUP BY子句
+- ORDER BY子句
+- 聚合函数（SUM、COUNT、AVG、MAX、MIN）
+- DISTINCT
+- 集合运算符（UNION、INTERSECT、EXCEPT）
+- 窗口函数（RANK、ROW_NUMBER等）
+
+如上列出的六种运算（除了集合运算符），它们后面跟随或者指定的字段都可以添加索引，这样可以加快排序
+
+****
+
+
+
+
 
 
 
