@@ -174,6 +174,8 @@ public class MyBatisIntroductionTest {
 ```
 
 ****
+# 6.MyBatis 的两种事务管理器
+
 
 
 
