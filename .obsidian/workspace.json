@@ -11,10 +11,14 @@
             "id": "26029dd9332615b0",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "MyBatis/MyBatis 概述.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "MyBatis 概述"
             }
           }
         ]
@@ -138,12 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "MyBatis/MyBatis 概述.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "MyBatis 概述 的大纲"
             }
           },
           {
@@ -174,8 +179,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c3f34de6cf1867d4",
+  "active": "26029dd9332615b0",
   "lastOpenFiles": [
+    "MyBatis/MyBatis 概述.md",
     "MyBatis",
     "MySQL笔记/MySQL 优化.md",
     "MySQL笔记/images/MySQL 优化/file-20250524144728.png",
@@ -221,7 +227,6 @@
     "MySQL笔记/Navicat 工具的使用.md",
     "MySQL笔记/images/DBA 命令",
     "images",
-    "MySQL笔记/images/DBA（Database Administrator) 命令",
     "未命名.canvas"
   ]
 }
