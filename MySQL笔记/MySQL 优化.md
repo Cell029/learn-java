@@ -825,8 +825,35 @@ WHERE EXISTS (
 - 业务操作时，避免对主键进行修改
 
 ****
-## 6. 
+## 6. INSERT 优化
 
+1、使用批量插入代替单条插入
+
+>当插入的数据量较大时，不要使用单次插入（一次 `INSERT` 最好写入 100~1000 条数据）
+
+注意：单次批量 `INSERT` 不建议超过 MySQL 的 `max_allowed_packet`（默认 4MB），否则会报错
+
+```sql
+INSERT INTO logs (uid, action, time)
+VALUES 
+  (1, 'login', NOW()),
+  (2, 'logout', NOW()),
+  (3, 'pay', NOW());
+```
+
+2、使用事务包裹多次插入
+
+>MySQL 默认开启事务提交，而每次 DML 操作都会默认为一次独立事务，提交耗费时间，可通过 `BEGIN ... COMMIT` 手动开启事务，一次性提交多个插入操作，
+
+```sql
+BEGIN;
+INSERT INTO user (id, name) VALUES (1, 'Tom');
+INSERT INTO user (id, name) VALUES (2, 'Jerry');
+...
+COMMIT;
+```
+
+****
 
 
 
