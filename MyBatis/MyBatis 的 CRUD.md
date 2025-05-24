@@ -37,7 +37,7 @@ SQL 中使用 `#{key}` 获取对应的键值：
 ****
 ## 1.2 使用 POJO 类进行传参
 
-使用这种方法需要创建对应的 POJO 实体类，每个字段的名称要与数据库中的对应，以此提高可读性
+>使用这种方法需要创建对应的 POJO 实体类，每个字段的名称要与数据库中的对应，以此提高可读性
 
 ```java
 Car car = new Car();  
@@ -55,7 +55,7 @@ sqlSession.close();
 System.out.println("插入了几条记录" + count);
 ```
 
-需要注意的是：这里的占位符中的 key 是必须和 POJO 实体类的 getter() 方法的名字一样（去掉 get 然后首字母小写），否则就会因为找不到 getter 方法而无法传递参数：
+>需要注意的是：这里的占位符中的 key 是必须和 POJO 实体类的 getter() 方法的名字一样（去掉 get 然后首字母小写），否则就会因为找不到 getter 方法而无法传递参数（如果修改了 getter 方法的名字，那么传参时也要修改成对应的）
 
 ```xml
 <mapper namespace="car">  
@@ -68,4 +68,50 @@ System.out.println("插入了几条记录" + count);
 
 ![](images/MyBatis%20的%20CRUD/file-20250524212802.png)
 
-如果
+****
+# 2. DELETE
+
+```java 
+SqlSession sqlSession = SqlSessionUtil.openSession();  
+int count = sqlSession.delete("deleteByCarNum", "102");  
+sqlSession.commit();  
+sqlSession.close();  
+System.out.println("删除了几条记录：" + count);
+```
+
+>当占位符只有一个的时候，${} 里面的内容可以随便写，不过还是建议和对象的字段保持一致
+
+```xml
+<delete id="deleteByCarNum">  
+    delete from t_car where car_num = #{xx}  
+</delete>
+```
+
+****
+# 3. UPDATE
+
+```java 
+Car car = new Car();  
+car.setId(12L);  
+car.setCarNum("102");  
+car.setBrand("比亚迪汉");  
+car.setGuidePrice(30.23);  
+car.setProduceTime("2018-09-10");  
+car.setCarType("电车");  
+SqlSession sqlSession = SqlSessionUtil.openSession();  
+int count = sqlSession.update("updateCarByPOJO", car);  
+sqlSession.commit();  
+sqlSession.close();  
+System.out.println("更新了几条记录：" + count);
+```
+
+```xml
+<update id="updateCarByPOJO">  
+    update t_car set car_num = #{carNum}, brand = #{brand},guide_price = #{guidePrice},produce_time = #{produceTime},car_type = #{carType} where id = #{id}</update>
+```
+
+****
+# 4. SELECT（RETRIVE）
+
+## 4.1 查询一条语句
+
