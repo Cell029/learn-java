@@ -113,5 +113,69 @@ System.out.println("更新了几条记录：" + count);
 ****
 # 4. SELECT（RETRIVE）
 
-## 4.1 查询一条语句
+>在 MyBatis 中，`<select>` 语句会返回一个结果集（resultset），为了让 MyBatis 能够正确地把数据库中的查询结果映射为 Java 对象，必须告诉它结果类型或映射关系，这就涉及到 `resultType` 或 `resultMap` 的配置
+
+## 4.1 `resultType`
+
+`resultType` 是 MyBatis `<select>` 语句中用来指定查询结果返回值类型的属性：
+
+>它通常用于将查询结果集自动封装为某个 Java 类型（比如基本类型、pojo、Map 等），本质上 MyBatis 会根据数据库返回的列名，去反射调用 Java 对象中对应的 setter 方法，然后将数据库中查询到的记录封装进对象
+
+resultType 的字段映射规则：
+
+- 数据库字段名和 Java 属性名一致（或符合驼峰转换规则）时自动映射；
+- 数据库字段名为 `car_num`，Java 属性名为 `carNum`，也可以映射（前提是开启了驼峰命名自动映射）：
+
+```xml
+<settings>
+    <setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings>
+```
+
+>当字段名和属性名差异太大；涉及嵌套对象、多表联查；需要更精确地控制字段到属性的映射时，就不适合用 `resultType`，需要使用 `<resultMap>`
+
+****
+## 4.2 查询一条数据
+
+```java
+SqlSession sqlSession = SqlSessionUtil.openSession();  
+Object car = sqlSession.selectOne("selectCarById", 1);  
+System.out.println(car);
+```
+
+```xml
+<select id="selectCarById" resultType="com.cell.pojo.Car">  
+    select * from t_car where id = #{id}  
+</select>
+```
+
+此时的打印结果是这样的，只有 id 和 brand 字段有值，其余为空，这就是因为 Java 底层通过数据库的列名进行映射时没有找到该对象的 setter 方法导致的，所以要么查询时起别名，要么添加驼峰命名自动映射组件
+
+```java
+Car{id=1, carNum='null', brand='宝马520Li', guidePrice=null, produceTime='null', carType='null'}
+```
+
+****
+## 4.2 查询多条数据
+
+>使用 `selectList` 方法将查询到的多个对象封装成集合，然后遍历打印
+
+```java
+SqlSession sqlSession = SqlSessionUtil.openSession();  
+List<Object> cars = sqlSession.selectList("selectCarAll");  
+cars.forEach(car -> System.out.println(car));
+```
+
+```xml
+<!--虽然结果是List集合，但是resultType属性需要指定的是List集合中元素的类型。-->  
+<select id="selectCarAll" resultType="com.cell.pojo.Car">   
+    select * from t_car  
+</select>
+```
+
+****
+
+
+
+
 
