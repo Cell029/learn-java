@@ -176,6 +176,91 @@ public class MyBatisIntroductionTest {
 ****
 # 6. MyBatis 集成日志组件
 
+>使用 SLF4J + Logback
+
+1、引入相关依赖
+
+```xml
+<dependency>  
+  <groupId>org.slf4j</groupId>  
+  <artifactId>slf4j-api</artifactId>  
+  <version>1.7.36</version>  
+</dependency>  
+<dependency>  
+  <groupId>ch.qos.logback</groupId>  
+  <artifactId>logback-classic</artifactId>  
+  <version>1.2.11</version>  
+</dependency>
+```
+
+2、配置 Logback 配置文件(resources/logback.xml)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>  
+  
+<configuration debug="false">  
+    <!-- 控制台输出 -->  
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">  
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">  
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->  
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>  
+        </encoder>  
+    </appender>  
+    <!-- 按照每天生成日志文件 -->  
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">  
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <!--日志文件输出的文件名-->  
+            <FileNamePattern>${LOG_HOME}/TestWeb.log.%d{yyyy-MM-dd}.log</FileNamePattern>  
+            <!--日志文件保留天数-->  
+            <MaxHistory>30</MaxHistory>  
+        </rollingPolicy>  
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">  
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->  
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>  
+        </encoder>  
+        <!--日志文件最大的大小-->  
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">  
+            <MaxFileSize>100MB</MaxFileSize>  
+        </triggeringPolicy>  
+    </appender>  
+  
+    <!--mybatis log configure-->  
+    <logger name="com.apache.ibatis" level="TRACE"/>  
+    <logger name="java.sql.Connection" level="DEBUG"/>  
+    <logger name="java.sql.Statement" level="DEBUG"/>  
+    <logger name="java.sql.PreparedStatement" level="DEBUG"/>  
+  
+    <!-- 日志输出级别,logback日志级别包括五个：TRACE < DEBUG < INFO < WARN < ERROR -->  
+    <root level="DEBUG">  
+        <appender-ref ref="STDOUT"/>  
+        <appender-ref ref="FILE"/>  
+    </root>  
+  
+</configuration>
+```
+
+3、mybatis-config.xml 的日志配置为“显式优先”行为（可选）
+
+只有在想要强制指定日志实现的时候才需要写，这不是必须的，默认自动识别即可用，很多项目都不配这一项：
+
+```xml
+<configuration>
+  <settings>
+    <setting name="logImpl" value="SLF4J"/>
+  </settings>
+</configuration>
+```
+
+此时控制台就会打印相应的日志信息，可以通过这些信息查看执行的 SQL 语句：
+
+![](images/MyBatis%20入门程序/file-20250524201400.png)
+
+****
+# 7. MyBatis 工具类 SqlSessionUtil 的封装
+
+
+
+
 
 
 
