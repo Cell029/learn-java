@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "MyBatis/MyBatis 入门程序.md",
+                "file": "MyBatis/MyBatis 的两种事务管理器.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "MyBatis 入门程序"
+              "title": "MyBatis 的两种事务管理器"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "MyBatis/MyBatis 入门程序.md",
+                "file": "MyBatis/MyBatis 的两种事务管理器.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "MyBatis 入门程序 的大纲"
+              "title": "MyBatis 的两种事务管理器 的大纲"
             }
           },
           {
@@ -183,8 +183,8 @@
   "lastOpenFiles": [
     "MyBatis/MyBatis 的 CRUD.md",
     "MyBatis/MyBatis 的两种事务管理器.md",
-    "MySQL笔记/MySQL 优化.md",
     "MyBatis/MyBatis 入门程序.md",
+    "MySQL笔记/MySQL 优化.md",
     "MyBatis/images/MyBatis 的 CRUD/file-20250524212802.png",
     "MyBatis/images/MyBatis 的 CRUD",
     "MyBatis/images/MyBatis 入门程序/file-20250524201400.png",

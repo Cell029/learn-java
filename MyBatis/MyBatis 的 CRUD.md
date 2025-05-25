@@ -156,7 +156,7 @@ Car{id=1, carNum='null', brand='宝马520Li', guidePrice=null, produceTime='null
 ```
 
 ****
-## 4.2 查询多条数据
+## 4.3 查询多条数据
 
 >使用 `selectList` 方法将查询到的多个对象封装成集合，然后遍历打印
 
