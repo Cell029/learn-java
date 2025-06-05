@@ -127,6 +127,28 @@ String c = new StringBuilder()
 
 >这是由 Java 编译器（javac）生成的逻辑，它使用 `StringBuilder` 来提升性能，避免频繁创建新 `String` 对象
 
+当字符串使用 `final` 修饰时可以让编译器当作常量来处理:
+
+```java
+final String str1 = "str";
+final String str2 = "ing";
+// 下面两个表达式其实是等价的
+String c = "str" + "ing";// 常量池中的对象
+String d = str1 + str2; // 常量池中的对象
+System.out.println(c == d);// true
+```
+
+****
+#### 6.1.3 常量折叠
+
+>在编译过程中, javac 编译器会进行一个叫做常量折叠的代码优化, 它会把常量表达式的值求出来作为常量嵌在最终生成的代码中
+
+对于 `String str3 = "str" + "ing";` 编译器会优化成 `String str3 = "string";`, 但并不是所有的常量都会进行折叠, 只有编译器在程序编译期就可以确定值的常量才可以(**引用的值在程序编译期是无法确定的，编译器无法对其进行优化**):
+
+- 基本数据类型( `byte`、`boolean`、`short`、`char`、`int`、`float`、`long`、`double`)以及字符串常量
+- `final` 修饰的基本数据类型和字符串变量
+- 字符串通过 “+”拼接得到的字符串、基本数据类型之间算数运算（加减乘除）、基本数据类型的位运算（<<、>>、>>> ）
+
 ****
 ## 7.  字符串的实现
 

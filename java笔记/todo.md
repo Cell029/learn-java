@@ -22,7 +22,7 @@ group by filename
 - [x] 抽象类 #todo ✅ 2025-04-12
 - [x] 深入hashCode #todo ✅ 2025-04-30
 - [ ] 快速排序的深入 #todo 
-- [ ] try-catch-finally在Java7之后的优化释放资源深入
+- [x] try-catch-finally在Java7之后的优化释放资源深入 ✅ 2025-06-05
 - [ ] 装饰模式的深入 #todo 
 - [ ] happens-before #todo
 - [ ] 内存系统的重排 #todo
@@ -30,3 +30,4 @@ group by filename
 - [ ] TCP和Http的二进制结构 #todo 
 - [ ] 用Socket实现Http服务器 #todo 
 - [ ] 字符串常量的字节数 #todo
+- [ ] 从字节码角度分析`try catch finally`这个语法糖背后的实现原理 #todo 
