@@ -165,6 +165,62 @@ System.out.println(c == d);// true
 >Java 9 以前，String 是用  `char []` 实现的，之后改成了 byte 型数组实现，并增加了 coder 来表示编码，从 `char[]` 到 `byte[]`最主要的目的是节省字符串占用的内存空间
 
 ****
+### 7.3 字符串的字节数
+
+### 1. Java 内部的内存占用（UTF-16）
+
+>Java 中 `String` 实际存储为 `char[]`，而每个 `char` 是 2 个字节（16 位），采用 UTF-16 编码
+
+```java
+String s = "Hi";
+// H = 2 字节; i = 2 字节
+```
+
+****
+### 2. 编码后的字节数（UTF-8）
+
+如果将字符串编码（如用于网络传输、写入文件），常用的是 UTF-8，而不是 UTF-16
+
+```java
+String s = "你好";
+byte[] utf8 = s.getBytes(StandardCharsets.UTF_8);
+System.out.println(utf8.length);  // 6
+```
+
+- '你' 在 Java 内部是 2 字节, 经过 UTF-8 编码后变成 3 字节; '好' 同理
+
+****
+### 3. 编译后 class 文件中常量池的字节表示
+
+Java 编译器将字符串常量放入 class 文件的常量池中
+
+```java
+String s = "A你B";
+```
+
+在 `.class` 文件中的 UTF-8 表示中：
+
+- 'A' = 1 字节
+- '你' = 3 字节
+- 'B' = 1 字节
+
+****
+### 4. 查看不同编码下的字节数
+
+```java
+String str = "你好abc";
+
+byte[] utf8Bytes = str.getBytes("UTF-8");
+byte[] utf16Bytes = str.getBytes("UTF-16");
+byte[] gbkBytes = str.getBytes("GBK");
+
+System.out.println("字符数: " + str.length());
+System.out.println("UTF-8 字节数: " + utf8Bytes.length);
+System.out.println("UTF-16 字节数: " + utf16Bytes.length);
+System.out.println("GBK 字节数: " + gbkBytes.length);
+```
+
+****
 
 ## 8. String的构造器
 
