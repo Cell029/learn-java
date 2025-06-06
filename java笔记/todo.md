@@ -29,5 +29,5 @@ group by filename
 - [ ] GraalVM #todo
 - [ ] TCP和Http的二进制结构 #todo 
 - [ ] 用Socket实现Http服务器 #todo 
-- [ ] 字符串常量的字节数 #todo
+- [x] 字符串常量的字节数 #todo ✅ 2025-06-06
 - [ ] 从字节码角度分析`try catch finally`这个语法糖背后的实现原理 #todo 

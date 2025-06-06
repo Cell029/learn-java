@@ -214,14 +214,19 @@ byte[] utf8Bytes = str.getBytes("UTF-8");
 byte[] utf16Bytes = str.getBytes("UTF-16");
 byte[] gbkBytes = str.getBytes("GBK");
 
-System.out.println("字符数: " + str.length());
-System.out.println("UTF-8 字节数: " + utf8Bytes.length);
-System.out.println("UTF-16 字节数: " + utf16Bytes.length);
-System.out.println("GBK 字节数: " + gbkBytes.length);
+System.out.println("字符数: " + str.length()); // 5
+System.out.println("UTF-8 字节数: " + utf8Bytes.length); // 9
+System.out.println("UTF-16 字节数: " + utf16Bytes.length); // 12, 含 2 字节 BOM
+System.out.println("GBK 字节数: " + gbkBytes.length); // 7
 ```
 
-****
+| 编码方式   | 中文字符字节数 | 英文字符字节数 | 说明        |
+| ------ | ------- | ------- | --------- |
+| UTF-8  | 3       | 1       | 变长编码      |
+| UTF-16 | 2       | 2       | Java 内部编码 |
+| GBK    | 2       | 1       | 中文系统常见    |
 
+****
 ## 8. String的构造器
 
 ### 8.1 从char[]构造

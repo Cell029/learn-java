@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/String 字符串.md",
+                "file": "java笔记/todo.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "String 字符串"
+              "title": "todo"
             }
           }
         ],
@@ -157,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/String 字符串.md",
+                "file": "java笔记/todo.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "String 字符串 的大纲"
+              "title": "todo 的大纲"
             }
           },
           {
@@ -177,7 +177,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -194,11 +194,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0e756e786b3a7c43",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
+    "java笔记/String 字符串.md",
     "面试题/Java基础常见面试题总结(下)/泛型.md",
     "java笔记/Collection集合.md",
-    "java笔记/String 字符串.md",
     "java笔记/todo.md",
     "面试题/Java基础常见面试题总结(下)/异常.md",
     "java笔记/异常.md",
