@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/todo.md",
+                "file": "面试题/Java基础常见面试题总结(下)/异常.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "todo"
+              "title": "异常"
             }
           }
         ],
@@ -194,12 +194,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "0e756e786b3a7c43",
   "lastOpenFiles": [
+    "java笔记/todo.md",
     "java笔记/String 字符串.md",
     "面试题/Java基础常见面试题总结(下)/泛型.md",
     "java笔记/Collection集合.md",
-    "java笔记/todo.md",
     "面试题/Java基础常见面试题总结(下)/异常.md",
     "java笔记/异常.md",
     "java笔记/IO流.md",
