@@ -13,26 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(下)/反射.md",
+                "file": "面试题/Java基础常见面试题总结(下)/序列化和反序列化.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "反射"
+              "title": "序列化和反序列化"
             }
           },
           {
-            "id": "a323b9d92bbf7492",
+            "id": "375e05d7684f218d",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/反射机制.md",
+                "file": "java笔记/IO流.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "反射机制"
+              "title": "IO流"
             }
           }
         ]
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(下)/反射.md",
+                "file": "面试题/Java基础常见面试题总结(下)/序列化和反序列化.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "反射 的大纲"
+              "title": "序列化和反序列化 的大纲"
             }
           },
           {
@@ -176,7 +176,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -193,8 +193,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "0e756e786b3a7c43",
   "lastOpenFiles": [
+    "java笔记/IO流.md",
+    "面试题/Java基础常见面试题总结(下)/序列化和反序列化.md",
+    "面试题/Java基础常见面试题总结(下)/注解.md",
+    "java笔记/注解.md",
     "java笔记/反射机制.md",
     "面试题/Java基础常见面试题总结(下)/反射.md",
     "面试题/Java基础常见面试题总结(下)/泛型.md",
@@ -203,7 +207,6 @@
     "java笔记/String 字符串.md",
     "java笔记/Collection集合.md",
     "java笔记/异常.md",
-    "java笔记/IO流.md",
     "面试题/Java基础常见面试题总结(下)",
     "images/DBA（Database Administrator.md",
     "面试题/Java基础常见面试题总结(中)/String.md",
@@ -238,9 +241,6 @@
     "MySQL笔记/images/B+ 树索引",
     "MySQL笔记/约束.md",
     "MySQL笔记/images/索引",
-    "MySQL笔记/DDL 数据定义语言.md",
-    "MySQL笔记/事务.md",
-    "MySQL笔记/企业真题.md",
     "未命名.canvas"
   ]
 }
