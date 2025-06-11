@@ -31,3 +31,4 @@ group by filename
 - [ ] 用Socket实现Http服务器 #todo 
 - [x] 字符串常量的字节数 #todo ✅ 2025-06-06
 - [ ] 从字节码角度分析`try catch finally`这个语法糖背后的实现原理 #todo 
+- [ ] 可深入常见的序列化协议 #todo 
