@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(下)/序列化和反序列化.md",
+                "file": "面试题/Java基础常见面试题总结(下)/IO流.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "序列化和反序列化"
+              "title": "IO流"
             }
           },
           {
@@ -35,7 +35,8 @@
               "title": "IO流"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(下)/序列化和反序列化.md",
+                "file": "java笔记/IO流.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "序列化和反序列化 的大纲"
+              "title": "IO流 的大纲"
             }
           },
           {
@@ -176,7 +177,7 @@
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -193,8 +194,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "375e05d7684f218d",
   "lastOpenFiles": [
+    "面试题/Java基础常见面试题总结(下)/IO流.md",
     "java笔记/IO流.md",
     "面试题/Java基础常见面试题总结(下)/序列化和反序列化.md",
     "java笔记/todo.md",
@@ -239,7 +241,6 @@
     "MySQL笔记/存储引擎.md",
     "MySQL笔记/images/MySQL 优化",
     "MySQL笔记/images/B+ 树索引",
-    "MySQL笔记/约束.md",
     "MySQL笔记/images/索引",
     "未命名.canvas"
   ]
