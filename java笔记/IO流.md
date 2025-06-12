@@ -39,15 +39,19 @@ int len = is.read(buffer);
 String content = new String(buffer, 0, len, "UTF-8");
 ```
 
-
-
 **2、自动进行“字符编码 <-> 字节编码”的转换**  
 
->字符流在底层其实是基于字节流实现的，它会根据指定的编码方式将字节解码为字符，或将字符编码为字节，例如：  
+>字符流在底层其实是基于字节流实现的，它会根据指定的编码方式将字节解码为字符，或将字符编码为字节，而它就是为了解决“处理文本数据复杂、容易出错”的问题而引入的，例如：  
 >
 >`InputStreamReader`：将字节流转为字符输入流（解码）
 >
 >`OutputStreamWriter`：将字符流转为字节输出流（编码）
+
+```java
+// 不需要关心编码（使用系统默认或手动指定），也不用手动转字符
+BufferedReader reader = new BufferedReader(new FileReader("text.txt"));
+String line = reader.readLine();
+```
 
 **所以可以把字符流看作是对字节流的一种封装，读取时使用字节流+编码表，写入时将字符根据编码表转为字节**
 
