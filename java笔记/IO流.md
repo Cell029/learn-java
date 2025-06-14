@@ -1496,5 +1496,3 @@ InputStream is = Files.newInputStream(Paths.get(generatorLogoPath))
 ```
 
 ****
-# 4. 观察者模式
-
