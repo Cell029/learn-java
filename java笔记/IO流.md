@@ -1340,6 +1340,161 @@ public static Object deepClone(Object obj) {
 ****
 ### 2.1 类适配器模式
 
+有一个 `Target` 接口，客户端期望使用这个接口，但目前只有一个 `Adaptee` 类，它的接口不兼容，不能使用 `Target` 接口中的方法，此时就可以创建一个适配器类，它去实现 `Target` 接口，再让 `Adaptee` 类继承：
 
+```text
+Target（目标接口） ← Client 依赖
+       ↑
+    Adapter（适配器类） extends Adaptee
+       ↑
+    Adaptee（被适配的类）
+```
 
+```java
+// 目标接口
+interface Target {
+    void request();
+}
+
+// 被适配的类（已有类）
+class Adaptee {
+    public void specificRequest() {
+        System.out.println("Adaptee: 具体请求");
+    }
+}
+
+// 类适配器
+class Adapter extends Adaptee implements Target {
+    @Override
+    public void request() {
+        System.out.println("Adapter: 适配请求 -> ");
+        specificRequest(); // 调用被适配者的方法
+    }
+}
+
+// 客户端
+public class Client {
+    public static void main(String[] args) {
+        Target target = new Adapter();
+        target.request(); // 客户端调用的是标准接口
+    }
+}
+```
+
+>为什么 `Client` 不直接调用 `Adapter` 而是要通过调用 `Target` 接口?因为调用接口有助于实现拓展性更强的系统，通常会使用接口定义一系列规范，通过接口可以利用多态来实现更加灵活的拓展功能
+
+****
+### 2.2 对象适配器模式
+
+#### 什么是组合？
+
+>组合（Composition） 是一种类与类之间的关系，表示一个类“拥有”另一个类的对象作为成员变量，简单讲就是我不是继承你的行为，而是把你当成工具来用
+
+例如：中国的插座（两孔）不能直接插美国的电器（三孔），所以我买了一个插座适配器，这个适配器并不是继承电器或插座的功能，而是内部“包含”一个电器插头的对象
+
+****
+
+```text
+Target（目标接口） ← Client 依赖
+       ↑
+Adapter（适配器类） -- has-a --> Adaptee
+```
+
+```java
+// 目标接口
+interface Target {
+    void request();
+}
+
+// 被适配的类
+class Adaptee {
+    public void specificRequest() {
+        System.out.println("Adaptee: 具体请求");
+    }
+}
+
+// 对象适配器
+class Adapter implements Target {
+	// 让 Adaptee 类作为成员字段
+    private Adaptee adaptee;
+
+    public Adapter(Adaptee adaptee) {
+        this.adaptee = adaptee;
+    }
+
+    @Override
+    public void request() {
+	    // 在这里进行代码增强，使用接口时也可也使用到 Adaptee 的方法
+        System.out.println("Adapter: 适配请求 -> ");
+        adaptee.specificRequest();
+    }
+}
+
+// 客户端
+public class Client {
+    public static void main(String[] args) {
+        Target target = new Adapter(new Adaptee());
+        target.request();
+    }
+}
+```
+
+****
+
+IO 流中：
+
+```java
+// InputStreamReader 是适配器，FileInputStream 是被适配的类
+InputStreamReader isr = new InputStreamReader(
+									new FileInputStream(fileName), "UTF-8");
+// BufferedReader 增强 InputStreamReader 的功能（装饰器模式）
+BufferedReader bufferedReader = new BufferedReader(isr);
+```
+
+****
+### 2.3 接口适配器模式
+
+>当接口中有多个方法，但只关心其中一部分时，就可以提供一个适配器类，实现这个接口但不做任何事，避免后续的实现类需要实现全部的方法
+
+假设有一个接口 MouseListener，里面定义了 4 个方法：
+
+```java
+public interface MouseListener {
+    void mouseClicked();     // 鼠标点击
+    void mousePressed();     // 鼠标按下
+    void mouseReleased();    // 鼠标松开
+    void mouseMoved();       // 鼠标移动
+}
+```
+
+但是现在只想监听点击事件 `mouseClicked()`，不想写其他方法，就可以用一个抽象类实现接口，因为接口的特性，它的实现类必须实现所有的方法，但是抽象类不是，只有抽象方法才需要进行重写，所以利用这个特性就可以把抽象类中实现的方法全部设置为普通方法，让抽象类的子类决定要使用哪个方法：
+
+```java
+// 空实现的适配器类
+public abstract class MouseAdapter implements MouseListener {
+    public void mouseClicked() {}
+    public void mousePressed() {}
+    public void mouseReleased() {}
+    public void mouseMoved() {}
+}
+
+MouseAdapter listener = new MouseAdapter() {
+    @Override
+    public void mouseClicked() {
+        System.out.println("点击了！");
+    }
+};
+```
+
+****
+# 3. 工厂模式
+
+>工厂模式用于创建对象，比如 `Files` 类的 `newInputStream` 方法用于创建 `InputStream` 对象（静态工厂）、 `Paths` 类的 `get` 方法创建 `Path` 对象（静态工厂）、`ZipFileSystem` 类（`sun.nio`包下的类，属于 `java.nio` 相关的一些内部实现）的 `getPath` 的方法创建 `Path` 对象（简单工厂）。MyBatis 笔记中有介绍。
+
+```java
+InputStream is = Files.newInputStream(Paths.get(generatorLogoPath))
+```
+
+****
+# 4. 观察者模式
 
