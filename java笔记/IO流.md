@@ -1487,7 +1487,7 @@ MouseAdapter listener = new MouseAdapter() {
 ```
 
 ****
-# 3. 工厂模式
+## 3. 工厂模式
 
 >工厂模式用于创建对象，比如 `Files` 类的 `newInputStream` 方法用于创建 `InputStream` 对象（静态工厂）、 `Paths` 类的 `get` 方法创建 `Path` 对象（静态工厂）、`ZipFileSystem` 类（`sun.nio`包下的类，属于 `java.nio` 相关的一些内部实现）的 `getPath` 的方法创建 `Path` 对象（简单工厂）。MyBatis 笔记中有介绍。
 
@@ -1496,3 +1496,23 @@ InputStream is = Files.newInputStream(Paths.get(generatorLogoPath))
 ```
 
 ****
+# 18. IO 模型
+
+当一个 Java 应用程序（运行在用户空间）进行 I/O 操作时，它需要经过两个关键步骤：
+
+- 步骤一：系统调用（陷入内核态）
+
+>应用程序使用 Java 提供的 API，比如 `InputStream.read()`、`Socket.read()`，实际底层是通过 JNI 方式调用操作系统的系统调用（如 Linux 的 `read()`）
+
+- 步骤二：数据准备 + 拷贝
+
+>操作系统等待外设（磁盘、网络）准备好数据（如数据从磁盘读取完成），然后数据从内核空间复制到用户空间
+
+以上过程是否**阻塞**或**异步**，就构成了不同的 I/O 模型
+
+****
+## 1. BIO 
+
+BIO 属于同步阻塞 IO 模型 ，应用程序发起 read 调用后，会一直阻塞，直到内核把数据拷贝到用户空间
+
+![](images/IO流/file-20250615221033.png)
