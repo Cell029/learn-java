@@ -1513,6 +1513,91 @@ InputStream is = Files.newInputStream(Paths.get(generatorLogoPath))
 ****
 ## 1. BIO 
 
-BIO 属于同步阻塞 IO 模型 ，应用程序发起 read 调用后，会一直阻塞，直到内核把数据拷贝到用户空间
+BIO 属于同步阻塞 IO 模型 ，应用程序发起 `read` 或 `accept` 调用后，会一直阻塞，直到内核把数据拷贝到用户空间，其通信原理是客户端、服务端之间通过 `Socket` 套接字建立管道连接，然后从管道中获取对应的输入/输出流，最后利用输入/输出流对象实现发送/接收信息
 
 ![](images/IO流/file-20250615221033.png)
+
+```java
+// BIO服务端
+public class BioServer {
+    public static void main(String[] args) throws IOException {
+        System.out.println(">>>>>>>...BIO服务端启动...>>>>>>>>");
+        // 1.定义一个ServerSocket服务端对象，并为其绑定端口号
+        ServerSocket server = new ServerSocket(8888);
+        // 2.监听客户端Socket连接
+        Socket socket = server.accept();
+        // 3.从套接字中得到字节输入流并封装成输入流对象
+        InputStream inputStream = socket.getInputStream();
+        BufferedReader readBuffer =
+                new BufferedReader(new InputStreamReader(inputStream));
+        // 4.从Buffer中读取信息，如果读到信息则输出
+        String msg;
+        while ((msg = readBuffer.readLine()) != null) {
+            System.out.println("收到信息：" + msg);
+        }
+        // 5.从套接字中获取字节输出流并封装成输出对象
+        OutputStream outputStream = socket.getOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+        // 6.通过输出对象往服务端传递信息
+        printStream.println("Hi！我是竹子~");
+        // 7.发送后清空输出流中的信息
+        printStream.flush();
+        // 8.使用完成后关闭流对象与套接字
+        outputStream.close();
+        inputStream.close();
+        socket.close();
+        inputStream.close();
+        outputStream.close();
+        socket.close();
+        server.close();
+    }
+}
+
+// BIO客户端
+public class BioClient {
+    public static void main(String[] args) throws IOException {
+        System.out.println(">>>>>>>...BIO客户端启动...>>>>>>>>");
+        // 1.创建Socket并根据IP地址与端口连接服务端
+        Socket socket = new Socket("127.0.0.1", 8888);
+        // 2.从Socket对象中获取一个字节输出流并封装成输出对象
+        OutputStream outputStream = socket.getOutputStream();
+        PrintStream printStream = new PrintStream(outputStream);
+        // 3.通过输出对象往服务端传递信息
+        printStream.println("Hello！我是熊猫~");
+        // 4.通过下述方法告诉服务端已经完成发送，接下来只接收消息
+        socket.shutdownOutput();
+        // 5.从套接字中获取字节输入流并封装成输入对象
+        InputStream inputStream = socket.getInputStream();
+        BufferedReader readBuffer =
+                new BufferedReader(new InputStreamReader(inputStream));
+        // 6.通过输入对象从Buffer读取信息
+        String msg;
+        while ((msg = readBuffer.readLine()) != null) {
+            System.out.println("收到信息：" + msg);
+        }
+        // 7.发送后清空输出流中的信息
+        printStream.flush();
+        // 8.使用完成后关闭流对象与套接字
+        outputStream.close();
+        inputStream.close();
+        socket.close();
+    }
+}
+```
+
+- 服务端启动后会执行`accept()`方法等待客户端连接到来
+- 客户端启动后会通过`IP`及端口，与服务端通过`Socket`套接字建立连接，服务端通常会为每一个 `Socket` 创建一个线程进行通信（读写数据）
+- 然后双方各自从套接字中获取输入/输出流，并通过流对象发送/接收消息
+
+****
+## 2. NIO
+
+NIO，全称 **New I/O**，也可理解为 **Non-blocking I/O**，它主要为了解决传统 BIO 模型中“一个连接一个线程”的扩展性瓶颈问题，提供了基于通道（Channel）和缓冲区（Buffer）组合的 I/O 操作方式，是一种非阻塞 I/O 模型
+
+![](images/IO流/file-20250615222410.png)
+
+`Java-NIO`是基于多路复用模型实现的，它有三大核心内容：`Buffer`（缓冲区）、`Channel`（通道）、`Selector`（选择器），与 BIO 不同的是：`BIO`模型中必须得有一条线程维护对应的 `Socket` 连接，在此期间如若未读取到数据，该线程就会一直阻塞下去；而 `NIO` 中则可以用一条线程来处理多个 `Socket` 连接，不需要为每个连接都创建一条对应的线程维护
+
+### 2.1 Buffer 缓冲区
+
+缓冲区其实本质上就是一块支持读/写操作的内存，底层是由多个内存页组成的数组，也可也叫做内存块，在 Java 中这块内存则被封装成了`Buffer`对象，可直接通过已提供的 `API` 对这块内存进行操作和管理
