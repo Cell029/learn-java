@@ -1600,4 +1600,62 @@ NIO，全称 **New I/O**，也可理解为 **Non-blocking I/O**，它主要为�
 
 ### 2.1 Buffer 缓冲区
 
-缓冲区其实本质上就是一块支持读/写操作的内存，底层是由多个内存页组成的数组，也可也叫做内存块，在 Java 中这块内存则被封装成了`Buffer`对象，可直接通过已提供的 `API` 对这块内存进行操作和管理
+缓冲区其实本质上就是一块支持读/写操作的内存，底层是由多个内存页组成的数组，也可也叫做内存块，在 Java 中这块内存则被封装成了`Buffer`对象，可直接通过已提供的 `API` 对这块内存进行操作和管理，需要注意的是：**当缓冲区被创建出来后，同一时刻只能处于读/写中的一个状态，同一时间内不存在即可读也可写的情况**
+
+```java
+// 缓冲区抽象类
+public abstract class Buffer {
+    // 标记位，与 mark()、reset() 方法配合使用，
+    // 可通过mark()标记一个索引位置，后续可随时调用reset()恢复到该位置
+    private int mark = -1;
+    // 操作位，下一个要读取或写入的数据索引
+    private int position = 0;
+    // 限制位，表示缓冲区中可允许操作的容量，超出限制后的位置不能操作
+    private int limit;
+    // 缓冲区的容量，类似于声明数组时的容量
+    private int capacity;
+    long address;
+    
+    // 清空缓冲区数据并返回对缓冲区的引用指针
+    // (其实调用该方法后缓冲区中的数据依然存在，只是处于不可访问状态)
+    // 该方法还有个作用：就是调用该方法后会从读模式切换回写模式
+    public final Buffer clear();
+    // 调用该方法后会将缓冲区从写模式切换为读模式
+    public final Buffer flip();
+    // 获取缓冲区的容量大小
+    public final int capacity();
+    // 判断缓冲区中是否还有数据
+    public final boolean hasRemaining();
+    // 获取缓冲区的界限大小
+    public final int limit();
+    // 设置缓冲区的界限大小
+    public final Buffer limit(int n);
+    // 对缓冲区设置标记位
+    public final Buffer mark();
+    // 返回缓冲区当前的操作索引位置
+    public final int position();
+    // 更改缓冲区当前的操作索引位置
+    public final Buffer position(int n);
+    // 获取当前索引位与界限之间的元素数量
+    public final int remaining();
+    // 将当前索引转到之前标记的索引位置
+    public final Buffer reset();
+    // 重置操作索引位并清空之前的标记
+    public final Buffer rewind();
+    // 省略其他不常用的方法.....
+}
+```
+
+三个成员变量：
+
+- `pasition`：表示当前操作的索引位置（下一个要读/写数据的下标）
+- `capacity`：表示当前缓冲区的容量大小
+- `limit`：表示当前可允许操作的最大元素位置（不是下标，是正常数字）
+
+![](images/IO流/file-20250615224409.png)
+
+****
+### 2.2 Channel 通道
+
+`NIO` 中的通道与`BIO`中的流对象类似，但 `BIO` 中要么是输入流，要么是输出流，通常流操作都是单向传输的；而 `Channel` 通道的功能也是用于传输数据，但它是一个双向通道，代表着可以从通道中读取对端数据，也可以使用通道向对端发送数据
+
