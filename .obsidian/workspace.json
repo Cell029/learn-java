@@ -35,8 +35,7 @@
               "title": "IO流"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -157,7 +156,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/IO流.md",
+                "file": "面试题/Java基础常见面试题总结(下)/IO流.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -177,7 +176,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -194,16 +193,16 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8746cf1289c80a6d",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
+    "java笔记/IO流.md",
+    "java笔记/todo.md",
     "java笔记/images/IO流/file-20250615224409.png",
     "java笔记/images/IO流/file-20250615222410.png",
     "java笔记/网络编程.md",
-    "java笔记/IO流.md",
     "java笔记/images/IO流/file-20250615221033.png",
     "面试题/Java基础常见面试题总结(下)/IO流.md",
     "面试题/Java基础常见面试题总结(下)/序列化和反序列化.md",
-    "java笔记/todo.md",
     "面试题/Java基础常见面试题总结(下)/注解.md",
     "java笔记/注解.md",
     "java笔记/反射机制.md",
@@ -231,7 +230,6 @@
     "MyBatis/images/MyBatis 的两种事务管理器/file-20250524192328.png",
     "MyBatis/images/MyBatis 的两种事务管理器/file-20250524192201.png",
     "MyBatis/images/MyBatis 的两种事务管理器/file-20250524192045.png",
-    "MyBatis/images/MyBatis 的两种事务管理器/file-20250524191924.png",
     "MyBatis/images/MyBatis 的两种事务管理器",
     "MyBatis/images/MyBatis 入门程序",
     "MyBatis/images",
