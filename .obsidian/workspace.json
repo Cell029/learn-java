@@ -35,7 +35,8 @@
               "title": "IO流"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,7 +157,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(下)/IO流.md",
+                "file": "java笔记/IO流.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
@@ -193,15 +194,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "375e05d7684f218d",
   "lastOpenFiles": [
+    "面试题/Java基础常见面试题总结(下)/IO流.md",
     "java笔记/IO流.md",
     "java笔记/todo.md",
     "java笔记/images/IO流/file-20250615224409.png",
     "java笔记/images/IO流/file-20250615222410.png",
     "java笔记/网络编程.md",
     "java笔记/images/IO流/file-20250615221033.png",
-    "面试题/Java基础常见面试题总结(下)/IO流.md",
     "面试题/Java基础常见面试题总结(下)/序列化和反序列化.md",
     "面试题/Java基础常见面试题总结(下)/注解.md",
     "java笔记/注解.md",
