@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(下)/语法糖.md",
+                "file": "面试题/Java基础常见面试题总结(下)/SPI.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "语法糖"
+              "title": "SPI"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(下)/语法糖.md",
+                "file": "面试题/Java基础常见面试题总结(下)/SPI.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "语法糖 的大纲"
+              "title": "SPI 的大纲"
             }
           },
           {
@@ -181,10 +181,12 @@
   },
   "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
-    "面试题/Java基础常见面试题总结(下)/IO流.md",
-    "面试题/Java基础常见面试题总结(下)/语法糖.md",
-    "java笔记/IO流.md",
     "java笔记/todo.md",
+    "面试题/Java基础常见面试题总结(下)/SPI.md",
+    "java笔记/多线程.md",
+    "面试题/Java基础常见面试题总结(下)/语法糖.md",
+    "面试题/Java基础常见面试题总结(下)/IO流.md",
+    "java笔记/IO流.md",
     "java笔记/images/IO流/file-20250615224409.png",
     "java笔记/images/IO流/file-20250615222410.png",
     "java笔记/网络编程.md",
@@ -222,8 +224,6 @@
     "MyBatis/images",
     "MyBatis",
     "MySQL笔记/索引.md",
-    "MySQL笔记/DQL 数据查询语言.md",
-    "MySQL笔记/B+ 树索引.md",
     "MySQL笔记/images/MySQL 优化",
     "MySQL笔记/images/B+ 树索引",
     "MySQL笔记/images/索引",
