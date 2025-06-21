@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(下)/SPI.md",
+                "file": "面试题/集合/Java集合常见面试题总结(上)/List.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "SPI"
+              "title": "List"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试题/Java基础常见面试题总结(下)/SPI.md",
+                "file": "面试题/集合/Java集合常见面试题总结(上)/List.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "SPI 的大纲"
+              "title": "List 的大纲"
             }
           },
           {
@@ -181,8 +181,14 @@
   },
   "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
-    "java笔记/todo.md",
+    "面试题/集合/Java集合常见面试题总结(上)/集合概述.md",
+    "面试题/集合/Java集合常见面试题总结(上)/List.md",
+    "java笔记/Arrays数组.md",
     "面试题/Java基础常见面试题总结(下)/SPI.md",
+    "面试题/集合/Java集合常见面试题总结（上）.md",
+    "面试题/集合/Java集合常见面试题总结(上)",
+    "面试题/集合",
+    "java笔记/todo.md",
     "java笔记/多线程.md",
     "面试题/Java基础常见面试题总结(下)/语法糖.md",
     "面试题/Java基础常见面试题总结(下)/IO流.md",
@@ -208,9 +214,6 @@
     "面试题/Java基础常见面试题总结(中)/Object.md",
     "面试题/Java基础常见面试题总结(中)/面向对象基础.md",
     "MyBatis/MyBatis 的两种事务管理器.md",
-    "MyBatis/MyBatis 的 CRUD.md",
-    "MyBatis/MyBatis 入门程序.md",
-    "MySQL笔记/MySQL 优化.md",
     "MyBatis/images/MyBatis 的 CRUD/file-20250524212802.png",
     "MyBatis/images/MyBatis 的 CRUD",
     "MyBatis/images/MyBatis 入门程序/file-20250524201400.png",
@@ -223,10 +226,7 @@
     "MyBatis/images/MyBatis 入门程序",
     "MyBatis/images",
     "MyBatis",
-    "MySQL笔记/索引.md",
     "MySQL笔记/images/MySQL 优化",
-    "MySQL笔记/images/B+ 树索引",
-    "MySQL笔记/images/索引",
     "未命名.canvas"
   ]
 }
