@@ -4,21 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "c9e54943a022454d",
+        "id": "53f408f5b629a952",
         "type": "tabs",
         "children": [
           {
-            "id": "0e756e786b3a7c43",
+            "id": "8d30c3be89cc5d31",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": ".obsidian/workspace.json",
-                "bFile": ".obsidian/workspace.json",
-                "aRef": ""
+                "file": "面试题/集合/Java集合常见面试题总结(上)/List.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: workspace.json"
+              "icon": "lucide-file",
+              "title": "List"
             }
           }
         ]
@@ -142,12 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "面试题/集合/Java集合常见面试题总结(上)/List.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "List 的大纲"
             }
           },
           {
@@ -178,7 +179,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0e756e786b3a7c43",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
     "面试题/集合/Java集合常见面试题总结(上)/List.md",
     "面试题/集合/Java集合常见面试题总结(上)/集合概述.md",
