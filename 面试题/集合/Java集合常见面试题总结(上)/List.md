@@ -53,6 +53,60 @@
 `RandomAccess` 是一个标记接口（没有任何方法），用来表明实现该接口的类支持随机访问（即可以通过索引快速访问元素）。由于 `LinkedList` 底层数据结构是链表，内存地址不连续，只能通过指针来定位，不支持随机快速访问，所以不能实现 `RandomAccess` 接口；而 ArrayList 集合的底层结构是数组，所以可以通过下标的方式访问。
 
 ****
+# 8. ArrayList 和 LinkedList 的区别
+
+- **是否保证线程安全：** `ArrayList` 和 `LinkedList` 都是不同步的，也就是不保证线程安全；
+- **底层数据结构：** `ArrayList` 底层使用的是 **`Object` 数组**；`LinkedList` 底层使用的是双向链表。
+- **插入和删除是否受元素位置的影响：**
+	- `ArrayList` 采用数组存储，所以插入和删除元素的时间复杂度受元素位置的影响。 比如：执行`add(E e)`方法的时候， `ArrayList` 会默认在将指定的元素追加到此列表的末尾，这种情况时间复杂度就是 O(1)。但是如果要在指定位置 i 插入和删除元素的话（`add(int index, E element)`），时间复杂度就为 O(n)。因为在进行上述操作的时候集合中第 i 和第 i 个元素之后的(n-i)个元素都要执行向后位/向前移一位的操作。
+	- `LinkedList` 采用链表存储，所以在头尾插入或者删除元素不受元素位置的影响（`add(E e)`、`addFirst(E e)`、`addLast(E e)`、`removeFirst()`、 `removeLast()`），时间复杂度为 O(1)，如果是要在指定位置 `i` 插入和删除元素的话（`add(int index, E element)`，`remove(Object o)`,`remove(int index)`）， 时间复杂度为 O(n) ，因为需要先移动到指定位置再插入和删除。
+- **是否支持快速随机访问：** `LinkedList` 不支持高效的随机元素访问，而 `ArrayList`（实现了 `RandomAccess` 接口） 支持。快速随机访问就是通过元素的序号快速获取元素对象(对应于`get(int index)`方法)。
+- **内存空间占用：** `ArrayList` 的空间浪费主要体现在在 list 列表的结尾会预留一定的容量空间，而 LinkedList 的空间花费则体现在它的每一个元素都需要消耗比 ArrayList 更多的空间（因为要存放直接后继和直接前驱以及数据）。
+
+****
+# 9. ArrayList 扩容机制
+
+[7.2.2 扩容机制](../../../java笔记/Collection集合.md#7.2.2%20扩容机制)
+
+****
+# 10. fail-fast 和 fail-safe
+
+- fail-fast：[6.2 fail-fast 机制](../../../java笔记/Collection集合.md#6.2%20fail-fast%20机制)
+- fail-safe：翻译为失败安全，它旨在即使面对意外情况也能恢复并继续运行，这使得它特别适用于不确定或者不稳定的环境。
+
+该思想常运用于并发容器，最经典的实现就是 `CopyOnWriteArrayList` 的实现，通过写时复制的思想保证在进行修改操作时复制出一份快照，基于这份快照完成添加或者删除操作后，将 `CopyOnWriteArrayList` 底层的数组引用指向这个新的数组空间，由此避免迭代时被并发修改所干扰所导致并发操作安全问题，当然这种做法也存在缺点，即进行遍历操作时无法获得实时结果：
+
+![](images/List/file-20250623223754.png)
+
+内部通过创建迭代器，将获取的数组留一个副本给迭代器，
+
+```java
+public Iterator<E> iterator() {  
+    return new COWIterator<E>(getArray(), 0);  
+}
+```
+
+所以在修改数组前，会先嗲用迭代器进行一次复制，然后对复制的新数组进行操作，即使中途出现意外也不影响这个新数组
+
+```java
+public boolean add(E e) {
+    final ReentrantLock lock = this.lock;
+    lock.lock();
+    try {
+        Object[] elements = getArray(); // 读取当前 array
+        int len = elements.length;
+        Object[] newElements = Arrays.copyOf(elements, len + 1); // 复制array为新数组
+        newElements[len] = e;
+        setArray(newElements);  // 替换原数组array
+        return true;
+    } finally {
+        lock.unlock();
+    }
+}
+```
+
+****
+
 
 
 

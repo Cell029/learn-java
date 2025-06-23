@@ -487,6 +487,8 @@ public static void addNumbers(List<? super Number> list) {
 ****
 ### 6.2 fail-fast 机制
 
+在 `java.util` 包下的大部分集合是不支持线程安全的，为了能够提前发现并发操作导致线程安全风险，提出通过维护一个 `modCount` 记录修改的次数，迭代期间通过比对预期修改次数 `expectedModCount` 和 `modCount` 是否一致来判断是否存在并发操作，从而实现快速失败，由此保证在避免在异常时执行非必要的复杂代码。
+
 >每次调用 `Iterator.next()` 或 `Iterator.remove()` 时，都会检查 `modCount` 是否等于 `expectedModCount`，如果不等就抛出异常结束运行
 
 ![](images/Collection集合/file-20250425163929.png)
@@ -703,13 +705,20 @@ System.out.println(list);
 ****
 ### 7.2 ArrayList实现类
 
+`ArrayList` 的底层是数组队列，相当于动态数组。与 Java 中的数组相比，它的容量能动态增长。在添加大量元素前，应用程序可以使用`ensureCapacity`操作来增加 `ArrayList` 实例的容量，这可以减少递增式再分配的数量。
+
+```java
+public class ArrayList<E> extends AbstractList<E> implements List<E>, RandomAccess, Cloneable, java.io.Serializable{ 
+}
+```
+
 #### 7.2.1 初始化长度
 
 > `ArrayList` 的本质是数组，所以创建 `ArrayList` 对象时实际上是在它的内部创建了一个数组
 
 ![](images/Collection集合/file-20250425223413.png)
 
->这是 `ArrayList` 的无参构造器，创建 `ArrayList` 对象时并不是创建一个 `null` 的数组，而是创建一个长度为 0 的数组
+>这是 `ArrayList` 的无参构造器，创建 `ArrayList` 对象时并不是创建一个 `null` 的数组，而是创建一个长度为 0 的数组（JDK6 时无参构造的 `ArrayList` 对象则是直接创建了长度为 10 的 `Object[]` 数组）
 
 ![](images/Collection集合/file-20250425223701.png)
 
