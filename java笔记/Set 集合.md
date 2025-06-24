@@ -534,6 +534,49 @@ public class MyHashMap<K, V> {
 ****
 ## 5.3 Comparable 接口和 Comparator 接口
 
+`Comparable` 接口和 `Comparator` 接口都是 Java 中用于排序的接口，它们在实现类对象之间比较大小、排序等方面发挥了重要作用：
+
+- `Comparable` 接口实际上是出自 `java.lang` 包，它有一个 `compareTo(Object obj)`方法用来排序，它是对象自身的天然排序，如字符串按字典序
+- `Comparator` 接口实际上是出自 `java.util` 包，它有一个 `compare(Object obj1, Object obj2)` 方法用来排序，常用作外部比较器，支持多维度动态排序
+
+一般需要对一个集合使用自定义排序时，就要重写 `compareTo()` 方法或 `compare()` 方法，当需要对某一个集合实现两种排序方式，比如一个 `song` 对象中的歌名和歌手名分别采用一种排序方法的话，此时可以重写 `compareTo()` 方法和使用自制的` Comparator` 方法或者以两个 `Comparator` 来实现歌名排序和歌星名排序，通常这两种方法可以同时存在，使用 `Collections.sort()` ，当没有传递比较器时，走对象内部的 `compareTo()` 方法，传递比较器是，可以进行重写方法，自定义比较规则。
+
+```java
+class Song implements Comparable<Song> {
+	// 默认：按歌名排序
+    @Override
+    public int compareTo(Song other) {
+        return this.name.compareTo(other.name);
+    }
+}
+```
+
+```java
+list.add(new Song("Yesterday", "The Beatles"));
+...
+    
+// 1. 无参 Collections.sort，使用 compareTo，按歌名排序
+Collections.sort(list);
+
+// 2. 带 Comparator 参数，按歌手名排序
+Collections.sort(list, new Comparator<Song>() {
+	@Override
+	public int compare(Song o1, Song o2) {
+		return o1.getSinger().compareTo(o2.getSinger());
+	}
+});
+
+// 3. 复合排序：先按歌手，再按歌名
+Collections.sort(list, (o1, o2) -> {
+	int res = o1.getSinger().compareTo(o2.getSinger());
+	if (res == 0) {
+		return o1.getName().compareTo(o2.getName());
+	}
+	return res;
+});
+```
+
+
 >类本身实现 `Comparable<T>` 接口，并重写 `compareTo` 方法
 
 ```java
@@ -582,6 +625,19 @@ TreeMap<Person, String> treeMap = new TreeMap<>(new Comparator<Person>() {
     }
 });
 ```
+
+****
+# 2. 无序性和不可重复性
+
+- 无序性不等于随机性 ，无序性是指存储的数据在底层数组中并非按照数组索引的顺序添加 ，而是根据数据的哈希值决定的，而哈希是确定性的，同样数据每次计算 hash 结果一样，因此结构内部规律固定，但表现出来无序。例如：`HashSet`、`HashMap`、`HashTable` 都体现了无序性。
+- 不可重复性是指添加元素时先计算 `hashCode()` 确定位置，同位置若有元素，再调用 `equals()` 比较内容。需要同时重写 `equals()` 方法和 `hashCode()` 方法。例如：`HashSet`、`HashMap` 的 Key、以及 `LinkedHashSet` 都具有不可重复性。
+
+****
+# 3. 比较 HashSet、LinkedHashSet 和 TreeSet 的区别
+
+- `HashSet`、`LinkedHashSet` 和 `TreeSet` 都是 `Set` 接口的实现类，都能保证元素唯一，并且都不是线程安全的。
+- `HashSet`、`LinkedHashSet` 和 `TreeSet` 的主要区别在于底层数据结构不同。`HashSet` 的底层数据结构是哈希表（基于 `HashMap` 实现）；`LinkedHashSet` 的底层数据结构是双向链表和哈希表，维护插入顺序（即 FIFO）；`TreeSet` 底层数据结构是红黑树，元素是有序的，排序的方式有自然排序和自定义 `Comparator` 排序。
+- 底层数据结构不同又导致这三者的应用场景不同。`HashSet` 用于不需要保证元素插入和取出顺序的场景，只需快速去重（如缓存、集合运算）；`LinkedHashSet` 用于需保留插入顺序（如访问日志、LRU 缓存）；`TreeSet` 用于需自动排序或范围查询（如排行榜、字典序存储）。
 
 ****
 

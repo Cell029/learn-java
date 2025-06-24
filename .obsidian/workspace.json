@@ -8,34 +8,35 @@
         "type": "tabs",
         "children": [
           {
+            "id": "4a37cc34db0a9867",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "面试题/集合/Java集合常见面试题总结(上)/Set.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Set"
+            }
+          },
+          {
             "id": "27a62b3d77f78589",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试题/集合/Java集合常见面试题总结(上)/List.md",
+                "file": "java笔记/Set 集合.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "List"
-            }
-          },
-          {
-            "id": "8d30c3be89cc5d31",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "java笔记/Collection集合.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Collection集合"
+              "title": "Set 集合"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -67,7 +68,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "扩容",
+                "query": "Comparable",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -156,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试题/集合/Java集合常见面试题总结(上)/List.md",
+                "file": "java笔记/Set 集合.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "List 的大纲"
+              "title": "Set 集合 的大纲"
             }
           },
           {
@@ -195,11 +196,13 @@
   },
   "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
+    "面试题/集合/Java集合常见面试题总结(上)/Set.md",
+    "java笔记/Set 集合.md",
+    "java笔记/Collection集合.md",
+    "面试题/集合/Java集合常见面试题总结(上)/List.md",
     "面试题/集合/Java集合常见面试题总结(上)/images/List/file-20250623223754.png",
     "面试题/集合/Java集合常见面试题总结(上)/images/List",
     "面试题/集合/Java集合常见面试题总结(上)/images",
-    "java笔记/Collection集合.md",
-    "面试题/集合/Java集合常见面试题总结(上)/List.md",
     "java笔记/Arrays数组.md",
     "面试题/集合/Java集合常见面试题总结(上)/集合概述.md",
     "面试题/Java基础常见面试题总结(下)/SPI.md",
@@ -229,7 +232,6 @@
     "面试题/Java基础常见面试题总结(中)/String.md",
     "面试题/Java基础常见面试题总结(下)",
     "面试题/Java基础常见面试题总结(中)/Object.md",
-    "面试题/Java基础常见面试题总结(中)/面向对象基础.md",
     "MyBatis/images/MyBatis 的 CRUD/file-20250524212802.png",
     "MyBatis/images/MyBatis 的 CRUD",
     "MyBatis/images/MyBatis 入门程序/file-20250524201400.png",
@@ -237,7 +239,6 @@
     "MyBatis/images/MyBatis 的两种事务管理器/file-20250524193307.png",
     "MyBatis/images/MyBatis 的两种事务管理器/file-20250524192328.png",
     "MyBatis/images/MyBatis 的两种事务管理器/file-20250524192201.png",
-    "MyBatis/images/MyBatis 的两种事务管理器/file-20250524192045.png",
     "MyBatis/images/MyBatis 的两种事务管理器",
     "MyBatis/images/MyBatis 入门程序",
     "MyBatis/images",
