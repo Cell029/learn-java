@@ -108,7 +108,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "java笔记/多线程.md",
+                "file": "面试题/集合/Java集合常见面试题总结(上)/Queue.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -118,7 +118,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "多线程 的反向链接列表"
+              "title": "Queue 的反向链接列表"
             }
           },
           {
@@ -176,7 +176,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -193,7 +193,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4a37cc34db0a9867",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
     "面试题/集合/Java集合常见面试题总结(上)/Set.md",
     "面试题/集合/Java集合常见面试题总结(上)/Queue.md",
