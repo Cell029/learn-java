@@ -34,3 +34,4 @@ group by filename
 - [ ] 可深入常见的序列化协议 #todo 
 - [ ] IO 模型可深入 #todo 
 - [ ] SPI 可深入 #todo 
+- [ ] PriorityQueue 的深入，例如结构与算法 #todo 
