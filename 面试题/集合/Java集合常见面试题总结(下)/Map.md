@@ -65,3 +65,53 @@ return n + 1 = 8
 ```
 
 ****
+# 2. HashMap 和 HashSet 的区别
+
+| `HashMap`                       | `HashSet`                                                                            |
+| ------------------------------- | ------------------------------------------------------------------------------------ |
+| 实现了 `Map` 接口                    | 实现 `Set` 接口，底层靠 `HashMap` 构成                                                         |
+| 存储键值对                           | 仅存储对象，即单一元素                                                                          |
+| 调用 `put()` 向 map 中添加元素          | 调用 `add()` 方法向 `Set` 中添加元素，实际上是对 `HashMap` 的 `put()` 方法的封装                           |
+| `HashMap` 使用键（Key）计算 `hashcode` | `HashSet` 使用成员对象来计算 `hashcode` 值，对于两个对象来说 `hashcode` 可能相同，所以 `equals()` 方法用来判断对象的相等性 |
+
+****
+
+# 2. HashMap 和 TreeMap 区别
+
+`TreeMap` 和`HashMap` 都继承自`AbstractMap` ，但 `TreeMap` 还实现了`NavigableMap`接口和`SortedMap` 接口，而实现 `NavigableMap` 接口让 `TreeMap` 有了对集合内元素的搜索的能力，例如：
+
+- **定向搜索**: `ceilingEntry()`、 `floorEntry()`、 `higherEntry()` 和 `lowerEntry()` 等方法可以用于定位大于等于、小于等于、严格大于、严格小于给定键的最接近的键值对。
+- **子集操作**: `subMap()`、`headMap()` 和 `tailMap()` 方法可以高效地创建原集合的子集视图，而无需复制整个集合。
+- **逆序视图**:`descendingMap()` 方法返回一个逆序的 `NavigableMap` 视图，使得可以反向迭代整个 `TreeMap`。
+- **边界操作**: `firstEntry()`、`lastEntry()`、`pollFirstEntry()` 和 `pollLastEntry()` 等方法可以方便地访问和移除元素。
+
+这些方法都是基于红黑树数据结构的属性实现的，红黑树保持平衡状态，从而保证了搜索操作的时间复杂度为 O(log n)，这让 `TreeMap` 成为了处理有序集合搜索问题的强大工具。
+
+```java
+TreeMap<Integer, String> map = new TreeMap<>();  
+map.put(1, "one");  
+map.put(2, "two");  
+map.put(3, "three");  
+map.put(5, "five");  
+  
+System.out.println(map.ceilingEntry(3)); // 返回 ≥ 3 的最小键值对，3 
+System.out.println(map.floorEntry(4));  // 返回 ≤ 3 的最大键值对，3 
+System.out.println(map.higherEntry(3)); // 返回 > 3 的最小键值对，5
+System.out.println(map.lowerEntry(3));  // 返回 < 3 的最大键值对，2
+
+System.out.println(map.subMap(2, 5)); // 获取 [2, 5) 范围子集
+System.out.println(map.headMap(3));  // 获取 < 3 范围子集
+System.out.println(map.tailMap(3));  // 获取 ≥ from 范围子集
+
+System.out.println(map); // {1=one, 2=two, 3=three, 5=five}
+System.out.println(map.descendingMap()); // 返回逆序（大 -> 小）视图
+
+System.out.println(map.firstEntry()); // 获取最小，1
+System.out.println(map.lastEntry()); // 获取最大，5
+System.out.println(map.pollFirstEntry()); // 获取最小并移除
+System.out.println(map.pollLastEntry()); // 获取最大并移除
+```
+
+而实现`SortedMap`接口让 `TreeMap` 有了对集合中的元素根据键排序的能力，默认是按 key 的升序排序，不过也可以指定排序的比较器。
+
+****
