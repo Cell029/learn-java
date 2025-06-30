@@ -76,7 +76,7 @@ return n + 1 = 8
 
 ****
 
-# 2. HashMap 和 TreeMap 区别
+# 3. HashMap 和 TreeMap 区别
 
 `TreeMap` 和`HashMap` 都继承自`AbstractMap` ，但 `TreeMap` 还实现了`NavigableMap`接口和`SortedMap` 接口，而实现 `NavigableMap` 接口让 `TreeMap` 有了对集合内元素的搜索的能力，例如：
 
@@ -115,3 +115,22 @@ System.out.println(map.pollLastEntry()); // 获取最大并移除
 而实现`SortedMap`接口让 `TreeMap` 有了对集合中的元素根据键排序的能力，默认是按 key 的升序排序，不过也可以指定排序的比较器。
 
 ****
+# 4. HashSet 如何检查重复
+
+>当把对象加入 `HashSet` 时，`HashSet`  会先计算对象的 `hashcode` 值来判断对象加入的位置，同时也会与其他加入的对象的 `hashcode` 值作比较，如果没有相符的 `hashcode`，`HashSet` 会假设对象没有重复出现。但是如果发现有相同 `hashcode` 值的对象，这时会调用 `equals()` 方法来检查 `hashcode` 相等的对象是否真的相同。如果两者相同，`HashSet` 就不会让加入操作成功。
+
+关于 `HashSet` 的 `add()` 方法，它是对 `HashMap` 的 `put()` 方法的封装：
+
+```java
+private static final Object PRESENT = new Object();
+
+public boolean add(E e) {
+    return map.put(e, PRESENT) == null;
+}
+```
+
+调用 `HashMap.put(key, value)`，key 是元素 `e`，value 是 `PRESENT`（空对象，充当 `HashMap` 的 value），然后会进入 `put(key, value)` 进行重复值判断（`HashMap` 的），计算元素 e 的 hash 值，用于定位数组桶索引，然后根据哈希值找出数组中对应的位置，接着遍历该位置的链表或红黑树，判断在这里是否存在某个值的 key 与 传入的 e 相同，相同就不插入节点，而是更新节点的 value（而 e 的 value 是一个空对象，所以更不更无所谓，没什么影响）；如果不存在，则返回 e 的 value，也就是空对象 null，所以通过是否等于 null 来判断是否重复，true 为不重复，false 为重复。综上，可以看出 `HashSet` 的判重机制其实是依赖于 `HashMap` 的。
+
+****
+
+
