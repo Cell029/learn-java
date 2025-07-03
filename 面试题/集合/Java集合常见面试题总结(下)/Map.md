@@ -132,5 +132,7 @@ public boolean add(E e) {
 调用 `HashMap.put(key, value)`，key 是元素 `e`，value 是 `PRESENT`（空对象，充当 `HashMap` 的 value），然后会进入 `put(key, value)` 进行重复值判断（`HashMap` 的），计算元素 e 的 hash 值，用于定位数组桶索引，然后根据哈希值找出数组中对应的位置，接着遍历该位置的链表或红黑树，判断在这里是否存在某个值的 key 与 传入的 e 相同，相同就不插入节点，而是更新节点的 value（而 e 的 value 是一个空对象，所以更不更无所谓，没什么影响）；如果不存在，则返回 e 的 value，也就是空对象 null，所以通过是否等于 null 来判断是否重复，true 为不重复，false 为重复。综上，可以看出 `HashSet` 的判重机制其实是依赖于 `HashMap` 的。
 
 ****
+# 5. HashMap 的长度为什么是 2 的幂次方
+
 
 
