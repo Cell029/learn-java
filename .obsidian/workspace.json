@@ -35,7 +35,8 @@
               "title": "Set 集合"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -156,13 +157,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试题/集合/Java集合常见面试题总结(下)/Map.md",
+                "file": "java笔记/Set 集合.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Map 的大纲"
+              "title": "Set 集合 的大纲"
             }
           },
           {
@@ -176,7 +177,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -193,11 +194,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8746cf1289c80a6d",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
-    "面试题/集合/Java集合常见面试题总结(上)/Set.md",
-    "java笔记/Set 集合.md",
     "面试题/集合/Java集合常见面试题总结(下)/Map.md",
+    "java笔记/Set 集合.md",
+    "面试题/集合/Java集合常见面试题总结(上)/Set.md",
     "java笔记/Collection集合.md",
     "面试题/集合/Java集合常见面试题总结(上)/Queue.md",
     "面试题/集合/Java集合常见面试题总结(下)",

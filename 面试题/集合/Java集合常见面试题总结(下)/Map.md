@@ -134,5 +134,9 @@ public boolean add(E e) {
 ****
 # 5. HashMap 的长度为什么是 2 的幂次方
 
+[2.5 HashMap的容量一直是2的次幂](Set%20集合.md#2.5%20HashMap的容量一直是2的次幂)
+
+****
+
 
 
