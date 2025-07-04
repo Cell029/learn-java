@@ -137,6 +137,36 @@ public boolean add(E e) {
 [2.5 HashMap的容量一直是2的次幂](Set%20集合.md#2.5%20HashMap的容量一直是2的次幂)
 
 ****
+# 6. HashMap 多线程操作导致死循环问题
 
+JDK 1.7 及之前版本的 `HashMap` 在多线程环境下扩容操作可能存在死循环问题，当时的 `HashMap` 是基于数组 + 链表，当一个桶位中有多个元素需要进行扩容时，多个线程同时对链表进行操作，头插法可能会导致链表中的节点指向错误的位置，从而形成一个环形链表，进而使得查询元素的操作陷入死循环无法结束。
+
+```text
+老链表：table[2] -> Node1 -> Node2 -> Node3 -> null
+```
+
+此时两个线程同时扩容：线程 A 负责搬迁 Node1、Node2、Node3；线程B 也同时参与搬迁。而头插法的特性：
+
+```java
+Node<K, V> next = e.next;
+int idx = ...; // 计算在新数组中的位置
+e.next = newTable[idx];
+newTable[idx] = e;
+```
+
+扩容开始时两个线程都创建了自己的新数组（newTable），此时线程 A 执行 `Node1` 的迁移：
+
+```java
+next = Node2  // 线程 A 先保存 Node1 的 next
+newTable[idx] = Node1 -> null  // 线程A 把 Node1 迁移到新数组
+```
+
+恰巧此时线程 B 抢占执行，此时 A 还没有完成对老链表的操作，所以老链表的结构依然是 `table[2] -> Node1 -> Node2 -> Node3 -> null`，而 B 可能一口气就完成，此时的新链表结构为： `newTable[idx] = Node3 -> Node2 -> Node1 -> null`，老链表的结构此时就不存在了。
+
+线程 B 执行完后，线程 A 继续执行 `Node2.next = newTable[idx]`，但此时 `newTable[idx]` 已经被线程 B 重写了，链表已经变化，所以结果就变成 `Node3 -> Node2 -> Node1 -> Node2 -> ...`，链表出现环。
+
+为了解决这个问题，JDK 1.8 版本的 `HashMap` 采用了尾插法而不是头插法来避免链表倒置，并且所有节点 `next` 指针的修改发生在线程本地变量（`loTail`）中，直到链表完整后，一次性赋值完成迁移。但是还是不建议在多线程下使用 `HashMap`，因为多线程下使用 `HashMap` 还是会存在数据覆盖的问题，并发环境下，推荐使用 `ConcurrentHashMap` 。
+
+****
 
 
