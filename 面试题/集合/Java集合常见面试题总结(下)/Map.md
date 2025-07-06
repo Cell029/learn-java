@@ -168,5 +168,131 @@ newTable[idx] = Node1 -> null  // 线程A 把 Node1 迁移到新数组
 为了解决这个问题，JDK 1.8 版本的 `HashMap` 采用了尾插法而不是头插法来避免链表倒置，并且所有节点 `next` 指针的修改发生在线程本地变量（`loTail`）中，直到链表完整后，一次性赋值完成迁移。但是还是不建议在多线程下使用 `HashMap`，因为多线程下使用 `HashMap` 还是会存在数据覆盖的问题，并发环境下，推荐使用 `ConcurrentHashMap` 。
 
 ****
+# 7. HashMap 为什么线程不安全
 
+JDK1.7 及之前版本，在多线程环境下，`HashMap` 扩容时会造成死循环和数据丢失的问题。JDK 1.8 后，在 `HashMap` 中，多个键值对可能会被分配到同一个桶（bucket），并以链表或红黑树的形式存储。多个线程对 `HashMap` 的 `put` 操作会导致线程不安全，具体来说会有数据覆盖的风险。
 
+例如：
+
+- 两个线程 1，2 同时进行 put 操作，并且发生了哈希冲突（hash 函数计算出的插入下标是相同的）。
+- 不同的线程可能在不同的时间片获得 CPU 执行的机会，当前线程 1 执行完哈希冲突判断后，由于时间片耗尽挂起，而线程 2 可能先完成了插入操作。
+- 随后，线程 1 获得时间片，由于之前已经进行过 hash 碰撞的判断，所有此时会直接进行插入，这就导致线程 2 插入的数据被线程 1 覆盖了。
+
+****
+# 8. HashMap 常见的遍历方式
+
+1、使用迭代器（Iterator）EntrySet 的方式进行遍历
+
+```java
+Map<Integer, String> map = new HashMap();  
+map.put(1, "a");  
+map.put(2, "b");  
+map.put(3, "c");  
+map.put(4, "d");  
+map.put(5, "e");   
+Iterator<Map.Entry<Integer, String>> iterator = map.entrySet().iterator();  
+while (iterator.hasNext()) {  
+	Map.Entry<Integer, String> entry = iterator.next();  
+	System.out.println(entry.getKey() + ":" + entry.getValue());  
+}
+```
+
+```text
+1:a
+2:b
+3:c
+4:d
+5:e
+```
+
+2、使用迭代器（Iterator）KeySet 的方式进行遍历
+
+```java
+Map<Integer, String> map = new HashMap();  
+map.put(1, "a");  
+map.put(2, "b");  
+map.put(3, "c");  
+map.put(4, "d");  
+map.put(5, "e");  
+Iterator<Integer> iterator = map.keySet().iterator();  
+while (iterator.hasNext()) {  
+	Integer key = iterator.next();  
+	System.out.println(key + ":" + map.get(key));   
+}
+```
+
+3、使用 For Each EntrySet 的方式进行遍历
+
+```java
+Map<Integer, String> map = new HashMap();  
+map.put(1, "a");  
+map.put(2, "b");  
+map.put(3, "c");  
+map.put(4, "d");  
+map.put(5, "e");  
+for (Map.Entry<Integer, String> entry : map.entrySet()) {  
+	System.out.println(entry.getKey() + ":" + entry.getValue());   
+}
+```
+
+4、使用 For Each KeySet 的方式进行遍历
+
+```java
+Map<Integer, String> map = new HashMap();  
+map.put(1, "a");  
+map.put(2, "b");  
+map.put(3, "c");  
+map.put(4, "d");  
+map.put(5, "e");   
+for (Integer key : map.keySet()) {  
+	System.out.println(key + ":" + map.get(key));  
+}
+```
+
+5、使用 Lambda 表达式的方式进行遍历
+
+```java
+Map<Integer, String> map = new HashMap();  
+map.put(1, "a");  
+map.put(2, "b");  
+map.put(3, "c");  
+map.put(4, "d");  
+map.put(5, "e"); 
+map.forEach((key, value) -> {  
+	System.out.println(key + ":" + value);  
+});
+```
+
+6、使用 Streams API 单线程的方式进行遍历
+
+```java
+Map<Integer, String> map = new HashMap();  
+map.put(1, "a");  
+map.put(2, "b");  
+map.put(3, "c");  
+map.put(4, "d");  
+map.put(5, "e"); 
+map.entrySet().stream().forEach((entry) -> {  
+	System.out.println(entry.getKey());  
+	System.out.println(entry.getValue());  
+});
+```
+
+7、使用 Streams API 多线程的方式进行遍历
+
+```java
+Map<Integer, String> map = new HashMap();  
+map.put(1, "a");  
+map.put(2, "b");  
+map.put(3, "c");  
+map.put(4, "d");  
+map.put(5, "e"); 
+map.entrySet().parallelStream().forEach((entry) -> {  
+	System.out.println(entry.getKey());  
+	System.out.println(entry.getValue());  
+});
+```
+
+需要注意的是：存在阻塞时 parallelStream 性能最高, 非阻塞时因为涉及线程调度、分割、汇总等操作，parallelStream 反而没有普通运行的快
+
+****
