@@ -176,7 +176,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -193,8 +193,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4a37cc34db0a9867",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
+    "java笔记/images/ConcurrentHashMap/file-20250709215526.png",
     "面试题/集合/Java集合常见面试题总结(下)/Map.md",
     "java笔记/ConcurrentHashMap.md",
     "java笔记/Set 集合.md",
@@ -235,7 +236,6 @@
     "java笔记/反射机制.md",
     "面试题/Java基础常见面试题总结(下)/反射.md",
     "面试题/Java基础常见面试题总结(下)/泛型.md",
-    "面试题/Java基础常见面试题总结(下)/异常.md",
     "面试题/Java基础常见面试题总结(下)",
     "面试题/Java基础常见面试题总结(下)",
     "MyBatis/images/MyBatis 的 CRUD/file-20250524212802.png",

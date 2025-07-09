@@ -252,6 +252,8 @@ static class Node<K,V> implements Map.Entry<K,V> {
 }
 ```
 
+![](images/ConcurrentHashMap/file-20250709215526.png)
+
 ****
 ## 3.2 put 与 get 方法
 
@@ -284,6 +286,7 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
 	        // 如果要插入的元素所在的 tab 的第一个元素的 hash 是 MOVED（-1），
 	        // 表示正在扩容，则当前线程帮忙一起迁移元素
             tab = helpTransfer(tab, f);  
+        // 如果 onlyIfAbsent 为 true，即不允许覆盖，则配合后续条件直接返回相同的 key 的 value
         else if (onlyIfAbsent   
                  && fh == hash  
                  && ((fk = f.key) == key || (fk != null && key.equals(fk)))  
@@ -468,5 +471,34 @@ public V get(Object key) {
 也就是说，多线程下无法正确判定键值对是否存在（存在其他线程修改的情况），单线程是可以的（不存在其他线程修改的情况）。
 
 ****
-# 4. ConcurrentHashMap 的并发安全问题
+# 4. ConcurrentHashMap 的线程安全问题
 
+以下操作将新节点放入数组 tab 的某个槽位，如果该槽位是 null，才成功写入，否则失败，所以线程可以无锁地并发初始化不同槽位，即同时向不同的桶插入 key，并且不会相互阻塞。
+
+```java
+if (tab == null || (n = tab.length) == 0)  
+	// 如果 tab 未初始化或者个数为 0，则初始化 node 数组(懒加载，首次 put 才创建)
+	tab = initTable();  
+else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {  
+	// 如果使用 CAS 插入元素时，发现已经有元素了，则进入下一次循环，重新操作 
+	// 插入元素成功的话则 break 跳出循环，流程结束
+	if (casTabAt(tab, i, null, new Node<K,V>(hash, key, value)))  
+		break;                   
+}  
+```
+
+每个 key 通过 `hash(key)` 计算出一个唯一的哈希值，然后根据哈希值计算索引 `i = (n - 1) & hash`（`n` 是数组长度），确保 key 均匀分布在不同的槽位（桶）中。而 CAS 操作的范围`casTabAt(tab, i, null, newNode)` 只针对特定槽位 `i` 进行原子操作，所以线程操作的槽位取决于当前 key 的哈希值。
+
+而当多个线程落在同一个桶（即发生哈希碰撞）时
+
+```java
+synchronized (f) {
+    // 链表遍历 / 插入 / 替换值等
+}
+```
+
+就会对这个桶的首届点进行加锁（局部锁），并发访问其它桶的线程互不影响，而当 CAS 操作没有抢占到资源时，证明此时发生哈希碰撞，无法使用 CAS 进行快速插入操作，就只能通过加锁的方式来安全的进行插入操作，例如：线程 A 把 `"key"` 算到了 `tab[5]`，发现是空桶 -> `CAS` 成功插入；线程 B 把 `"otherKey"` 也算到 `tab[5]`，但 `CAS` 失败（被 A 占了），于是线程 B 进入 `synchronized(f)`，遍历桶中链表，如果找到相同的 key 则更新 value，如果没找到就直接插入尾部；此时线程 C 也想修改 `tab[5]`，但 CAS 失败并看到 `f` 正在加锁，就只能阻塞等待锁释放。
+
+而因为 `get()` 方法只读共享变量，且这些变量都是用 `volatile` 修饰的，读操作不会破坏结构，也不会被中间状态污染，所以不需要加锁也能保证线程安全。
+
+****
