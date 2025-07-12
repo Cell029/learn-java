@@ -174,9 +174,19 @@
               "icon": "git-pull-request",
               "title": "Source Control"
             }
+          },
+          {
+            "id": "64640f0e9873882d",
+            "type": "leaf",
+            "state": {
+              "type": "review-queue-list-view",
+              "state": {},
+              "icon": "SpacedRepIcon",
+              "title": "笔记复习序列"
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
@@ -190,10 +200,11 @@
       "daily-notes:打开/创建今天的日记": false,
       "templates:插入模板": false,
       "command-palette:打开命令面板": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "obsidian-spaced-repetition:复习卡片": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "64640f0e9873882d",
   "lastOpenFiles": [
     "java笔记/images/ConcurrentHashMap/file-20250709215526.png",
     "面试题/集合/Java集合常见面试题总结(下)/Map.md",
