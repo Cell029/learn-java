@@ -460,11 +460,11 @@ public V get(Object key) {
 虽然读操作不加锁，但能感知写操作的最新结果，因为它的链表节点 `next` 和 `val` 都是 `volatile` 修饰的，一旦改变就会被其他线程立即发现，
 
 ****
-## 3.3 `ConcurrentHashMap` 的 key 和 value 不能为 null
+## 3.3 ConcurrentHashMap 的 key 和 value 不能为 null
 
 `ConcurrentHashMap` 的 key 和 value 不能为 null 主要是为了避免二义性。null 是一个特殊的值，表示没有对象或没有引用。如果用 null 作为键，那么就无法区分这个键是否存在于 `ConcurrentHashMap` 中，或者说还是根本没有这个键。同样，如果用 null 作为值，那么就无法区分这个值是否是真正存储在 `ConcurrentHashMap` 中，或是因为找不到对应的键而返回的。
 
-多线程环境下，存在一个线程操作该 `ConcurrentHashMap` 时，其他的线程修改该 `ConcurrentHashMap` 的情况，例如：线程 A 执行 `containsKey(key)` -> 返回 true，此时线程 B 把这个 `key` 从 `map` 中删除了，然后线程 A 继续执行 `map.get(key)` → 得到的是 `null`，由于本身存的就是 `null`，所以无法区分是被删了还是没被删。
+多线程环境下，存在一个线程操作该 `ConcurrentHashMap` 时，其他的线程修改该 `ConcurrentHashMap` 的情况，例如：线程 A 执行 `containsKey(key)` -> 返回 true，此时线程 B 把这个 `key` 从 `map` 中删除了，然后线程 A 继续执行 `map.get(key)` -> 得到的是 `null`，由于本身存的就是 `null`，所以无法区分是被删了还是没被删。
 
 与此形成对比的是，`HashMap` 是可以存储为 null 的 key 和 value 的，但 null 作为键只能有一个，而 null 作为值可以有多个。如果传入 null 作为参数，就会返回 hash 值为 0 的位置的值。单线程环境下，不存在一个线程操作该 `HashMap` 时，其他的线程将该 `HashMap` 修改的情况，所以可以通过 `contains(key)` 来做判断是否存在这个键值对，从而做相应的处理，也就不存在二义性问题。
 
@@ -487,7 +487,7 @@ else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
 }  
 ```
 
-每个 key 通过 `hash(key)` 计算出一个唯一的哈希值，然后根据哈希值计算索引 `i = (n - 1) & hash`（`n` 是数组长度），确保 key 均匀分布在不同的槽位（桶）中。而 CAS 操作的范围`casTabAt(tab, i, null, newNode)` 只针对特定槽位 `i` 进行原子操作，所以线程操作的槽位取决于当前 key 的哈希值。
+每个 key 通过 `hash(key)` 计算出一个唯一的哈希值，然后根据哈希值计算索引 `i = (n - 1) & hash`（`n` 是数组长度），确保 key 均匀分布在不同的槽位（桶）中。而 CAS 操作的范围`casTabAt(tab, i, null, newNode)` 只针对特定槽位 `i` 进行原子操作，所以线程操作的槽位取决于当前 key 的哈希值，多个线程操作同一个桶时，会先尝试用 **CAS** 方式修改桶头节点指向，实现无锁的快速更新（桶的空位置插入节点、链表头部节点在扩容时的替换），但链表中间的插入和修改，不能用 CAS 原子完成，这时就会退化成同步锁（`synchronized`）加锁桶头节点。
 
 而当多个线程落在同一个桶（即发生哈希碰撞）时
 
@@ -502,3 +502,42 @@ synchronized (f) {
 而因为 `get()` 方法只读共享变量，且这些变量都是用 `volatile` 修饰的，读操作不会破坏结构，也不会被中间状态污染，所以不需要加锁也能保证线程安全。
 
 ****
+# 5. ConcurrentHashMap 复合操作的原子性问题
+
+`ConcurrentHashMap` 是线程安全的，意味着它可以保证多个线程同时对它进行读写操作时，不会出现数据不一致的情况，也不会导致 JDK1.7 及之前版本的 `HashMap` 多线程操作导致死循环问题。但是，这并不意味着它可以保证所有的复合操作都是原子性的。
+
+复合操作是指由多个基本操作(如 `put`、`get`、`remove`、`containsKey` 等)组成的操作，例如先判断某个键是否存在 `containsKey(key)`，然后根据结果进行插入或更新 `put(key, value)`。这种操作在执行过程中可能会被其他线程打断，导致结果不符合预期，例如：
+
+```java
+// 线程 A
+if (!map.containsKey(key)) {
+map.put(key, value);
+}
+// 线程 B
+if (!map.containsKey(key)) {
+map.put(key, anotherValue);
+}
+```
+
+如果线程 A 和 B 的执行顺序是这样：
+
+1. 线程 A 判断 map 中不存在 key
+2. 线程 B 判断 map 中不存在 key
+3. 线程 B 将 (key, anotherValue) 插入 map
+4. 线程 A 将 (key, value) 插入 map
+
+那么最终的结果是 (key, value)，而不是预期的 (key, anotherValue)，这就是复合操作的非原子性导致的问题。
+
+为了避免上述情况，`ConcurrentHashMap` 提供了一些原子性的复合操作，如 `putIfAbsent`、`compute`、`computeIfAbsent` 、`computeIfPresent`、`merge`等。这些方法都可以接受一个函数作为参数，根据给定的 key 和 value 来计算一个新的 value，并且将其更新到 map 中，例如：
+
+```java
+// 线程 A
+map.putIfAbsent(key, value);
+// 线程 B
+map.putIfAbsent(key, anotherValue);
+```
+
+`ConcurrentHashMap` 设计的初衷是尽量避免全局锁，所以要尽量避免对对它的同步机制额外加锁，不然就丧失了使用 `ConcurrentHashMap` 的优势（高并发场景下的性能优势与线程安全）。所以更建议使用 `ConcurrentHashMap` 提供的原子性的复合操作。
+
+****
+

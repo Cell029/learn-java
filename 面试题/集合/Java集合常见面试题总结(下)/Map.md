@@ -308,3 +308,24 @@ map.entrySet().parallelStream().forEach((entry) -> {
     - `Hashtable` 使用 `synchronized` 给方法加锁来保证线程安全，效率非常低。当一个线程调用该方法时，如果其他线程也想要调用该方法，那么就可能会进入阻塞或轮询状态，如使用 put 添加元素，另一个线程不能使用 put 添加元素，也不能使用 get，竞争会越来越激烈效率越低。
 
 ****
+# 10. ConcurrentHashMap 线程安全的具体实现方式
+
+Java 7 之前使用 `Segment` 分段锁解决；Java 8 之后使用 `Node` + `CAS` + `synchronized` 解决
+
+[ConcurrentHashMap 的线程安全问题](ConcurrentHashMap.md#4.%20ConcurrentHashMap%20的线程安全问题)
+
+****
+# 11. JDK 1.7 和 JDK 1.8 的 ConcurrentHashMap 实现有什么不同
+
+[JDK 1.7 中的 ConcurrentHashMap](ConcurrentHashMap.md#2.%20JDK%201.7%20中的%20ConcurrentHashMap)
+
+[JDK 1.8 中的 ConcurrentHashMap](ConcurrentHashMap.md#3.%20JDK%201.8%20中的%20ConcurrentHashMap)
+
+****
+# 12. ConcurrentHashMap 为什么 key 和 value 不能为 null
+
+[ConcurrentHashMap 的 key 和 value 不能为 null](ConcurrentHashMap.md#3.3%20`ConcurrentHashMap`%20的%20key%20和%20value%20不能为%20null)
+
+****
+# 13. ConcurrentHashMap 能保证复合操作的原子性吗
+
