@@ -35,8 +35,7 @@
               "title": "ConcurrentHashMap"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -157,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/ConcurrentHashMap.md",
+                "file": "面试题/集合/Java集合常见面试题总结(下)/Map.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "ConcurrentHashMap 的大纲"
+              "title": "Map 的大纲"
             }
           },
           {
@@ -205,10 +204,10 @@
       "obsidian-spaced-repetition:复习卡片": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "c4d70b4a388f8170",
   "lastOpenFiles": [
-    "面试题/集合/Java集合常见面试题总结(下)/Map.md",
     "java笔记/ConcurrentHashMap.md",
+    "面试题/集合/Java集合常见面试题总结(下)/Map.md",
     "java笔记/images/ConcurrentHashMap/file-20250709215526.png",
     "java笔记/Set 集合.md",
     "java笔记/多线程.md",

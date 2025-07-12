@@ -329,3 +329,6 @@ Java 7 之前使用 `Segment` 分段锁解决；Java 8 之后使用 `Node` + `CA
 ****
 # 13. ConcurrentHashMap 能保证复合操作的原子性吗
 
+[ConcurrentHashMap 复合操作的原子性问题](ConcurrentHashMap.md#5.%20ConcurrentHashMap%20复合操作的原子性问题)
+
+****
