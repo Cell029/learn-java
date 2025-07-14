@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/JIT 和 AOT.md",
+                "file": "面试题/集合/Java集合常见面试题总结(下)/Java 集合使用注意事项总结.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "JIT 和 AOT"
+              "title": "Java 集合使用注意事项总结"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/JIT 和 AOT.md",
+                "file": "面试题/集合/Java集合常见面试题总结(下)/Java 集合使用注意事项总结.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "JIT 和 AOT 的大纲"
+              "title": "Java 集合使用注意事项总结 的大纲"
             }
           },
           {
@@ -172,7 +172,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -190,10 +190,10 @@
       "obsidian-spaced-repetition:复习卡片": false
     }
   },
-  "active": "64640f0e9873882d",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
-    "面试题/Java基础常见面试题总结(上)/基础概念与常识.md",
     "java笔记/JIT 和 AOT.md",
+    "面试题/Java基础常见面试题总结(上)/基础概念与常识.md",
     "java笔记/Java环境.md",
     "java笔记/JVM虚拟机规范(简略版).md",
     "面试题/Java基础常见面试题总结(上)/变量.md",
