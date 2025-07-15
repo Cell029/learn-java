@@ -126,3 +126,101 @@ Map<Integer, String> treeMap = list.stream()
         ));
 System.out.println(treeMap); // {1=b, 2=cc}
 ```
+
+****
+# 3. 集合遍历
+
+>不要在 foreach 循环里进行元素的 `remove/add` 操作。remove 元素请使用 `Iterator` 方式，如果并发操作，需要对 `Iterator` 对象加锁。
+
+[并发修改问题](Collection集合.md#6.%20并发修改问题)
+
+****
+# 4. 集合去重
+
+>可以利用 `Set` 元素唯一的特性，可以快速对一个集合进行去重操作，避免使用 `List` 的 `contains()` 进行遍历去重或者判断包含操作。
+
+```java
+// Set 去重代码示例
+public static <T> Set<T> removeDuplicateBySet(List<T> data) {
+    if (CollectionUtils.isEmpty(data)) {
+        return new HashSet<>();
+    }
+    return new HashSet<>(data);
+}
+
+// List 去重代码示例
+public static <T> List<T> removeDuplicateByList(List<T> data) {
+    if (CollectionUtils.isEmpty(data)) {
+        return new ArrayList<>();
+    }
+    List<T> result = new ArrayList<>(data.size());
+    for (T current : data) {
+        if (!result.contains(current)) {
+            result.add(current);
+        }
+    }
+    return result;
+}
+```
+
+两者的核心差别在于 `contains()` 方法的实现。`HashSet` 的 `contains()` 方法底部依赖的 `HashMap` 的 `containsKey()` 方法，时间复杂度接近于 O(1)（没有出现哈希冲突的时候为 O(1)）。
+
+```java
+private transient HashMap<E,Object> map;
+public boolean contains(Object o) {
+    return map.containsKey(o);
+}
+```
+
+```java
+public boolean containsKey(Object key) {  
+    return getNode(key) != null;  
+}
+
+final Node<K,V> getNode(Object key) {
+    int hash = hash(key); // 计算 hash 值
+    int index = (n - 1) & hash; // 计算数组索引
+    Node<K,V> first = table[index]; // 获取桶的第一个节点
+    if (first != null) {
+        // 如果第一个节点就命中，直接返回
+        if (first.hash == hash && (first.key.equals(key))) return first;
+        // 如果是红黑树结构
+        if (first instanceof TreeNode) {
+            return ((TreeNode<K,V>)first).getTreeNode(hash, key);
+        }
+        // 否则链表遍历
+        Node<K,V> e = first.next;
+        while (e != null) {
+            if (e.hash == hash && (e.key.equals(key))) return e;
+            e = e.next;
+        }
+    }
+    return null;
+}
+```
+
+可以看到底层是通过哈希函数定位桶，如果桶里只有一个元素，那么时间复杂度就是 `O(1)`；但当哈希冲突严重时，所有数据都落在同一个桶，时间复杂度就变为 `O(n)`，但基本情况是根据使用的是链表还是红黑树而定的。Java 8 之后，当桶中元素数超过阈值（默认为 8），会转为红黑树结构，从而避免链表导致的查找效率低下。所以时间复杂度为 `O(1)` ~ `O(logn)`。
+
+而`ArrayList` 的 `contains()` 方法是通过遍历所有元素的方法来做的，时间复杂度接近是 O(n)。
+
+```java
+public boolean contains(Object o) {
+    return indexOf(o) >= 0;
+}
+public int indexOf(Object o) {
+    if (o == null) {
+        for (int i = 0; i < size; i++)
+            if (elementData[i]==null)
+                return i;
+    } else {
+        for (int i = 0; i < size; i++)
+            if (o.equals(elementData[i]))
+                return i;
+    }
+    return -1;
+}
+```
+
+所以从效率上来看，推荐使用 Set 集合去重。
+
+****

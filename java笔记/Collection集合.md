@@ -480,7 +480,18 @@ public static void addNumbers(List<? super Number> list) {
 
 >`expectedModCount` 字段并不是集合类本身的成员，而是集合的迭代器内部类的字段
 
-![](images/Collection集合/file-20250425161849.png)
+```java
+// ArrayList 源码中的迭代器初始化
+public Iterator<E> iterator() {
+    return new Itr();
+}
+
+private class Itr implements Iterator<E> {
+    int cursor; // 当前索引
+    int expectedModCount = modCount; // 快照值
+    // ...
+}
+```
 
 >`Itr` 是 `ArrayList` 的非静态内部类，它可以访问外部类对象的字段，所以创建构造器时可以自动将 `modCount` 赋值给 `expectedModCount` ，在遍历迭代器的期间，如果`modCount != expectedModCount` 就可以抛出异常
 
@@ -507,7 +518,7 @@ public static void addNumbers(List<? super Number> list) {
 
 >会进入集合的 `fastRemove` 方法，里面会进行一个 `modCount++` 操作，但是此时迭代器已经创建了，所以不会有再一次赋值的操作，下一次调用 `next()` 方法时一定会抛出异常
 
->所以 `fail-fast` 也就是设置两个指针，一个指向数组的操作，一个指向迭代器的操作，当两个操作数不同时证明发生了不恰当的并行操作
+>所以 `fail-fast` 也就是设置两个计数器，一个指向数组的操作，一个指向迭代器的操作，当两个计数器不同时证明发生了不恰当的并行操作
 
 ****
 ### 6.3 `iterator.remove` 方法
