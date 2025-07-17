@@ -224,3 +224,32 @@ public int indexOf(Object o) {
 所以从效率上来看，推荐使用 Set 集合去重。
 
 ****
+# 5. 集合转数组
+
+>使用集合转数组的方法，必须使用集合的 `toArray(T[] array)`，传入的是类型完全一致、长度为 0 的空数组。
+
+`toArray(T[] array)` 方法的参数是一个泛型数组，如果 `toArray` 方法中没有传递任何参数的话返回的是 `Object`类 型数组。
+
+```java
+// 无参，返回 Object[] 类型
+Object[] toArray()
+
+// 传入一个泛型数组参数，返回 T[] 类型
+<T> T[] toArray(T[] a)
+```
+
+```java
+List<String> list = Arrays.asList("A", "B", "C");
+String[] arr = (String[]) list.toArray(); // 编译不报错，但运行会抛异常
+/*Exception in thread "main" java.lang.ClassCastException: class [Ljava.lang.Object; cannot be cast to class [Ljava.lang.String; ([Ljava.lang.Object; and [Ljava.lang.String; are in module java.base of loader 'bootstrap') at test2.main(test2.java:8)*/
+```
+
+这个方法返回的是 `Object[]` 类型的数组，而不是 `String[]`，虽然 Java 有类型擦除机制，但数组是协变且类型检查严格的对象，`Object[]` 不能直接强制转换为 `String[]`。
+
+```java
+String[] arr = list.toArray(new String[0]);
+```
+
+正确的做法是传入一个 `String[]` 类型，`toArray(T[] a)` 会尝试把 `List` 中的元素传入的数组 `a` 中。如果数组足够大，就直接使用这个数组；如果不够大，就新创建一个一样类型的新数组并返回。由于 JVM 优化，`new String[0]`作为 `Collection.toArray()` 方法的参数现在使用更好，`new String[0]` 就是起一个模板的作用，指定了返回数组的类型，0 是为了节省空间，因为它只是为了说明返回的类型。
+
+****
