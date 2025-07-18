@@ -253,3 +253,164 @@ String[] arr = list.toArray(new String[0]);
 正确的做法是传入一个 `String[]` 类型，`toArray(T[] a)` 会尝试把 `List` 中的元素传入的数组 `a` 中。如果数组足够大，就直接使用这个数组；如果不够大，就新创建一个一样类型的新数组并返回。由于 JVM 优化，`new String[0]`作为 `Collection.toArray()` 方法的参数现在使用更好，`new String[0]` 就是起一个模板的作用，指定了返回数组的类型，0 是为了节省空间，因为它只是为了说明返回的类型。
 
 ****
+# 6. 数组转集合
+
+>使用工具类 `Arrays.asList()` 把数组转换成集合时，不能使用其修改集合相关的方法， 它的 `add/remove/clear` 方法会抛出 `UnsupportedOperationException` 异常。
+
+`Arrays.asList()`在平时开发中还是比较常见的，可以使用它将一个数组转换为一个 `List` 集合。
+
+```java
+String[] myArray = {"Apple", "Banana", "Orange"};
+List<String> myList = Arrays.asList(myArray);
+// 上面两个语句等价于下面一条语句
+List<String> myList = Arrays.asList("Apple","Banana", "Orange");
+```
+
+而该方法接收一个变长参数（数组），并将其包装成一个固定长度的 `List`（因为底层结构为数组）
+
+```java
+public static <T> List<T> asList(T... a) {  
+    return new ArrayList<>(a);  
+}
+```
+
+使用注意事项：
+
+1、`Arrays.asList()`是泛型方法，传递的数组必须是对象数组，而不是基本类型。
+
+```java
+int[] myArray = {1, 2, 3};
+List myList = Arrays.asList(myArray);
+System.out.println(myList.size());// 1
+System.out.println(myList.get(0));// 数组地址值
+System.out.println(myList.get(1));// 报错：ArrayIndexOutOfBoundsException:Index 1 out of bounds for length 1
+int[] array = (int[]) myList.get(0);
+System.out.println(array[0]);// 1
+```
+
+当传入一个原生数据类型数组时，`Arrays.asList()` 的真正得到的参数就不是数组中的元素，而是数组对象本身，此时 `List` 的唯一元素就是这个数组本身，所以获取第二个元素时报错超出范围。对列表的第一个元素（即数组本身）强转后，又变为普通的数组，所以可以获取每个元素。
+
+```java
+Integer[] myArray = {1, 2, 3};
+```
+
+但使用包装类后就不会出现上述问题，因为 Java 的泛型只支持引用类型（Object 的子类），不能直接用基本类型（如 `int`），所以`int[]` 作为一个基本类型数组，整体就被当成一个元素塞进 `List`(`T` 被推导为 `int[]`，不是 `int`，参数 `a` 实际是一个只有一个元素的数组：`new int[][] { arr }`)；而 `Integer[]` 是一个引用类型数组，会被自动拆分为多个元素，逐个填进 `List`。
+
+2、使用集合的修改方法：`add()`、`remove()`、`clear()` 会抛出异常。
+
+```java
+List myList = Arrays.asList(1, 2, 3);
+myList.add(4); // 运行时报错：UnsupportedOperationException
+myList.remove(1); // 运行时报错：UnsupportedOperationException
+myList.clear(); // 运行时报错：UnsupportedOperationException
+```
+
+`Arrays.asList()` 方法返回的并不是 `java.util.ArrayList` ，而是 `java.util.Arrays` 的一个内部类，这个内部类并没有实现集合的修改方法或者说并没有重写这些方法，它是一个定长、基于原始数组的只读视图集合，只能改元素，不支持改结构（增删）。
+
+```java
+public static <T> List<T> asList(T... a) {
+    return new Arrays.ArrayList<>(a);
+}
+
+private static class ArrayList<E> extends AbstractList<E>
+        implements RandomAccess, Serializable {
+    private final E[] a;
+
+    ArrayList(E[] array) {
+        a = Objects.requireNonNull(array);
+    }
+
+    public int size() {
+        return a.length;
+    }
+
+    public E get(int index) {
+        return a[index];
+    }
+
+    public E set(int index, E element) {
+        E oldValue = a[index];
+        a[index] = element;
+        return oldValue;
+    }
+}
+```
+
+3、正确的将数组转换为 `ArrayList`
+
+1. 手动实现工具类
+
+```java
+static <T> List<T> arrayToList(final T[] array) {
+  final List<T> l = new ArrayList<T>(array.length);
+  for (final T s : array) {
+    l.add(s);
+  }
+  return l;
+}
+Integer [] myArray = { 1, 2, 3 };
+System.out.println(arrayToList(myArray).getClass()); // class java.util.ArrayList
+```
+
+通过将数组中的元素依次添加进 `ArrayList` 达到类似转换的效果。
+
+2. 使用 ArrayList 的构造方法
+
+```java
+List list = new ArrayList<>(Arrays.asList("a", "b", "c"))
+```
+
+`ArrayList` 的构造器中会先对传进来的集合进行判断，如果是相同的集合类型，则直接赋值；如果不是相同类型集合，则进行一次“复制”操作。如果原集合为空（`size == 0`），直接让内部数组引用共享的空数组对象 `EMPTY_ELEMENTDATA`，这是`ArrayList`类中定义的一个空数组常量，用于表示空的`ArrayList`。
+
+```java
+public ArrayList(Collection<? extends E> c) {  
+    Object[] a = c.toArray();  
+    if ((size = a.length) != 0) {  
+        if (c.getClass() == ArrayList.class) {  
+            elementData = a;  
+        } else {  
+            elementData = Arrays.copyOf(a, size, Object[].class);  
+        }  
+    } else {  
+        elementData = EMPTY_ELEMENTDATA;  
+    }  
+}
+```
+
+3. 使用 Stream
+
+```java
+Integer [] myArray = { 1, 2, 3 };
+List myList = Arrays.stream(myArray).collect(Collectors.toList());
+// 基本类型也可以实现转换（依赖 boxed 的装箱操作）
+int [] myArray2 = { 1, 2, 3 };
+List myList = Arrays.stream(myArray2).boxed().collect(Collectors.toList());
+```
+
+因为`Arrays.stream(int[])` 返回的是 `IntStream`，而不是 `Stream<Integer>`，所以必须通过 `boxed()` 把 `IntStream` 中的 `int` 转换为 `Integer` 对象，才能用 `Collectors.toList()` 收集为 `List<Integer>`。
+
+4. 使用 Guava
+
+对于不可变集合，你可以使用 `ImmutableList` 类及其 `of()` 与 `copyOf()` 工厂方法：（参数不能为空）
+
+```java
+List<String> il = ImmutableList.of("string", "elements");  // from varargs
+List<String> il = ImmutableList.copyOf(aStringArray);      // from array
+```
+
+对于可变集合，你可以使用 `Lists` 类及其 `newArrayList()` 工厂方法：
+
+```java
+List<String> l1 = Lists.newArrayList(anotherListOrCollection); // from collection
+List<String> l2 = Lists.newArrayList(aStringArray); // from array
+List<String> l3 = Lists.newArrayList("or", "string", "elements"); // from varargs
+```
+
+5. 使用 Apache Commons Collections
+
+```java
+List<String> list = new ArrayList<String>();
+CollectionUtils.addAll(list, str);
+```
+
+****

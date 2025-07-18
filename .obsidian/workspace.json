@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试题/集合/Java集合常见面试题总结(下)/Java 集合使用注意事项总结.md",
+                "file": "java笔记/todo.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Java 集合使用注意事项总结"
+              "title": "todo"
             }
           }
         ]
@@ -172,7 +172,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -190,10 +190,10 @@
       "obsidian-spaced-repetition:复习卡片": false
     }
   },
-  "active": "64640f0e9873882d",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
+    "Java 集合使用注意事项总结.md",
     "java笔记/todo.md",
-    "面试题/集合/Java集合常见面试题总结(下)/Java 集合使用注意事项总结.md",
     "面试题/Java基础常见面试题总结(上)/基本数据类型.md",
     "面试题/Java基础常见面试题总结(上)/基本语法.md",
     "java笔记/Java基本操作.md",
