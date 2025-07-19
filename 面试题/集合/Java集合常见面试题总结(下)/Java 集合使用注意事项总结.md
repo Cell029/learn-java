@@ -1,4 +1,3 @@
-
 # 1. 集合判空
 
 >判断所有集合内部的元素是否为空，使用 `isEmpty()` 方法，而不是 `size() == 0` 的方式。
@@ -132,7 +131,7 @@ System.out.println(treeMap); // {1=b, 2=cc}
 
 >不要在 foreach 循环里进行元素的 `remove/add` 操作。remove 元素请使用 `Iterator` 方式，如果并发操作，需要对 `Iterator` 对象加锁。
 
-[并发修改问题](Collection集合.md#6.%20并发修改问题)
+[并发修改问题](../../../java笔记/Collection集合.md#6.%20并发修改问题)
 
 ****
 # 4. 集合去重

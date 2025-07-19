@@ -36,5 +36,5 @@ group by filename
 - [ ] SPI 可深入 #todo 
 - [ ] PriorityQueue 的深入，例如结构与算法 #todo 
 - [x] ConcurrentHashMap 结构 #todo ✅ 2025-07-17
-- [ ] 数组的协变特性 #todo 
+- [x] 数组的协变特性 #todo ✅ 2025-07-19
 - [ ] Guava #todo
