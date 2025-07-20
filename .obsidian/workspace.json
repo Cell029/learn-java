@@ -35,8 +35,7 @@
               "title": "多线程"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -157,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/多线程.md",
+                "file": "面试题/并发编程/Java并发常见面试题总结（上）.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "多线程 的大纲"
+              "title": "Java并发常见面试题总结（上） 的大纲"
             }
           },
           {
@@ -187,7 +186,7 @@
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -205,10 +204,11 @@
       "obsidian-spaced-repetition:复习卡片": false
     }
   },
-  "active": "59e1649184bee0dc",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
-    "面试题/并发编程/Java并发常见面试题总结（上）.md",
     "java笔记/多线程.md",
+    "面试题/并发编程/Java并发常见面试题总结（上）.md",
+    "java笔记/images/多线程/file-20250720222527.png",
     "java笔记/images/多线程/file-20250720210408.png",
     "java笔记/images/多线程/file-20250720210244.png",
     "面试题/并发编程/images/Java并发常见面试题总结（上）/file-20250720204241.png",
@@ -248,7 +248,6 @@
     "面试题/集合/Java集合常见面试题总结(上)/Queue.md",
     "面试题/集合/Java集合常见面试题总结(下)",
     "面试题/集合/未命名.md",
-    "面试题/集合/Java集合常见面试题总结(上)/images/List/file-20250623223754.png",
     "面试题/集合/Java集合常见面试题总结(上)/images/List",
     "面试题/集合/Java集合常见面试题总结(上)/images",
     "面试题/集合/Java集合常见面试题总结(上)",
