@@ -45,3 +45,93 @@ count = temp; // 写回 volatile count（写回主内存）
 所以即使 `count` 由 `volatile` 修饰，但多个线程同时执行 `count++` 依然会导致数据竞争。若既需要保证数据的可见性，又需要操作的原子性，就可以使用 `synchronized`，进入 `synchronized` 的线程，一定能看到其他线程对同一锁保护下共享变量的修改，因为当一个线程进入 `synchronized` 的[临界区](多线程.md#12.%20synchronized)时，会清空本地工作内存（线程栈中的变量副本），并从主内存中重新读取共享变量的值。当线程退出同步块（释放锁）时，会把对共享变量的修改刷新回主内存，确保别的线程能看到这些变化。
 
 ****
+## 2. volatile 如何禁止指令重排
+
+JVM 和 CPU 为了优化程序执行效率，会对指令进行重排序，因为一个汇编指令也会涉及到很多步骤，每个步骤可能会用到不同的寄存器，也就是说，CPU 有多个功能单元（如获取、解码、运算和结果），一条指令也分为多个单元，那么第一条指令执行还没完毕，就可以执行第二条指令，前提是这两条指令功能单元相同或类似，所以一般可以通过指令重排使得具有相似功能单元的指令接连执行来减少流水线中断的情况。例如：
+
+```java
+int a = 1;
+int b = 1;
+a = a + 1;
+b = b +1 ;
+```
+
+```java
+int a = 1;
+a = a + 1;
+int b = 1;
+b = b +1 ;
+```
+
+前者的性能可能就优于后者，因为如果局部变量连续声明使用，有可能在编译器优化时更容易保持寄存器命中，减少从栈读取。
+
+当声明一个 `volatile` 变量时，JVM 会在编译后插入内存屏障指令来约束指令的重排序。在 Java 中，`Unsafe` 类提供了三个内存屏障相关的方法：
+
+```java
+// 屏蔽之后的所有读操作被重排到该屏障之前，等价于读取屏障（LoadLoad）
+public native void loadFence();
+// 屏蔽之前的所有写操作被重排到该屏障之后，等价于写入屏障（StoreStore）
+public native void storeFence();
+// 屏蔽所有读写操作的重排，等价于读写全屏障（LoadLoad + StoreStore + StoreLoad）
+public native void fullFence();
+```
+
+- `loadFence()`：读不能穿透
+- `storeFence()`：写不能穿透
+- `fullFence()`：读写都不能穿透
+
+`volatile` 与内存屏障的关系：
+
+```java
+// 写 volatile 变量
+store to memory
+storeStore barrier
+write to volatile variable
+storeLoad barrier
+
+// 读 volatile 变量
+read from volatile variable
+loadLoad barrier
+load from memory
+```
+
+具体内存指令：
+
+- 在每个 `volatile` 写操作的前面插入一个 StoreStore 屏障，确保前面的普通写操作（非 volatile）在内存中对其他线程可见之后，才执行 `volatile` 变量的写
+
+```java
+sharedData = 123; // 普通变量
+flag = true; // volatile 变量
+```
+
+如果没有 StoreStore 屏障，CPU 可能会重排序为：
+
+```java
+flag = true;
+sharedData = 123;
+```
+
+- 在每个 `volatile` 写操作的后面插入一个 StoreLoad 屏障，防止 `volatile` 写与后续的任何读/写操作发生重排序
+
+```java
+// 确保写入后，所有线程读取到 object 时，它的字段已经初始化完成
+object = new MyObject(); // volatile 写
+```
+
+- 在每个 `volatile` 读操作的后面插入一个 LoadLoad 屏障，防止在 `volatile` 读之后的普通读操作被重排序到 volatile 读之前
+
+```java
+boolean f = flag; // volatile 读
+// 防止 CPU 把 x = sharedData 提前到 f = flag 之前执行
+int x = sharedData; // 普通读
+```
+
+- 在每个 `volatile` 读操作的后面插入一个 LoadStore 屏障，防止 `volatile` 读操作之后的普通写被重排序到 volatile 读之前
+
+```java
+boolean f = flag; // volatile 读
+// 防止 sharedData = 123 提前到 flag 被读取之前执行
+sharedData = 123; // 普通写
+```
+
+也就是说，`volatile` 变量的读写操作底层实际通过插入内存屏障来实现可见性，从而控制 JVM 与 CPU 的缓存一致性。

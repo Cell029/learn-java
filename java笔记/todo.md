@@ -38,3 +38,5 @@ group by filename
 - [x] ConcurrentHashMap 结构 #todo ✅ 2025-07-17
 - [x] 数组的协变特性 #todo ✅ 2025-07-19
 - [ ] Guava #todo
+- [ ] 指令重排 #todo 
+- [ ] volatile 如何强制使用主内存 #todo 
