@@ -45,7 +45,7 @@ count = temp; // 写回 volatile count（写回主内存）
 所以即使 `count` 由 `volatile` 修饰，但多个线程同时执行 `count++` 依然会导致数据竞争。若既需要保证数据的可见性，又需要操作的原子性，就可以使用 `synchronized`，进入 `synchronized` 的线程，一定能看到其他线程对同一锁保护下共享变量的修改，因为当一个线程进入 `synchronized` 的[临界区](多线程.md#12.%20synchronized)时，会清空本地工作内存（线程栈中的变量副本），并从主内存中重新读取共享变量的值。当线程退出同步块（释放锁）时，会把对共享变量的修改刷新回主内存，确保别的线程能看到这些变化。
 
 ****
-## 2. volatile 如何禁止指令重排
+## 1.2 volatile 如何禁止指令重排
 
 JVM 和 CPU 为了优化程序执行效率，会对指令进行重排序，因为一个汇编指令也会涉及到很多步骤，每个步骤可能会用到不同的寄存器，也就是说，CPU 有多个功能单元（如获取、解码、运算和结果），一条指令也分为多个单元，那么第一条指令执行还没完毕，就可以执行第二条指令，前提是这两条指令功能单元相同或类似，所以一般可以通过指令重排使得具有相似功能单元的指令接连执行来减少流水线中断的情况。例如：
 
@@ -135,3 +135,50 @@ sharedData = 123; // 普通写
 ```
 
 也就是说，`volatile` 变量的读写操作底层实际通过插入内存屏障来实现可见性，从而控制 JVM 与 CPU 的缓存一致性。
+
+****
+## 1.3 volatile 可以保证原子性吗
+
+>`volatile` 关键字能保证变量的可见性，但不能保证对变量的操作是原子性的。
+
+```java
+public class VolatileAtomicityDemo {
+    public volatile static int inc = 0;
+
+    public void increase() {
+        inc++;
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        ExecutorService threadPool = Executors.newFixedThreadPool(5);
+        VolatileAtomicityDemo volatileAtomicityDemo = new VolatileAtomicityDemo();
+        for (int i = 0; i < 5; i++) {
+            threadPool.execute(() -> {
+                for (int j = 0; j < 500; j++) {
+                    volatileAtomicityDemo.increase();
+                }
+            });
+        }
+        // 等待 1.5 秒，保证上面程序执行完成
+        Thread.sleep(1500);
+        System.out.println(inc);
+        threadPool.shutdown();
+    }
+}
+```
+
+正常情况应该是五个线程都对 `inc` 累加 500 次，所以最终输出应该为 2500，但实际输出不足 2500，可见 `volatile` 无法保证原子性。实际上，`inc++` 其实是一个复合操作，包括三步：
+
+1. 读取 inc 的值
+2. 对 inc 加 1
+3. 将 inc 的值写回内存
+
+`volatile` 是无法保证这三个操作是具有原子性的，有可能导致下面这种情况出现：
+
+1. 线程 1 对 `inc` 进行读取操作之后，还未对其进行修改。线程 2 又读取了 `inc`的值并对其进行修改（+1），再将`inc` 的值写回内存
+2. 线程 2 操作完毕后，线程 1 对 `inc`的值进行修改（+1），再将`inc` 的值写回内存
+
+这也就导致两个线程分别对 `inc` 进行了一次自增操作后，`inc` 实际上只增加了 1。其实，如果想要保证上面的代码运行正确也非常简单，利用 `synchronized`、`Lock` 就可以了。
+
+****
+
