@@ -288,3 +288,44 @@ public final boolean compareAndSet(int expect, int update) {
 在并发竞争下，失败的线程会自动重试，直到它能成功地完成一次加一操作。而真正保证原子性的是 compareAndSet() 方法，也就是 CAS
 
 ****
+#### 3. CAS 存在的问题
+
+##### ABA 问题
+
+如果一个变量 V 初次读取的时候是 E 值，并且在准备赋值的时候检查到它仍然是 E 值，那就能说明它的值没有被其他线程修改过了吗？很明显是不能的，因为在这段时间它的值可能被改为其它值，然后又改回 E，那 CAS 操作就会误认为它从来没有被修改过。这个问题就被称为 CAS 操作的 "ABA" 问题。
+
+ABA 问题的解决思路是在变量前面追加上版本号或者时间戳。JDK 1.5 以后的 `AtomicStampedReference` 类就是用来解决 ABA 问题的，其中的 `compareAndSet()` 方法就是先检查当前引用是否等于预期引用、当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。
+
+```java
+public boolean compareAndSet(V expectedReference, V newReference, boolean expectedMark, boolean newMark) { 
+	// 获取当前的 "值+标记" 对 
+	Pair<V> current = this.pair; 
+	// 条件判断： 
+	return 
+		// 1. 预期值与当前值相等 
+		expectedReference == current.reference && 
+		// 2. 预期标记与当前标记相等 
+		expectedMark == current.mark && 
+		( 
+			// 3. 若新值和新标记与当前完全一致，直接返回成功（无需修改） 
+			(newReference == current.reference && newMark == current.mark) || 
+			// 4. 否则，通过 CAS 原子更新整个“值+标记”对 
+			this.casPair(current, AtomicMarkableReference.Pair.of(newReference, newMark)) 
+		); 
+}
+```
+
+或者直接使用锁机制，避免其它线程的参与。
+
+****
+##### 循环时长开销大
+
+CAS 经常会用到自旋操作来进行重试，也就是不成功就一直循环执行直到成功，如果长时间不成功，会给 CPU 带来非常大的执行开销。
+
+****
+##### 只能保证一个共享变量的原子操作
+
+CAS 操作仅能对单个共享变量有效，因为 CAS 是硬件层提供的原子操作指令，它本质上只对单个内存地址进行比较和替换，所以需要同时更新多个变量时（比如一个对象的两个字段），就没办法用一个 CAS 操作来同时保证两个字段的原子性。如果需要保证多个共享变量就需要使用锁机制。
+
+******
+
