@@ -343,3 +343,20 @@ public final native boolean compareAndSwapInt(Object obj, long offset, int expec
 `Unsafe` 类的特殊之处在于：它可以直接操作内存地址（通过偏移量 `offset` 定位变量在内存中的位置），绕过 Java 的安全检查和对象封装，这是实现 CAS 的前提。
 
 ****
+# 3. synchronized 关键字
+
+## 3.1 synchronized 是什么？有什么用？
+
+[synchronized 是什么](多线程.md#概述)
+
+****
+## 3.2 如何使用 synchronized
+
+[基本用法](多线程.md#12.1%20基本用法)
+
+****
+## 3.3 构造方法可以使用 synchronized 吗
+
+[不可以](多线程.md#12.1%20基本用法)
+
+****
