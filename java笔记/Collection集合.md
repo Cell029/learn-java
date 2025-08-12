@@ -132,6 +132,8 @@ System.out.println(sequencedCollection.reversed()); // [d, c, b, a]
 ****
 ## 5. 泛型
 
+### 概述
+
 >泛型是 Java 5 引入的一种机制，允许在类、接口、方法中定义类型参数，用来指定某种类型，而不是在代码里写死具体类型，以此提高代码复用性、提高类型安全性（编译期检查）、避免强制类型转换
 
 ^f28852
@@ -147,7 +149,7 @@ for(int i = 0; i< arrayList.size();i++){
 }
 ```
 
->`ArrayList` 可以存放任意类型，例子中添加了一个 `String` 类型，添加了一个 `Integer` 类型，再使用时都以 `String` 的方式使用，因此程序崩溃了。为了解决类似这样的问题（在编译阶段就可以解决），就引入了泛型
+>`ArrayList` 可以存放任意类型，例子中添加了一个 `String` 类型，添加了一个 `Integer` 类型，在使用时都以 `String` 的方式使用，因此程序崩溃了。为了解决类似这样的问题（在编译阶段就可以解决），就引入了泛型
 
 ```java
 List<String> arrayList = new ArrayList<>();
@@ -155,7 +157,7 @@ arrayList.add("aaaa");
 arrayList.add(100);
 
 for(int i = 0; i< arrayList.size();i++){
-    String item = (String)arrayList.get(i);
+    String item = (String)arrayList.get(i); // 运行时报错：ClassCastException
     System.out.println(item);
 }
 ```
@@ -163,10 +165,9 @@ for(int i = 0; i< arrayList.size();i++){
 >使用泛型后在编译阶段，编译器就会报错
 
 ```java
-List list = new ArrayList();
+List<String> list = new ArrayList<>();
 list.add("Hello");
-list.add(123);
-String str = (String) list.get(1);  // 运行时报错：ClassCastException
+list.add(123); // 编译时报错：不会生成 .class 文件
 
 // 如果使用泛型就不需要考虑强转的问题，但是在运行前就要检查传入的参数类型
 ```
@@ -190,7 +191,7 @@ list.add("hello");            // 还是能运行
 String str = (String) list.get(0); // 这里自动加了强制类型转换
 ```
 
->所以泛型在编译时只会进行类型检查和自动转换（此时的自动强转也被叫做泛型补偿），但运行时并不会存在泛型类型的信息
+所以泛型在编译时只会进行类型检查和自动转换（此时的自动强转也被叫做泛型补偿），但运行时并不会存在泛型类型的信息，例如通过 `.getClass` 获取不同泛型的运行时类型：
 
 ```java
 List<String> stringList = new ArrayList<>();  
@@ -198,7 +199,7 @@ List<Integer> intList = new ArrayList<>();
 System.out.println(stringList.getClass() == intList.getClass()); // true
 ```
 
->不管是 `List<String>` 还是 `List<Integer>`，在运行时其实是同一个类，都只是 `ArrayList` 集合，只不过泛型作为了一种限制手段限制用户的输入而已
+不管是 `List<String>` 还是 `List<Integer>`，在运行时其实是同一个类，都只是 `ArrayList` 集合，只不过泛型作为了一种限制手段限制用户的输入而已。
 
 >Java 的泛型是在 Java 5 引入的，为了保证与 Java 5 之前版本的字节码和 JVM 保持兼容，Java 才采用类型擦除的设计方案，让泛型信息只在编译阶段生效，在这个阶段，编译器会进行类型检查和类型推导，确保类型安全，运行时，所有的泛型类型信息都会被擦除，替换为原始类型（通常是 `Object` ），并自动插入必要的强制类型转换指令，从而使生成的字节码与老版本 JVM 完全兼容
 
@@ -211,7 +212,7 @@ public class 类名<类型参数1, 类型参数2, ...> {
 }
 ```
 
->定义一个简单的泛型容器
+定义一个简单的泛型容器：
 
 ```java
 public class Box<T> {
@@ -237,7 +238,7 @@ intBox.set(123);
 System.out.println(intBox.get()); // 123
 ```
 
->定义多个泛型参数的类
+定义多个泛型参数的类：
 
 ```java
 public class Pair<K, V> {
@@ -261,7 +262,7 @@ System.out.println(pair.getKey() + ": " + pair.getValue()); // age: 18
 
 >自定义泛型类的主要作用是增强代码的通用性、可读性与类型安全性，让程序员口语写出不依赖具体类型但依然能编译检查的通用类或方法，这有点类似于实现一个接口，接口只提供方法的声明，不提供实现
 
->定义的泛型类，就一定要传入泛型类型实参么？并不是这样，在使用泛型的时候如果传入泛型实参，则会根据传入的泛型实参做相应的限制，此时泛型才会起到本应起到的限制作用。如果不传入泛型类型实参的话，在泛型类中使用泛型的方法或成员变量定义的类型可以为任何的类型
+定义的泛型类，就一定要传入泛型类型实参么？并不是这样，在使用泛型的时候如果传入泛型实参，则会根据传入的泛型实参做相应的限制，此时泛型才会起到本应起到的限制作用。如果不传入泛型类型实参的话，在泛型类中使用泛型的方法或成员变量定义的类型可以为任何的类型
 
 ```java
 public class Printer<T> {
@@ -273,9 +274,10 @@ public class Printer<T> {
 new Printer<String>().print("Hello");
 new Printer<Integer>().print(123);
 new Printer<User>().print(new User());
+new Printer().print(123);
 ```
 
->当使用泛型后，代码的复用性得到了提升，这又有点像多态了，父类型指引用指向子类型对象
+当使用泛型后，代码的复用性得到了提升，这又有点像多态了，父类型指引用指向子类型对象
 
 ****
 ### 5.3 在方法上自定义泛型
@@ -357,8 +359,8 @@ public class CC<T> implements AA<T, T> {
 ```java
 private List<?> list;  // 编译错误
 public void method(<?> m) {  // 编译错误
-        System.out.println(m);
-    }
+	System.out.println(m);
+}
 ```
 
 >`<?>` 主要在于方法的参数类型，它可以表示任何类型，但有一定的限制，通常只能用来读取数据
@@ -428,7 +430,7 @@ public static void print(List<? extends Number> list) {
 ****
 #### 5.5.3 下限通配符 `<? super T>`
 
->`<? super T>` 表示**某个类型是 `T` 或 `T` 的父类**，适用于你需要向集合中写入 `T` 类型及其子类的情况
+>`<? super T>` 表示**某个类型是 `T` 或 `T` 的父类**，适用于需要向集合中写入 `T` 类型及其父类的情况
 
 ```java
 List<? super T> list = new ArrayList<? super T>();
@@ -437,7 +439,7 @@ List<? super T> list = new ArrayList<? super T>();
 ```java
 public static void main(String[] args) {  
     List<Integer> numberList = new ArrayList<>();  
-    addNumbers(numberList);  // 不合法，Integer是子类 
+    addNumbers(numberList);  // 不合法，Integer 是子类 
   
     List<Object> objectList = new ArrayList<>();  
     addNumbers(objectList);  // 也可以向 List<Object> 添加 Integer 
