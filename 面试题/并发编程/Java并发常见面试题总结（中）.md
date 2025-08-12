@@ -360,3 +360,10 @@ public final native boolean compareAndSwapInt(Object obj, long offset, int expec
 [不可以](多线程.md#12.1%20基本用法)
 
 ****
+# 4. synchronized 底层原理
+
+## 4.1 synchronized 同步语句块的情况
+
+[同步代码块](多线程.md#13.1%20同步代码块)
+
+****
