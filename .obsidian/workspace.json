@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/类和对象.md",
+                "file": "面试题/基础/Java基础常见面试题总结(下)/反射.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "类和对象"
+              "title": "反射"
             }
           },
           {
@@ -41,16 +41,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/类和对象.md",
+                "file": "java笔记/JVM虚拟机规范(简略版).md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "类和对象"
+              "title": "JVM虚拟机规范(简略版)"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -82,7 +82,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "进程",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/类和对象.md",
+                "file": "java笔记/JVM虚拟机规范(简略版).md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "类和对象 的大纲"
+              "title": "JVM虚拟机规范(简略版) 的大纲"
             }
           },
           {
@@ -219,12 +219,13 @@
       "obsidian-spaced-repetition:复习卡片": false
     }
   },
-  "active": "96520bd298f6806a",
+  "active": "f03a563407de3557",
   "lastOpenFiles": [
-    "java笔记/反射机制.md",
-    "面试题/基础/Java基础常见面试题总结(下)/反射.md",
-    "java笔记/多线程.md",
     "java笔记/类和对象.md",
+    "java笔记/JVM虚拟机规范(简略版).md",
+    "面试题/基础/Java基础常见面试题总结(下)/反射.md",
+    "java笔记/反射机制.md",
+    "java笔记/多线程.md",
     "面试题/并发编程/Java并发常见面试题总结（中）.md",
     "java笔记/Collection集合.md",
     "面试题/基础/Java基础常见面试题总结(下)/泛型.md",
@@ -260,7 +261,6 @@
     "面试题/基础",
     "java笔记/逆变、协变、不变.md",
     "面试题/集合/Java集合常见面试题总结(下)/Map.md",
-    "面试题/集合/Java集合常见面试题总结(下)/Java 集合使用注意事项总结.md",
     "java笔记/images/ConcurrentHashMap/file-20250709215526.png",
     "java笔记/images/ConcurrentHashMap/file-20250709183241.png",
     "java笔记/images/ConcurrentHashMap/file-20250709183139.png",
