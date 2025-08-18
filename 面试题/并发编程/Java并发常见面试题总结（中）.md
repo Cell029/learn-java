@@ -401,3 +401,41 @@ public final native boolean compareAndSwapInt(Object obj, long offset, int expec
 偏向锁将许多复杂代码引入到同步子系统，并且对其他的 HotSpot 组件也具有侵入性。这种复杂性为理解代码、系统重构带来了困难，因此， OpenJDK 官方希望禁用、废弃并删除偏向锁。
 
 ****
+## 4.6 synchronized 和 volatile 有什么区别
+
+`synchronized` 关键字和 `volatile` 关键字是两个互补的存在，而不是对立的存在。
+
+- `volatile` 关键字是线程同步的轻量级实现，所以 `volatile` 性能肯定比 `synchronized` 关键字要好 。但是 `volatile` 关键字只能用于变量而 `synchronized` 关键字可以修饰方法以及代码块 。
+- `volatile` 关键字能保证数据的可见性与有序性，但不能保证数据的原子性；`synchronized` 都能保证（不直接保证有序性，但可通过互斥间接限制重排序）。
+- `volatile` 关键字主要用于解决变量在多个线程之间的可见性，而 `synchronized` 关键字解决的是多个线程之间访问资源的同步性。
+
+****
+# 5. ReentrantLock
+
+## 5.1 什么是 ReentrantLock
+
+`ReentrantLock` 实现了 `Lock` 接口，是一个可重入且独占式的锁，和 `synchronized` 关键字类似。不过，`ReentrantLock` 更灵活、更强大，增加了轮询、超时、中断、公平锁和非公平锁等高级功能。
+
+```java
+public class ReentrantLock implements Lock, Serializable {...}
+```
+
+`ReentrantLock` 里面有一个内部类 `Sync`，`Sync` 继承 AQS（`AbstractQueuedSynchronizer`），添加锁和释放锁的大部分操作实际上都是在 `Sync` 中实现的。`Sync` 有公平锁 `FairSync` 和非公平锁 `NonfairSync` 两个子类。而 `ReentrantLock` 默认使用非公平锁，也可以通过构造器来显式的指定使用公平锁。
+
+```java
+abstract static class Sync extends AbstractQueuedSynchronizer {...}
+```
+
+```java
+private final Sync sync;  
+  
+public ReentrantLock() {  
+    this.sync = new NonfairSync();  
+}  
+  
+public ReentrantLock(boolean fair) {  
+    this.sync = (Sync)(fair ? new FairSync() : new NonfairSync());  
+}
+```
+
+****
