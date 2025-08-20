@@ -414,7 +414,7 @@ public final native boolean compareAndSwapInt(Object obj, long offset, int expec
 
 ## 5.1 什么是 ReentrantLock
 
-`ReentrantLock` 实现了 `Lock` 接口，是一个可重入且独占式的锁，和 `synchronized` 关键字类似。不过，`ReentrantLock` 更灵活、更强大，增加了轮询、超时、中断、公平锁和非公平锁等高级功能。
+`ReentrantLock` 被称为可重入锁，指的是一个线程能够对临界区共享资源进行重复加锁，它实现了 `Lock` 接口，是一个可重入且独占式的锁，和 `synchronized` 关键字类似。不过，`ReentrantLock` 更灵活、更强大，增加了轮询、超时、中断、公平锁和非公平锁等高级功能。
 
 ```java
 public class ReentrantLock implements Lock, Serializable {...}
@@ -439,3 +439,49 @@ public ReentrantLock(boolean fair) {
 ```
 
 ****
+## 5.2 公平锁和非公平锁
+
+- **公平锁** : 锁被释放之后，先申请的线程先得到锁。性能较差一些，因为公平锁为了保证时间上的绝对顺序，上下文切换更频繁。
+- **非公平锁**：锁被释放之后，后申请的线程可能会先获取到锁，是随机或者按照其他优先级排序的。性能更好，但可能会导致某些线程永远无法获取到锁。
+
+`ReentrantLock` 和 `synchronized` 关键字都提供了这两种锁的策略：
+
+- `ReentrantLock` 的构造函数可以接受一个 `boolean` 参数来指定公平性：`new ReentrantLock(true)` 创建公平锁，`new ReentrantLock(false)`（默认）创建非公平锁。
+- 而 `synchronized` 关键字实现的是非公平锁。
+
+****
+## 5.3 synchronized 和 ReentrantLock 区别
+
+|         | Synchronized | ReentrantLock   |
+| :-----: | :----------: | --------------- |
+|  锁实现机制  |   对象头监视器模式   | 依赖 AQS          |
+|   灵活性   |     不灵活      | 支持响应中断、超时、尝试获取锁 |
+|  释放锁形式  |    自动释放锁     | 显示调用 unlock()   |
+|  支持锁类型  |     非公平锁     | 公平锁 & 非公平锁      |
+|  条件队列   |    单条件队列     | 多个条件队列          |
+| 是否支持可重入 |      支持      | 支持              |
+
+### 5.3.1 都是可重入锁
+
+可重入锁也叫递归锁，指的是线程可以再次获取自己的内部锁。比如一个线程获得了某个对象的锁，此时这个对象锁还没有释放，当其再次想要获取这个对象的锁的时候还是可以获取的，如果是不可重入锁的话，就会造成死锁。JDK 提供的所有现成的 `Lock` 实现类，包括 `synchronized` 关键字锁都是可重入的。
+
+在下面的代码中，`method1()` 和 `method2()`都被 `synchronized` 关键字修饰，`method1()`调用了`method2()`。
+
+```java
+public class SynchronizedDemo {
+    public synchronized void method1() {
+	    // 线程进入 method1 时已经持有 this 锁，这里可以再次获取 this 锁进入 method2
+        System.out.println("方法1"); 
+        method2();
+    }
+
+    public synchronized void method2() {
+        System.out.println("方法2");
+    }
+}
+```
+
+由于 `synchronized` 锁是可重入的，同一个线程在调用 `method1()` 时可以直接获得当前对象的锁，执行 `method2()` 的时候可以再次获取这个对象的锁，不会产生死锁问题。假如 `synchronized` 是不可重入锁的话，那么由于该对象的锁已被当前线程持有且无法释放，这就导致线程在执行 `method2()` 时获取锁失败，会出现死锁问题。所以一个线程拿到锁后，可以多次进入被同一个锁保护的不同代码块，而不会卡死自己。
+
+****
+
