@@ -19,7 +19,25 @@
 
 所以字符串常量池是 JVM 为了提升性能和减少内存消耗针对字符串（String 类）专门开辟的一块区域，主要目的是为了避免字符串的重复创建。
 
->如果是字符串字面量编译期就直接放入常量池，或者使用 `intern()` 方法在运行期将堆中的字符串手动加入常量池，但是所有的相同字符串字面量只会在常量池中存一份
+如果是字符串字面量编译期就直接放入常量池，或者使用 `intern()` 方法在运行期将堆中的字符串手动加入常量池，但是所有的相同字符串字面量只会在常量池中存一份
+
+```java
+String s1 = "hello";
+String s2 = "hello";
+String s3 = "he" + "llo"; // 编译期常量折叠，结果也是 "hello"
+
+System.out.println(s1 == s2); // true，都指向常量池的同一地址
+System.out.println(s1 == s3); // true，s3在编译时就被优化为 "hello"
+```
+
+```java
+String s4 = new String("hello"); // 创建了两个对象：1.常量池中的 "hello"（如果不存在），2.堆中的新String对象
+String s5 = s4.intern(); // 尝试将 s4 的值 "hello" 驻留到常量池。因为池中已有，所以 s5 直接指向常量池的 "hello"
+String s6 = "hello";
+
+System.out.println(s4 == s5); // false，s4 在堆里，s5 在常量池
+System.out.println(s5 == s6); // true，s5 和 s6 都指向常量池的同一地址
+```
 
 ****
 ## 4. 创建字符串的两种方式
@@ -487,18 +505,31 @@ String str2 = "c";
 String str3 = str + str2;
 ```
 
->这个操作会创建四个对象，两个是常量池中的 `"ab"、"c"` ，两个是堆中的 `String` 对象的 `abc` 和 `StringBuilder` ，使用 + 拼接变量时底层会把字符串转换成 `StringBuilder` 对象，然后调用它的 `append()` 方法实现字符串的拼接
+这个操作会创建四个对象：
+
+1、编译器发现 `"a"` 和 `"b"` 都是编译期常量，会直接进行拼接优化，生成 `"ab"`，实际执行：`String str = "ab";`，在字符串常量池中查找或创建字面量 `"ab"`（不会创建 `StringBuilder` 对象，这是在编译阶段完成的优化）
+
+2、`String str2 = "c";`，在字符串常量池中查找或创建字面量 `"c"`，`str2` 变量指向常量池中的 `"c"`，同样的也不会在堆中创建对象，是在编译阶段完成的。
+
+3、由于 `str` 是一个**变量**（不是编译期常量），编译器会使用 `StringBuilder` 来进行拼接。编译后的代码（近似等同于）：
+
+```java
+String str3 = (new StringBuilder()).append(str).append(str2).toString();
+```
+
+`new StringBuilder()`：在堆上创建一个新的 `StringBuilder` 对象，`append(str)` 将 `str` (指向 `"ab"`) 的内容追加到 `StringBuilder` 的数组中，`append(str2)` 将 `str2` (指向 `"c"`) 的内容追加到 `StringBuilder` 的数组中，`StringBuilder` 的 `toString()` 方法会创建一个新的 String 对象（`"abc"`），这个新 String 的底层数组是 `StringBuilder` 数组内容的一个拷贝。
 
 ```
-常量池：
- ├── "ab"
- └── "c"
+字符串常量池 (Heap Metaspace/JDK8前PermGen)
+ ├── "ab"  <--- str
+ └── "c"   <--- str2
 
-堆内存：
- ├── StringBuilder对象
- │    └── char[] {'a','b','c',...}
- └── String对象（str3）
-      └── byte[] {'a','b','c'}
+堆内存 (Heap)
+ ├── StringBuilder对象 (用于拼接str和str2)
+ │    └── value数组: {'a', 'b', 'c', ...} (内部表示)
+ │
+ └── String对象 (str3) <--- 由StringBuilder.toString()创建
+      └── value数组: {'a', 'b', 'c'} (这是StringBuilder内部数组的一个拷贝)
 ```
 
 **效率提升**
