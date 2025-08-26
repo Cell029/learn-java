@@ -88,7 +88,7 @@ System.out.println(a.intern() == b); // true
 ```
 
 ```java
-String c = new String("hello word"); // 在常量池和堆中都会创建 "hello word" 
+String c = new String("hello word"); // "hello word" 会在编译期放入常量池，new 会在堆中创建一个新的 String 对象 
 String d = c.intern(); // 此时常量池中已经拥有了 "hello word" 
 String e = "hello word";  
 System.out.println(c == d); // false; c 指向的是堆中的，d 指向的是常量池中的 
@@ -105,13 +105,51 @@ System.out.println(s1 == s2); // true
 
 >因为通过拼接的方式，所以字符串常量池中最开始只会存在 inter ，当使用 intern 后 s2 指向的是常量池中指向堆中 internTest 的引用，也就是此时 s2 的引用和 s1 的引用相同
 
+总结：三种创建字符串的方式
+
+1、字面量方式（自动入池）
+
+```java
+String s1 = "hello";  // 自动进入常量池
+```
+
+2、new String() 方式（字面量部分入池）
+
+```java
+String s2 = new String("hello"); 
+// 只有字面量 "hello" 在编译期进入常量池
+// new String() 在堆中创建的是另一个新对象
+```
+
+3、运行时拼接/生成（不会自动入池）
+
+```java
+String s3 = new StringBuilder("he").append("llo").toString();
+// "he" 和 "llo" 字面量在常量池，这是编译器的自动优化
+// 但拼接结果 "hello" 不会自动进入常量池
+String s4 = "he" + "llo"; // 编译期优化为 "hello"，会入池
+String s5 = s1 + s2; // 运行时拼接，不会自动入池
+```
+
+1. 只有字面量和编译期确定的字符串会自动进入常量池
+2. 运行时生成的字符串（如 StringBuilder 拼接、字符串操作等）不会自动入池
+3. intern() 的行为：
+	- 存在 -> 返回常量池引用
+    - 不存在 -> Java 7+记录堆引用到常量池，Java 6 创建副本到常量池
+
+| 场景                         | intern() 返回值 | Java 6 结果 | Java 7+ 结果 |
+| -------------------------- | ------------ | --------- | ---------- |
+| 字面量已存在常量池                  | 常量池中的引用      | 常量池引用     | 常量池引用      |
+| new String() + 字面量已存在      | 常量池中的引用      | 常量池引用     | 常量池引用      |
+| StringBuilder 拼接（字符串不在常量池） | **堆对象的引用**   | 新的常量池副本引用 | **堆对象的引用** |
+
 ****
 
 ## 6. 字符串的拼接
 
 ### 6.1 使用 + 号拼接
 
->在 Java 中，`+` 运算符拼接字符串，其实底层是通过 `StringBuilder` 实现的，所以在拼接时会在堆中新建一个 `StringBuilder` 对象
+>在 Java 中，`+` 运算符拼接变量字符串时，其实底层是通过 `StringBuilder` 实现的，所以在拼接时会在堆中新建一个 `StringBuilder` 对象
 
 #### 6.1.1 全是字面量的拼接
 
@@ -119,7 +157,7 @@ System.out.println(s1 == s2); // true
 String str = "Hello" + "World";
 ```
 
->拼接结果 `"HelloWorld"` 直接存入字符串常量池中，因为完全在编译期间完成，JVM 运行时只加载常量
+>拼接结果 `"HelloWorld"` 直接存入字符串常量池中，因为完全在编译期间完成，JVM 运行时只加载常量，此时并没有使用 StringBuilder
 
 ![](images/String%20字符串/file-20250423164215.png)
 

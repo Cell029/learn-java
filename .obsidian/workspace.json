@@ -41,12 +41,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "java笔记/String 字符串.md",
+                "file": "面试题/基础/Java基础常见面试题总结(中)/String.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "String 字符串"
+              "title": "String"
             }
           }
         ],
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "java笔记/String 字符串.md",
+                "file": "面试题/基础/Java基础常见面试题总结(中)/String.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "String 字符串 的大纲"
+              "title": "String 的大纲"
             }
           },
           {
@@ -219,10 +219,10 @@
       "obsidian-spaced-repetition:复习卡片": false
     }
   },
-  "active": "64640f0e9873882d",
+  "active": "18ec5960d932f562",
   "lastOpenFiles": [
-    "面试题/基础/Java基础常见面试题总结(中)/String.md",
     "java笔记/String 字符串.md",
+    "面试题/基础/Java基础常见面试题总结(中)/String.md",
     "面试题/基础/Java基础常见面试题总结(中)/Object.md",
     "java笔记/Set 集合.md",
     "java笔记/Object类中的方法.md",
