@@ -634,7 +634,7 @@ try (DataInputStream dis = new DataInputStream(new FileInputStream("E:\\IOStream
 
 >序列化是指把一个 Java 对象转换为字节序列的过程，以便将其保存到磁盘上或通过网络传输，反序列化 则是将字节序列恢复为 Java 对象的过程
 
->序列化最终的目的是为了对象可以跨平台存储和进行网络传输，进行跨平台存储和网络传输的方式就是 IO ，而 IO 支持的数据格式就是字节数组，所以要把 Java 对象转换成字节数组才行（二进制），但是单方面的只把对象转成字节数组还不行，因为没有规则的字节数组是没办法把对象的本来面目还原回来的，所以必须在把对象转成字节数组的时候就制定一种规则（序列化），从IO流里面读出数据的时候再以这种规则把对象还原回来（反序列化）
+序列化最终的目的是为了对象可以跨平台存储和进行网络传输，进行跨平台存储和网络传输的方式就是 IO ，而 IO 支持的数据格式就是字节数组，所以要把 Java 对象转换成字节数组才行（二进制），但是单方面的只把对象转成字节数组还不行，因为没有规则的字节数组是没办法把对象的本来面目还原回来的，所以必须在把对象转成字节数组的时候就制定一种规则（序列化），从IO流里面读出数据的时候再以这种规则把对象还原回来（反序列化）
 
 常见场景：
 
@@ -677,11 +677,11 @@ try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("E:\\IOSt
 
 **1、 static 属性不能序列化**
 
->因为静态字段属于类级别的，而序列化是对实例对象进行的，所以静态字段不能被序列化
+因为静态字段属于类级别的，而序列化是对实例对象进行的，所以静态字段不能被序列化
 
 **2、 transient 关键字（只能修饰字段） —— 不参与序列化**
 
->如果一个对象中的某个字段被 `transient` 修饰，那么当这个对象被序列化（写入磁盘或通过网络传输）时，这个字段的值不会被写入序列化流中；而当反序列化时，该字段会被自动初始化为默认值，通常用于保护敏感数据，例如密码、临时缓存，但是不能修饰方法、类或局部变量；`static`变量因为不属于任何对象(Object)，所以无论有没有 `transient` 关键字修饰，均不会被序列化
+如果一个对象中的某个字段被 `transient` 修饰，那么当这个对象被序列化（写入磁盘或通过网络传输）时，这个字段的值不会被写入序列化流中；而当反序列化时，该字段会被自动初始化为默认值，通常用于保护敏感数据，例如密码、临时缓存，但是不能修饰方法、类或局部变量；`static`变量因为不属于任何对象(Object)，所以无论有没有 `transient` 关键字修饰，均不会被序列化
 
 ```java
 private transient String password; // 不希望序列化密码字段
@@ -693,9 +693,9 @@ private transient String password; // 不希望序列化密码字段
 
 > `Serializable` 是一个空的接口，它主要的作用就是作为一种标记，真正的序列化操作其实是由 `ObjectOutputStream` 和 `ObjectInputStream` 共同实现的，写的操作就是序列化，读的操作就是反序列化
 
->当类中没有显式声明 `serialVersionUID` 时JVM 会调用 `ObjectStreamClass.computeDefaultSUID()` 来生成一个版本号，这个版本号通常是不显示的，但是当类中的代码发生改变，就会导致这个类的序列化版本号发生改变，当调用 `readObject()` 通过类名读取类时获取到的 `serialVersionUID` 和写入的 `serialVersionUID` 就不同，就会导致反序列化发生错误
+当类中没有显式声明 `serialVersionUID` 时JVM 会调用 `ObjectStreamClass.computeDefaultSUID()` 来生成一个版本号，这个版本号通常是不显示的，但是当类中的代码发生改变，就会导致这个类的序列化版本号发生改变，当调用 `readObject()` 通过类名读取类时获取到的 `serialVersionUID` 和写入的 `serialVersionUID` 就不同，就会导致反序列化发生错误
 
->所以后续需要修改类中的代码的话，最好手动设置一个序列化版本号
+所以后续需要修改类中的代码的话，最好手动设置一个序列化版本号：
 
 ```java
 @Serial  
@@ -728,7 +728,7 @@ private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundE
 }
 ```
 
->这两个方法必须是私有的、无返回值、固定参数类型，否则不会被调用
+这两个方法必须是私有的、无返回值、固定参数类型，否则不会被调用
 
 ```java
 private void writeObject(ObjectOutputStream out) throws IOException {  
@@ -764,9 +764,7 @@ public class MyClass implements Externalizable {
 }
 ```
 
->也就是说，这个接口让序列化的操作完全由使用者来定义，而不是在底层就写好，不过自定义的实现序列化让每个字段都能得到更好的控制，
-
->无论是实现 `Externalizable` 还是在 `Serializable` 下重写 `writeObject` / `readObject` 方法，目的都是“自定义序列化行为”，只不过重写方法更灵活，保留默认的字段，自己手动操作一些字段，可读性和扩展性更高
+也就是说，这个接口让序列化的操作完全由使用者来定义，而不是在底层就写好，不过自定义的实现序列化让每个字段都能得到更好的控制。但无论是实现 `Externalizable` 还是在 `Serializable` 下重写 `writeObject` / `readObject` 方法，目的都是“自定义序列化行为”，只不过重写方法更灵活，保留默认的字段，自己手动操作一些字段，可读性和扩展性更高
 
 ****
 # 12. File类
