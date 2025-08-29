@@ -484,4 +484,171 @@ public class SynchronizedDemo {
 由于 `synchronized` 锁是可重入的，同一个线程在调用 `method1()` 时可以直接获得当前对象的锁，执行 `method2()` 的时候可以再次获取这个对象的锁，不会产生死锁问题。假如 `synchronized` 是不可重入锁的话，那么由于该对象的锁已被当前线程持有且无法释放，这就导致线程在执行 `method2()` 时获取锁失败，会出现死锁问题。所以一个线程拿到锁后，可以多次进入被同一个锁保护的不同代码块，而不会卡死自己。
 
 ****
+### 5.3.2 synchronized 依赖 JVM 而 ReentrantLock 依赖 API
+
+`synchronized` 是 Java 内置的同步机制，它是 依赖 JVM 实现现的，它在编译期和运行期的表现是不同的。
+
+1、编译期
+
+```java
+synchronized (obj) {
+    // 临界区代码
+}
+```
+
+编译器会生成 `monitorenter` 和 `monitorexit` 两条字节码指令，`monitorenter` 尝试获取对象的锁，`monitorexit` 用来释放锁。所以从字节码层面，`synchronized` 就是通过 JVM 内置的对象监视器（Monitor）来控制的。
+
+2、JVM 层面的实现（锁优化）
+
+[锁的升级](多线程.md#12.2.3%20锁的升级)
+
+****
+
+`ReentrantLock` 则是 JDK 层面实现的锁，位于 `java.util.concurrent.locks` 包，它基于 AQS（AbstractQueuedSynchronizer）框架实现，支持更多功能，例如可重入、可中断、可超时、可轮询获取锁。
+
+```java
+ReentrantLock lock = new ReentrantLock();
+lock.lock(); // 获取锁
+try {
+    // 临界区
+} finally {
+    lock.unlock(); // 释放锁
+}
+```
+
+需要 `lock()` 和 `unlock()` 方法配合 try-finally 语句块来完成。
+
+****
+### 5.3.3 ReentrantLock 比 synchronized 增加了一些高级功能
+
+1、可中断锁
+
+`synchronized` 是不可中断的，线程如果在等待锁时，只能被操作系统阻塞；而 `ReentrantLock` 可以使用 `lockInterruptibly()` 来获取锁，这样等待锁的线程可以响应中断：
+
+```java
+ReentrantLock lock = new ReentrantLock();
+try {
+    lock.lockInterruptibly(); // 可以被中断
+    // 临界区
+} catch (InterruptedException e) {
+    System.out.println("线程被中断，未获取到锁");
+} finally {
+    lock.unlock();
+}
+```
+
+也就是说当前线程 A 在等待获取锁的过程中（处于 `WAITING`），如果其他线程执行了`threadA.interrupt()`（将线程 A 对象内部的一个私有布尔字段 `interrupted` 从 `false` 修改为 `true`），此时 JVM 检查发现线程 A 的中断状态是 `true`，那么当前线程 A 就会抛出 `InterruptedException` 异常，可以捕捉该异常进行异常处理的流程。
+
+2、超时获取锁
+
+`synchronized` 无法设置等待时间，线程会无限等待；`ReentrantLock` 可以使用 `tryLock(long timeout, TimeUnit unit)` 尝试获取锁，超时则放弃：
+
+```java
+if (lock.tryLock(1, TimeUnit.SECONDS)) {
+    try {
+        // 临界区
+    } finally {
+        lock.unlock();
+    }
+} else {
+    System.out.println("未获取到锁，执行备用逻辑");
+}
+```
+
+3、公平锁与非公平锁
+
+`synchronized` 不支持公平性，先到的线程不一定先获得锁；但 `ReentrantLock` 可以通过构造函数选择公平或非公平锁：
+
+```java
+ReentrantLock fairLock = new ReentrantLock(true); // 公平锁
+ReentrantLock unfairLock = new ReentrantLock(); // 非公平锁
+```
+
+4、条件变量
+
+`synchronized` 只能使用对象的 `wait()`、`notify()`、`notifyAll()` 方法；而 `ReentrantLock` 提供 `Condition` 对象，并且可以创建多个等待队列，线程可以调用 `await()` 进入该 `Condition` 的等待队列，调用 `signal()` 或 `signalAll()` 唤醒队列中的线程：
+
+```java
+ReentrantLock lock = new ReentrantLock();
+Condition condition = lock.newCondition();
+lock.lock();
+try {
+    condition.await(); // 等待
+    condition.signal(); // 唤醒
+} finally {
+    lock.unlock();
+}
+```
+
+例如生产者-消费者模型，当缓冲区满时，生产者等待；当缓冲区空时，消费者等待，如果使用 synchronized + wait/notify 就是这样的：
+
+```java
+private final Queue<Integer> queue = new LinkedList<>();
+private final int capacity = 10;
+
+public synchronized void put(int value) throws InterruptedException {
+	while (queue.size() == capacity) {
+		wait(); // 缓冲区满，生产者等待
+	}
+	queue.add(value);
+	notifyAll(); // 唤醒消费者
+}
+
+public synchronized int take() throws InterruptedException {
+	while (queue.isEmpty()) {
+		wait(); // 缓冲区空，消费者等待
+	}
+	int value = queue.poll();
+	notifyAll(); // 唤醒生产者
+	return value;
+}
+```
+
+此时：
+
+- 生产者和消费者共用同一个等待队列
+- 当 `notifyAll()` 被调用时，所有线程都会被唤醒，包括可能不满足条件的线程，造成虚假唤醒
+
+使用 ReentrantLock + Condition：
+
+```java
+private final Queue<Integer> queue = new LinkedList<>();
+private final int capacity = 10;
+private final ReentrantLock lock = new ReentrantLock();
+private final Condition notFull = lock.newCondition(); // 生产者队列
+private final Condition notEmpty = lock.newCondition(); // 消费者队列
+
+public void put(int value) throws InterruptedException {
+	lock.lock();
+	try {
+		while (queue.size() == capacity) {
+			notFull.await(); // 等待队列 notFull
+		}
+		queue.add(value);
+		notEmpty.signal(); // 唤醒消费者队列
+	} finally {
+		lock.unlock();
+	}
+}
+
+public int take() throws InterruptedException {
+	lock.lock();
+	try {
+		while (queue.isEmpty()) {
+			notEmpty.await(); // 等待消费者队列 notEmpty
+		}
+		int value = queue.poll();
+		notFull.signal(); // 唤醒生产者队列
+		return value;
+	} finally {
+		lock.unlock();
+	}
+}
+```
+
+这里创建了两个独立等待的队列，避免唤醒不需要的线程。
+
+****
+
+
 
