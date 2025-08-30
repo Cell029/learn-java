@@ -649,6 +649,53 @@ public int take() throws InterruptedException {
 这里创建了两个独立等待的队列，避免唤醒不需要的线程。
 
 ****
+### 5.3.4 可中断锁和不可中断锁有什么区别？
+
+- **不可中断锁**：一旦线程开始尝试获取锁，就会进入阻塞等待状态，除非它自己拿到锁，否则会一直阻塞，对外界的取消信号置之不理。
+- **可中断锁**：线程在尝试获取锁的等待过程中，可以响应中断信号。如果外界（通常是另一个线程）修改了它的中断状态，它就能立即停止等待，抛出异常并执行后续处理逻辑。
+
+****
+# 6. ReentrantReadWriteLock
+
+## 6.1 概述
+
+`ReentrantReadWriteLock` 是 Java 并发包（`java.util.concurrent.locks`） 提供的一种可重入读写锁，既可以保证多个线程同时读的效率，同时又可以保证有写入操作时的线程安全。它是 `Lock` 接口的一个实现，核心思想是：
+
+- 读-读可以共享（多个线程同时读取）
+- 写-写互斥（同一时间只允许一个线程写）
+- 读-写互斥（写线程执行时，不允许读线程访问资源）
+
+```java
+ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+// 获取读锁
+Lock readLock = lock.readLock();
+// 获取写锁
+Lock writeLock = lock.writeLock();
+```
+
+读锁和写锁都是 `Lock` 接口的实现，所以有：
+
+```java
+readLock.lock();
+readLock.unlock();
+
+writeLock.lock();
+writeLock.unlock();
+```
+
+所以 `ReentrantReadWriteLock` 其实是两把锁，一把是 `WriteLock` (写锁)，一把是 `ReadLock`（读锁），而 `ReentrantReadWriteLock` 也支持公平锁和非公平锁，默认使用非公平锁，可以通过构造器来显式地指定：
+
+```java
+// true 为公平锁，false 为非公平锁
+public ReentrantReadWriteLock(boolean fair) {
+    sync = fair ? new FairSync() : new NonfairSync();
+    readerLock = new ReadLock(this);
+    writerLock = new WriteLock(this);
+}
+```
+
+****
+
 
 
 
