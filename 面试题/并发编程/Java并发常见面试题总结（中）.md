@@ -695,6 +695,64 @@ public ReentrantReadWriteLock(boolean fair) {
 ```
 
 ****
+## 6.2 ReentrantReadWriteLock 适合什么场景
+
+因为 `ReentrantReadWriteLock` 的性质就是**读-读不互斥**、**读-写互斥**、**写-写互斥**，所以它最适合的场景就是 “读多写少”，这是它相比普通互斥锁（如 `synchronized` 或 `ReentrantLock`）最具优势的地方。例如：
+
+1、**缓存系统**
+
+如果需要缓存一些从数据库或远程服务加载的、不经常变化的数据，那么就可以利用该锁。当缓存数据过期、被手动刷新或底层数据源发生变化时，需要更新缓存，但这个过程相对较少；不过会有大量的业务请求来查询缓存数据。
+
+```java
+private final Map<K, V> cache = new HashMap<>();
+private final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
+private final ReentrantReadWriteLock.ReadLock readLock = rwLock.readLock();
+private final ReentrantReadWriteLock.WriteLock writeLock = rwLock.writeLock();
+
+// 读操作，多个线程可以并发读，性能极高
+public V get(K key) {
+	readLock.lock();
+	try {
+		return cache.get(key);
+	} finally {
+		readLock.unlock();
+	}
+}
+
+// 写操作，互斥，保证数据安全，但发生次数少，对整体性能影响小
+public void put(K key, V value) {
+	writeLock.lock();
+	try {
+		cache.put(key, value);
+	} finally {
+		writeLock.unlock();
+	}
+}
+
+// 清空缓存等写操作同样需要写锁
+public void clear() {
+	writeLock.lock();
+	try {
+		cache.clear();
+	} finally {
+		writeLock.unlock();
+	}
+}
+```
+
+如果没有读写锁，那就只能用 `synchronized` 修饰所有方法，那么即使有 100 个线程只想读取数据，它们也必须串行执行，效率低。而使用读写锁，这 100 个读线程可以同时执行，吞吐量得到巨大提升。
+
+2、**配置信息或元数据管理**
+
+应用程序的配置（如数据库连接字符串、功能开关、业务规则）通常在启动时加载，运行时很少修改，但会被几乎所有业务线程频繁读取。写操作为：管理员在控制台修改配置并发布；读操作为：处理用户请求时，每次都可能需要读取配置来决定业务流程。
+
+****
+## 6.3 共享锁和独占锁有什么区别
+
+- **共享锁**：一把锁可以被多个线程同时获得，适合读多写少场景，高并发读取，不阻塞其他读。
+- **独占锁**：一把锁只能被一个线程获得，适合写操作，保证数据一致性，阻塞其他读写。
+
+****
 
 
 
