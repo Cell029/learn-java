@@ -782,3 +782,64 @@ t4:          持有读锁，执行读操作      其他线程可以并发读
 ```
 
 ****
+# 7. StampedLock
+
+## 7.1 什么是 StampedLock
+
+`StampedLock` 是 **Java 8** 引入的一个新的锁实现（不可重入锁），位于 `java.util.concurrent.locks` 包中。它提供了三种模式的锁：
+
+- **写锁**：独占锁，类似 `ReentrantLock` 的独占锁。
+- **读锁**：共享锁，类似 `ReentrantReadWriteLock` 的读锁。
+- **乐观读锁**：可以在没有写锁干扰时快速读取数据，但乐观读并不能保证读取的数据绝对一致，需要后续验证。
+
+与传统的 `ReentrantReadWriteLock` 不同，`StampedLock` 返回一个时间戳（stamp）来标识锁的状态，而不是直接返回锁对象，这个时间戳可以用来释放锁或者验证乐观读是否有效。
+
+```java
+public class Point {
+    private double x, y;
+    private final StampedLock stampedLock = new StampedLock();
+
+    // 写操作
+    public void move(double beforeX, double beforeY) {
+	    // 当前线程获取写锁后，其他线程的读锁和写锁都将被阻塞
+        long stamp = stampedLock.writeLock(); 
+        try {
+            x += deltaX;
+            y += deltaY;
+        } finally {
+            stampedLock.unlockWrite(stamp);
+        }
+    }
+
+    // 乐观读
+    public double distanceFromOrigin() {
+	    // 尝试获取乐观读锁
+        long stamp = stampedLock.tryOptimisticRead();
+        // 直接读取数据，如果此时有写线程修改了数据，可能会读取到不一致的值
+        double currentX = x;
+        double currentY = y;
+        
+        // 检查在读取期间是否有写锁被获取过，如果写操作发生，退化为读锁
+        if (!stampedLock.validate(stamp)) {  
+            stamp = stampedLock.readLock();
+            try {
+                currentX = x;
+                currentY = y;
+            } finally {
+                stampedLock.unlockRead(stamp);
+            }
+        }
+        return Math.sqrt(currentX * currentX + currentY * currentY);
+    }
+}
+```
+
+由此可见，乐观读锁其实本身并不是锁，它是一种版本号检查机制，只有在乐观读检测到数据可能被写线程修改时，才退化成普通的 `readLock` 来保证数据一致性（因为读-写互斥，此时无法获取写锁）。
+
+****
+## 7.2 StampedLock 为什么性能更好
+
+相比于传统读写锁多出来的乐观读是 `StampedLock` 比 `ReadWriteLock` 性能更好的关键原因。`StampedLock` 的乐观读允许一个写线程获取写锁，所以不会导致所有写线程阻塞，也就是当读多写少的时候，写线程有机会获取写锁，减少了线程饥饿的问题，吞吐量大大提高。
+
+****
+
