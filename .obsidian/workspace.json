@@ -172,7 +172,7 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -190,8 +190,10 @@
       "obsidian-spaced-repetition:复习卡片": false
     }
   },
-  "active": "64640f0e9873882d",
+  "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
+    "面试题/并发编程/images/Java并发常见面试题总结（下）/IMG_9958.jpg",
+    "面试题/并发编程/images/Java并发常见面试题总结（下）",
     "面试题/并发编程/Java并发常见面试题总结（中）.md",
     "面试题/并发编程/Java并发常见面试题总结（下）.md",
     "java笔记/多线程.md",
@@ -217,7 +219,6 @@
     "java笔记/多态.md",
     "java笔记/封装.md",
     "java笔记/面向对象和面向过程.md",
-    "java笔记/todo.md",
     "java笔记/images/多线程/file-20250816224126.png",
     "未命名.canvas",
     "面试题/并发编程/images/Java并发常见面试题总结（中）/29d9f0eb06dc71c89d140e323edca9eb.png",
@@ -237,7 +238,6 @@
     "java笔记/images/ConcurrentHashMap/file-20250709183241.png",
     "java笔记/images/ConcurrentHashMap",
     "面试题/集合/Java集合常见面试题总结(下)",
-    "面试题/集合/Java集合常见面试题总结(上)/images/List",
-    "面试题/集合/Java集合常见面试题总结(上)/images"
+    "面试题/集合/Java集合常见面试题总结(上)/images/List"
   ]
 }
