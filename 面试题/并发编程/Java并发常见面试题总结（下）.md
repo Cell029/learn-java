@@ -148,7 +148,7 @@ public T get() {
 }
 ```
 
-通过上面这些内容，足以得出结论：最终的变量是放在了当前线程的 `ThreadLocalMap` 中，并不是存在 `ThreadLocal` 上，`ThreadLocal` 可以理解为只是 `ThreadLocalMap` 的封装，传递了变量值。 `ThrealLocal` 类中可以通过 `Thread.currentThread()` 获取到当前线程对象后，直接通过`getMap(Thread t)` 访问到该线程的`ThreadLocalMap`对象。每个 `Thread` 中都具备一个`ThreadLocalMap`，而` ThreadLocalMap` 可以存储以 `ThreadLocal` 为 key ，Object 对象为 value 的键值对。
+通过上面这些内容，足以得出结论：最终的变量是放在了当前线程的 `ThreadLocalMap` 中，并不是存在 `ThreadLocal` 上，`ThreadLocal` 可以理解为只是 `ThreadLocalMap` 的封装，传递了变量值。 `ThrealLocal` 类中可以通过 `Thread.currentThread()` 获取到当前线程对象后，直接通过`getMap(Thread t)` 访问到该线程的 `ThreadLocalMap` 对象。每个 `Thread` 中都具备一个`ThreadLocalMap`，而` ThreadLocalMap` 可以存储以 `ThreadLocal` 为 key ，Object 对象为 value 的键值对。
 
 ```java
 ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
@@ -161,3 +161,6 @@ ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
 ![](images/Java并发常见面试题总结（下）/IMG_9958.jpg)
 
 ****
+## 1.3 ThreadLocal 内存泄露
+
+![](images/Java并发常见面试题总结（下）/file-20250912175523.png)
