@@ -344,3 +344,39 @@ public class ManualPassing {
 
 2、使用 InheritableThreadLocal
 
+`InheritableThreadLocal` 是 JDK 自带的一个类，它继承了 `ThreadLocal`。当父线程创建一个新的子线程时，子线程会自动继承父线程中 `InheritableThreadLocal` 变量所设置的值。
+
+```java
+public class InheritableThreadLocalDemo {  
+    // 使用InheritableThreadLocal代替普通的ThreadLocal  
+    private static final InheritableThreadLocal<String> threadLocal = new InheritableThreadLocal<>();  
+  
+    public static void main(String[] args) {  
+        threadLocal.set("User-123");  
+  
+        // 父线程创建并启动子线程  
+        Thread childThread = new Thread(() -> {  
+            // 子线程可以直接获取到父线程设置的值  
+            System.out.println("在子线程中获取用户: " + threadLocal.get()); // 输出：User-123  
+            threadLocal.remove(); // 清理子线程的  
+        });  
+  
+        childThread.start();  
+    }  
+}
+```
+
+在 `Thread` 的构造函数中，会检查父线程的 `inheritableThreadLocals`  变量是否存在。如果存在，它会创建一个新的 `ThreadLocalMap` 并将父线程 `inheritableThreadLocals` 中的所有 Entry 浅拷贝一份到子线程的 `inheritableThreadLocals` 中。
+
+但它存在线程池失效问题，这是最大的问题。线程池的核心机制是线程复用，即线程创建后不会销毁，而是反复执行不同的任务。可 `InheritableThreadLocal` 只在线程创建时拷贝一次数据，后续提交给这个复用线程的任务，无法获取到真正提交它的那个父线程的数据，而是会拿到第一次创建线程时的旧数据，导致数据错乱。也就是说，只能在 `new Thread()` 时进行拷贝，这就存在很大的局限性了，并且， 既然是拷贝操作，那就存在对象的创建与销毁，这就存在一定的内存开销。
+
+3、使用 TransmittableThreadLocal
+
+`TransmittableThreadLocal` （简称 TTL） 是阿里巴巴开源的工具类，继承并加强了`InheritableThreadLocal`类，可以在线程池的场景下支持 `ThreadLocal` 值传递。官方文档：[https://github.com/alibaba/transmittable-thread-local](https://github.com/alibaba/transmittable-thread-local)
+
+****
+## 1.5 InheritableThreadLocal 原理
+
+
+
+
