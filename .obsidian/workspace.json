@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "面试题/并发编程/Java并发常见面试题总结（下）.md",
+                "file": "Linux环境搭建/VM 虚拟机安装 Linux CentOS.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Java并发常见面试题总结（下）"
+              "title": "VM 虚拟机安装 Linux CentOS"
             }
           }
         ]
@@ -142,13 +142,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "面试题/并发编程/Java并发常见面试题总结（下）.md",
+                "file": "Linux环境搭建/VM 虚拟机安装 Linux CentOS.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Java并发常见面试题总结（下） 的大纲"
+              "title": "VM 虚拟机安装 Linux CentOS 的大纲"
             }
           },
           {
@@ -167,8 +167,8 @@
             "state": {
               "type": "review-queue-list-view",
               "state": {},
-              "icon": "lucide-ghost",
-              "title": "review-queue-list-view"
+              "icon": "SpacedRepIcon",
+              "title": "笔记复习序列"
             }
           },
           {
@@ -203,10 +203,23 @@
   },
   "active": "33a5d85eaab7626f",
   "lastOpenFiles": [
-    "未命名.canvas",
+    "Linux环境搭建/images/VM 虚拟机安装 Linux CentOS/file-20250917145309.png",
+    "Linux环境搭建/images/VM 虚拟机安装 Linux CentOS/file-20250917142620.png",
+    "Linux环境搭建/images/VM 虚拟机安装 Linux CentOS/file-20250917142540.png",
+    "Linux环境搭建/images/VM 虚拟机安装 Linux CentOS/file-20250917142459.png",
+    "Linux环境搭建/images/VM 虚拟机安装 Linux CentOS/file-20250917142325.png",
+    "Linux环境搭建/images/VM 虚拟机安装 Linux CentOS/file-20250917142221.png",
+    "Linux环境搭建/images/VM 虚拟机安装 Linux CentOS/file-20250917142103.png",
+    "Linux环境搭建/images/VM 虚拟机安装 Linux CentOS/file-20250917142036.png",
+    "Linux环境搭建/images/VM 虚拟机安装 Linux CentOS/file-20250917142005.png",
+    "Linux环境搭建/images/VM 虚拟机安装 Linux CentOS/file-20250917141758.png",
+    "Linux环境搭建/images/VM 虚拟机安装 Linux CentOS/file-20250917141259.png",
+    "Linux环境搭建/images/VM 虚拟机安装 Linux CentOS",
+    "Linux环境搭建/images",
     "面试题/并发编程/Java并发常见面试题总结（下）.md",
-    "面试题/并发编程/images/Java并发常见面试题总结（下）/file-20250912175523.png",
-    "面试题/并发编程/images/Java并发常见面试题总结（下）/IMG_9958.jpg",
+    "Linux环境搭建/VM 虚拟机安装 Linux CentOS.md",
+    "Linux环境搭建",
+    "未命名.canvas",
     "面试题/并发编程/images/Java并发常见面试题总结（下）",
     "面试题/并发编程/Java并发常见面试题总结（中）.md",
     "java笔记/多线程.md",
@@ -231,23 +244,11 @@
     "java笔记/继承.md",
     "java笔记/多态.md",
     "java笔记/封装.md",
-    "java笔记/面向对象和面向过程.md",
-    "java笔记/images/多线程/file-20250816224126.png",
-    "面试题/并发编程/images/Java并发常见面试题总结（中）/29d9f0eb06dc71c89d140e323edca9eb.png",
-    "面试题/并发编程/images/Java并发常见面试题总结（中）/b3022fe945455236b39bae092b0a06c2_720.png",
     "面试题/并发编程/images/Java并发常见面试题总结（中）",
-    "java笔记/images/多线程/file-20250721211649.png",
-    "java笔记/images/多线程/file-20250720222527.png",
-    "java笔记/images/多线程/file-20250720210408.png",
-    "java笔记/images/多线程/file-20250720210244.png",
-    "面试题/并发编程/images/Java并发常见面试题总结（上）/file-20250720204241.png",
     "面试题/并发编程/images/Java并发常见面试题总结（上）",
     "面试题/并发编程/images",
     "面试题/并发编程/Java并发常见面试题总结（上）",
     "面试题/并发编程",
-    "面试题/基础",
-    "java笔记/images/ConcurrentHashMap",
-    "面试题/集合/Java集合常见面试题总结(下)",
-    "面试题/集合/Java集合常见面试题总结(上)/images/List"
+    "面试题/基础"
   ]
 }
