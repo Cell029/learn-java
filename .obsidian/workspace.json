@@ -167,12 +167,22 @@
             "state": {
               "type": "review-queue-list-view",
               "state": {},
+              "icon": "lucide-ghost",
+              "title": "review-queue-list-view"
+            }
+          },
+          {
+            "id": "a473de14b7cd91f3",
+            "type": "leaf",
+            "state": {
+              "type": "review-queue-list-view",
+              "state": {},
               "icon": "SpacedRepIcon",
               "title": "笔记复习序列"
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -180,6 +190,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:创建新数据库": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -190,7 +201,7 @@
       "obsidian-spaced-repetition:复习卡片": false
     }
   },
-  "active": "33a5d85eaab7626f",
+  "active": "a473de14b7cd91f3",
   "lastOpenFiles": [
     "面试题/并发编程/images/Java并发常见面试题总结（下）/file-20250912175523.png",
     "面试题/并发编程/images/Java并发常见面试题总结（下）/IMG_9958.jpg",
